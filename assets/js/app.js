@@ -1,5 +1,7 @@
 $('#exampleModalCenter').show();
 
+let run = function(){
+    
 const baseURL = "https://api.github.com";
 
 let login = prompt("Please provide your repository URL.");
@@ -12,7 +14,6 @@ let username = loginArray[indexG + 1];
 
 let repo = loginArray[indexG + 2];
 
-let issueArray = [];
 
 
 $.ajax({
@@ -31,6 +32,24 @@ $.ajax({
         };
         issueArray.push(issues);
     }
+    rendercard();
 })
 
+}
+
+let issueArray = [];
+run();
+
+
+
 console.log(issueArray);
+
+const rendercard = function(cardinfo){
+    let card = $(`<div class = "card">`)
+    
+    let title = issueArray[0].title
+    
+    card.append(`<p class = "title">${title}</p>`);
+
+    $("#loader").append(card);
+}
