@@ -17,9 +17,32 @@
 
 <body>
     <div class="container-fluid">
+        <!-- Modal -->
+        <div class="modal" id="Modalsubmit" tabindex="-1" role="dialog" aria-labelledby="Modalsubmit" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Repository To View</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Add a url to the repository you would like to search, example: https://github.com/ajfleck13/Project-Verat
+                        </p>
+                        <br>
+                        <input class="form-control" id="repository">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+
         <div class="loader" id = "loader">
 
         </div>
+
         <table class="table scroll">
             <thead>
                 <tr>
