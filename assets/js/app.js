@@ -1,4 +1,7 @@
+$('#exampleModalCenter').show();
+
 let run = function(){
+    
 const baseURL = "https://api.github.com";
 
 let login = prompt("Please provide your repository URL.");
