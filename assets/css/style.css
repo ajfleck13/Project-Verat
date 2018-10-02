@@ -1,0 +1,18 @@
+.release {
+    width: 300px;
+    height: 800px;
+    background-color: aqua;
+}
+
+.scroll {
+    margin-left: 300px;
+}
+
+.loader {
+    position: fixed;
+    height: 100%;
+    width: 300px;
+    background-color: black;
+    left: 0;
+    top: 0;
+}
