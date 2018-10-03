@@ -25,6 +25,16 @@
     margin-left: 40px;
 }
 
+.card:hover{
+    width: 300px;
+    height: 200px;
+    background-color: white;
+    margin-top: 15px;
+    margin-left: 40px;
+}
+
+
+
 .card-header{
     padding: 5px 0 0 10px;
     font-family: 'Rubik', sans-serif;
