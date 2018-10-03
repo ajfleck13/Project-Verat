@@ -99,6 +99,12 @@ const finishRename = function() {
 let renamesubmit = $('#submitRelease');
 renamesubmit.click(finishRename);
 
+
+let modalclose = $('#close');
+modalclose.click(function(){
+    $("#modalRelease").hide();
+});
+
 console.log(issueArray);
 
 const rendercard = function(){
