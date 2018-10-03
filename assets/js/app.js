@@ -1,10 +1,9 @@
 $('#Modalsubmit').show();
 
-let run = function(){
+let run = function() {
     const baseURL = "https://api.github.com";
 
-    if(!$("#repository").val())
-    {
+    if (!$("#repository").val()) {
         return;
     }
 
@@ -19,10 +18,10 @@ let run = function(){
 
     $.ajax({
         url: baseURL + `/repos/${username}/${repo}/issues`,
-        method: "GET", 
-    }) .then (function(response){
+        method: "GET",
+    }).then(function(response) {
         // console.log(response);
-        for(let i = 0; i < response.length; i++){
+        for (let i = 0; i < response.length; i++) {
             let issues = {
                 title: response[i].title,
                 body: response[i].body,
@@ -43,7 +42,28 @@ modalsubmit.click(run);
 let issueArray = [];
 run();
 
+let renamingId;
+const renameRelease = function() {
+    $("#modalRelease").show();
+    renamingId = $(this).attr("id");
+}
+$(".releaseHeader").click(renameRelease);
 
+const finishRename = function() {
+    let buttonToRename = $("#" + renamingId);
+    let newName = $("#renameRelease").val().trim();
+
+    if (!newName) {
+        return;
+    }
+
+    buttonToRename.text(newName);
+    $("#modalRelease").hide();
+    $("#renameRelease").val("");
+}
+
+let renamesubmit = $('#submitRelease');
+renamesubmit.click(finishRename);
 
 console.log(issueArray);
 

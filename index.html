@@ -38,19 +38,38 @@
                 </div>
             </div>
         </div>
-  
 
-        <div class="loader" id = "loader">
-            
+        <!-- Modal -->
+        <div class="modal" id="modalRelease" tabindex="-1" role="dialog" aria-labelledby="Modalsubmit" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Rename Release</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Change release name:
+                        </p>
+                        <br>
+                        <input class="form-control" id="renameRelease">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="submitRelease">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="loader" id="loader">
         </div>
 
         <table class="table scroll">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col"><button class="releaseHeader" id="1">0.1</button></th>
+                    <th scope="col"><button class="releaseHeader" id="2">0.2</button></th>
+                    <th scope="col"><button class="releaseHeader" id="3">0.3</button></th>
+                    <th scope="col"><button class="releaseHeader" id="4">0.4</button></th>
                 </tr>
             </thead>
             <tbody>
