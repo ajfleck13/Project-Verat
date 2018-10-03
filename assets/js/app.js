@@ -20,8 +20,13 @@ let run = function() {
         url: baseURL + `/repos/${username}/${repo}/issues`,
         method: "GET",
     }).then(function(response) {
-        // console.log(response);
+        console.log(response);
         for (let i = 0; i < response.length; i++) {
+            let issueslabelArray = [];
+            for(let a = 0; a < response[i].labels.length; a++){
+                issueslabelArray.push(response[i].labels[a].id);
+            }
+            console.log(issueslabelArray)
             let issues = {
                 title: response[i].title,
                 body: response[i].body,
@@ -60,7 +65,14 @@ const renderLabel = function(labelinfo){
     let dropdownmenu = $("#labels")
     for(let i=0; i < labelArray.length; i++){
         let name = labelArray[i].name;
+        let description = labelArray[i].description;
+        let color = labelArray[i].color;
         dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${name}</a>`)
+        if(description !== undefined)
+        {
+            // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${description}</a>`)            
+        }
+        // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${color}</a>`)
         }
     }
 }
