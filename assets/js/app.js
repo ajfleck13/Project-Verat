@@ -73,23 +73,46 @@ const renderLabel = function(labelinfo){
             // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${description}</a>`)            
         }
         // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${color}</a>`)
-        
+        }
     }
-
-}
-
-
-
-
-
-
 }
 
 let modalsubmit = $('#submit');
 modalsubmit.click(run);
 
 let issueArray = [];
-let releaseTabs = [];
+let releaseTabIssues = [];
+
+const addNewRelease = function()
+{
+    const releaseheader = $("#releaseheader");
+    const releasebody = $("#releasebody");
+    const lastrelease = releaseheader.last();
+
+    //Is also the index of the releaseTabIssues array
+    let newreleaseID = "0";
+    if(lastrelease)
+    {
+        //Get the index of the last tab and increment it for the new release id
+        const lastreleaseID = lastrelease.attr('id');
+        newreleaseID = `${parseInt(lastreleaseID) + 1}`;
+    }
+
+    let newheader = $(`<th scope="col">`);
+    newheader.append(`<button class="releaseHeader" id="${newreleaseID}">NewRelease</button>`);
+    releaseheader.append(newheader)
+
+    let newdiv = $(`<td>`);
+    newdiv.append(`<div class="release">`);
+    releasebody.append(newdiv);
+
+    releaseTabIssues.push([]);
+}
+
+for(let i = 0; i < 3; i++)
+{
+    addNewRelease();
+}
 
 let renamingId;
 const renameRelease = function() {
