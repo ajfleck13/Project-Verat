@@ -74,7 +74,7 @@ let modalsubmit = $('#submit');
 modalsubmit.click(run);
 
 let issueArray = [];
-run();
+let releaseTabs = [];
 
 let renamingId;
 const renameRelease = function() {
@@ -101,7 +101,7 @@ renamesubmit.click(finishRename);
 
 console.log(issueArray);
 
-const rendercard = function(cardinfo){
+const rendercard = function(){
     for(let i = 0; i < issueArray.length; i++){
         let card = $(`<div class = "card">`)
         let title = issueArray[i].title;
@@ -112,10 +112,9 @@ const rendercard = function(cardinfo){
         
         let number = issueArray[i].number;
         card.append(`<p class = "card-footer">${number}</p>`);
-       
         $("#loader").append(card);
     }
-    
+    $(".card").mousedown(startDragging);
 }
 
 const label = function(){

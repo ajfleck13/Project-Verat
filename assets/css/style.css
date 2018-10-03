@@ -35,6 +35,8 @@
     background-color: white;
     margin-top: 15px;
     margin-left: 40px;
+    border: yellow 2px solid;
+    cursor: move;
 }
 
 
@@ -67,5 +69,9 @@ margin: 0px;
 }
 
 #bug{
+  
+}
     
+.releasehover:hover {
+    border: 5px green solid;
 }
