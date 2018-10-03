@@ -8,6 +8,10 @@
     margin-left: 300px;
 }
 
+#loader{
+   margin-top: 50px;
+}
+
 .loader {
     position: fixed;
     height: 100%;
@@ -64,6 +68,10 @@ margin: 0px;
   margin: 0px;
 }
 
+#bug{
+  
+}
+    
 .releasehover:hover {
     border: 5px green solid;
 }
