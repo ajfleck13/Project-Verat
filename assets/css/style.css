@@ -8,8 +8,8 @@
     margin-left: 300px;
 }
 
-#loader{
-   margin-top: 50px;
+#loader {
+    margin-top: 50px;
 }
 
 .loader {
@@ -19,9 +19,10 @@
     background-color: black;
     left: 0;
     top: 0;
+    overflow-y: scroll;
 }
 
-.card{
+.card {
     width: 200px;
     height: 150px;
     background-color: white;
@@ -29,7 +30,7 @@
     margin-left: 40px;
 }
 
-.card:hover{
+.card:hover {
     width: 300px;
     height: 200px;
     background-color: white;
@@ -39,9 +40,7 @@
     cursor: move;
 }
 
-
-
-.card-header{
+.card-header {
     padding: 5px 0 0 10px;
     font-family: 'Rubik', sans-serif;
     font-size: 15px;
@@ -49,29 +48,24 @@
     background-color: rgba(137, 240, 240, 0.993);
 }
 
-
-.card-body{
-padding: 0;
-overflow: hidden;
-font-size: 12px;
-margin: 0px;
+.card-body {
+    padding: 0;
+    overflow: hidden;
+    font-size: 12px;
+    margin: 0px;
 }
 
-
-
-.card-footer{
-  height: 30px;
-  border: 0;
-  padding: 0px 20px;
-  color: red;
-  font-size: 20px;
-  margin: 0px;
+.card-footer {
+    height: 30px;
+    border: 0;
+    padding: 0px 20px;
+    color: red;
+    font-size: 20px;
+    margin: 0px;
 }
 
-#bug{
-  
-}
-    
+#bug {}
+
 .releasehover:hover {
     border: 5px green solid;
 }
