@@ -35,16 +35,16 @@ let run = function() {
         rendercard();
     })
 
-// label dropdown
+    // label dropdown
 
     let labelArray = [];
 
     $.ajax({
-        url: baseURL +`/repos/${username}/${repo}/labels`,
+        url: baseURL + `/repos/${username}/${repo}/labels`,
         method: "GET"
-    }).then(function(response){
+    }).then(function(response) {
         console.log(response);
-        for(let i = 0; i < response.length; i++){
+        for (let i = 0; i < response.length; i++) {
             let labels = {
                 name: response[i].name,
                 description: response[i].description,
@@ -55,19 +55,14 @@ let run = function() {
         renderLabel();
     })
 
-const renderLabel = function(labelinfo){
-    console.log(labelArray)
-    let dropdownmenu = $("#labels")
-    for(let i=0; i < labelArray.length; i++){
-        let name = labelArray[i].name;
-        dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${name}</a>`)
-
+    const renderLabel = function(labelinfo) {
+        console.log(labelArray)
+        let dropdownmenu = $("#labels")
+        for (let i = 0; i < labelArray.length; i++) {
+            let name = labelArray[i].name;
+            dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${name}</a>`)
+        }
     }
-
-}
-
-
-
 }
 
 let modalsubmit = $('#submit');
@@ -101,15 +96,15 @@ renamesubmit.click(finishRename);
 
 console.log(issueArray);
 
-const rendercard = function(){
-    for(let i = 0; i < issueArray.length; i++){
+const rendercard = function() {
+    for (let i = 0; i < issueArray.length; i++) {
         let card = $(`<div class = "card">`)
         let title = issueArray[i].title;
         card.append(`<p class = "card-header">${title}</p>`);
-        
+
         let body = issueArray[i].body;
         card.append(`<p class = "card-body">${body}</p>`);
-        
+
         let number = issueArray[i].number;
         card.append(`<p class = "card-footer">${number}</p>`);
         $("#loader").append(card);
@@ -117,8 +112,6 @@ const rendercard = function(){
     $(".card").mousedown(startDragging);
 }
 
-const label = function(){
-
-
+const label = function() {
 
 }
