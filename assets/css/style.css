@@ -8,6 +8,10 @@
     margin-left: 300px;
 }
 
+#loader{
+   margin-top: 50px;
+}
+
 .loader {
     position: fixed;
     height: 100%;
@@ -60,4 +64,8 @@ margin: 0px;
   color: red;
   font-size: 20px;
   margin: 0px;
+}
+
+#bug{
+    
 }
