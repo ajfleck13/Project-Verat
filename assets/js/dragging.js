@@ -39,9 +39,14 @@ const endDragging = function(e) {
     document.onmouseup = null;
     document.onmousemove = null;
 
-    if(!$(".releasehover" + ":hover").length)
+    let hoveringover = $(".releasehover" + ":hover");
+    if(hoveringover.length)
     {
-        resetDraggable()
+        dropCardInto(elementToDrag, $(".releasehover" + ":hover").first());
+    }
+    else
+    {
+        resetDraggable();
     }
 
     $(".releaseHeader").removeClass("releasehover");
@@ -54,4 +59,35 @@ const resetDraggable = function() {
     elementToDrag.style.pointerEvents = null;
 
     elementToDrag = null;
+}
+
+const dropCardInto = function(card, divelement)
+{
+    const jquerycard = $(card);
+    const parent = jquerycard.parent();
+    const parentID = parent.attr('id');
+
+    if(parentID === "loader")
+    {
+        removeLoaderCard(card);
+    }
+    else
+    {
+        removeReleaseCard(card);
+    }
+
+    const newdivID = divelement.attr('id');
+
+    if(newdivID === "loader")
+    {
+        addLoaderCard(card);
+    }
+    else
+    {
+        addReleaseCard(card);
+    }
+}
+
+const removeLoaderCard = function(card) {
+    
 }

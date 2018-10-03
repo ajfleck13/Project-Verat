@@ -39,6 +39,9 @@
         <div class="modal" id="modalRelease" tabindex="-1" role="dialog" aria-labelledby="Modalsubmit" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal">
+                        
+                      </button>
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Rename Release</h5>
                     </div>
@@ -51,6 +54,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="submitRelease">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>    
                     </div>
                 </div>
             </div>
@@ -75,26 +79,10 @@
 
         <table class="table scroll">
             <thead>
-                <tr>
-                    <th scope="col"><button class="releaseHeader" id="1">0.1</button></th>
-                    <th scope="col"><button class="releaseHeader" id="2">0.2</button></th>
-                    <th scope="col"><button class="releaseHeader" id="3">0.3</button></th>
-                    <th scope="col"><button class="releaseHeader" id="4">0.4</button></th>
-                </tr>
+                <tr id="releaseheader"></tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>
-                        <div class="release">Mark</div>
-                    </td>
-                    <td>
-                        <div class="release">Mark</div>
-                    </td>
-                    <td>
-                        <div class="release">Mark</div>
-                    </td>
-                </tr>
+                <tr id="releasebody"></tr>
             </tbody>
         </table>
 
