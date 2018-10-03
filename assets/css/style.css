@@ -35,7 +35,7 @@
     background-color: white;
     margin-top: 15px;
     margin-left: 40px;
-    border: yellow 2px solid;
+    border: yellow 5px solid;
     cursor: move;
 }
 
@@ -47,6 +47,7 @@
     font-size: 15px;
     font-weight: bold;
     background-color: rgba(137, 240, 240, 0.993);
+    text-align: right;
 }
 
 
@@ -68,9 +69,7 @@ margin: 0px;
   margin: 0px;
 }
 
-#bug{
-  
-}
+
     
 .releasehover:hover {
     border: 5px green solid;
