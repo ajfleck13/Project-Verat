@@ -51,7 +51,18 @@ const rendercard = function(cardinfo){
     for(let i = 0; i < issueArray.length; i++){
         let card = $(`<div class = "card">`)
         let title = issueArray[i].title;
-        card.append(`<p class = "title">${title}</p>`);
+        card.append(`<p class = "card-header">${title}</p>`);
+        
+        let body = issueArray[i].body;
+        card.append(`<p class = "card-body">${body}</p>`);
+        
+        let number = issueArray[i].number;
+        card.append(`<p class = "card-footer">${number}</p>`);
+
+        
+
+       
         $("#loader").append(card);
     }
+    
 }
