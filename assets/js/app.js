@@ -67,12 +67,11 @@ renamesubmit.click(finishRename);
 
 console.log(issueArray);
 
-const rendercard = function(cardinfo) {
-    let card = $(`<div class = "card">`)
-
-    let title = issueArray[0].title
-
-    card.append(`<p class = "title">${title}</p>`);
-
-    $("#loader").append(card);
+const rendercard = function(cardinfo){
+    for(let i = 0; i < issueArray.length; i++){
+        let card = $(`<div class = "card">`)
+        let title = issueArray[i].title;
+        card.append(`<p class = "title">${title}</p>`);
+        $("#loader").append(card);
+    }
 }

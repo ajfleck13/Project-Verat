@@ -18,8 +18,8 @@
 }
 
 .card{
-    width: 200px;
-    height: 200px;
-    background-color: red;
-
+    width: 150px;
+    height: 150px;
+    background-color: white;
+    margin-top: 15px;
 }
