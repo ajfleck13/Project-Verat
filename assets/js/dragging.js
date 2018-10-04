@@ -95,6 +95,7 @@ const transferIssue = function(issueNumber, parentID, newdivID) {
     else
     {
         const releaseindex = parseInt(parentID);
+        console.log(releaseindex);
         let releaseTab = releaseTabIssues[releaseindex];
         for(let i = 0; i < releaseTab.length; i++)
         {

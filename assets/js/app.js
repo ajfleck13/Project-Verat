@@ -87,7 +87,7 @@ const addNewRelease = function()
     }
 
     let newheader = $(`<th scope="col">`);
-    newheader.append(`<button class="releaseHeader" value="${newreleaseID}">NewRelease</button>`);
+    newheader.append(`<button class="releaseHeader" id="button${newreleaseID}">NewRelease</button>`);
     releaseheader.append(newheader)
 
     let newdiv = $(`<td>`);
@@ -105,7 +105,7 @@ for(let i = 0; i < 3; i++)
 let renamingId;
 const renameRelease = function() {
     $("#modalRelease").show();
-    renamingId = $(this).val();
+    renamingId = $(this).attr('id');
 }
 $(".releaseHeader").click(renameRelease);
 
