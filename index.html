@@ -10,10 +10,6 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
     <title>Project Verat</title>
-
-    <style>
-
-    </style>
 </head>
 
 <body>
@@ -43,6 +39,9 @@
         <div class="modal" id="modalRelease" tabindex="-1" role="dialog" aria-labelledby="Modalsubmit" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal">
+                        
+                      </button>
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Rename Release</h5>
                     </div>
@@ -55,25 +54,27 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="submitRelease">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>    
                     </div>
                 </div>
             </div>
         </div>
-
-    
         <div class="loader">
-             <div id = "filter">
+            <div id="filter" class="text-center">
                 <div class="dropdown">
-                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Dropdown button
                     </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id = "labels">
-                            <a class="dropdown-item" href="#" id = "#labels"></a>
-                        </div>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="labels">
+                        <a class="dropdown-item" href="#" id="#labels"></a>
+                    </div>
                 </div>
             </div>
-        <div id="loader">
+            <div id="loader">
+            </div>
         </div>
+        <div class="resetButton">
+            <button type="button" class="btn btn-danger" id="resetButton">Reset</button>
         </div>
 
         <table class="table scroll">
@@ -84,8 +85,6 @@
                 <tr id="releasebody"></tr>
             </tbody>
         </table>
-
-
 
     </div>
 
