@@ -61,7 +61,7 @@
 
 .card {
     width: 200px;
-    height: 150px;
+    height: 100%;
     background-color: white;
     margin-top: 15px;
     margin-left: 40px;
@@ -93,10 +93,11 @@
 }
 
 .card-body {
-    padding: 0;
+    padding: 10 0;
     overflow: hidden;
     font-size: 12px;
-    margin: 0px;
+    margin: 0 px;
+    column-count: 2;
 }
 
 .card-footer {
