@@ -23,7 +23,7 @@ let run = function() {
         console.log(response);
         for (let i = 0; i < response.length; i++) {
             let issueslabelArray = [];
-            for(let a = 0; a < response[i].labels.length; a++){
+            for (let a = 0; a < response[i].labels.length; a++) {
                 issueslabelArray.push(response[i].labels[a].id);
             }
             console.log(issueslabelArray)
@@ -60,19 +60,18 @@ let run = function() {
         renderLabel();
     })
 
-const renderLabel = function(labelinfo){
-    console.log(labelArray)
-    let dropdownmenu = $("#labels")
-    for(let i=0; i < labelArray.length; i++){
-        let name = labelArray[i].name;
-        let description = labelArray[i].description;
-        let color = labelArray[i].color;
-        dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${name}</a>`)
-        if(description !== undefined)
-        {
-            // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${description}</a>`)            
-        }
-        // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${color}</a>`)
+    const renderLabel = function(labelinfo) {
+        console.log(labelArray)
+        let dropdownmenu = $("#labels")
+        for (let i = 0; i < labelArray.length; i++) {
+            let name = labelArray[i].name;
+            let description = labelArray[i].description;
+            let color = labelArray[i].color;
+            dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${name}</a>`)
+            if (description !== undefined) {
+                // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${description}</a>`)            
+            }
+            // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${color}</a>`)
         }
     }
 }
@@ -83,16 +82,14 @@ modalsubmit.click(run);
 let issueArray = [];
 let releaseTabIssues = [];
 
-const addNewRelease = function()
-{
+const addNewRelease = function() {
     const releaseheader = $("#releaseheader");
     const releasebody = $("#releasebody");
     const lastrelease = releasebody.find(".release").last();
-    
+
     //Is also the index of the releaseTabIssues array
     let newreleaseID = "0";
-    if(lastrelease.length)
-    {
+    if (lastrelease.length) {
         //Get the index of the last tab and increment it for the new release id
         const lastreleaseID = lastrelease.attr('id');
         newreleaseID = `${parseInt(lastreleaseID) + 1}`;
@@ -109,8 +106,7 @@ const addNewRelease = function()
     releaseTabIssues.push([]);
 }
 
-for(let i = 0; i < 3; i++)
-{
+for (let i = 0; i < 3; i++) {
     addNewRelease();
 }
 
@@ -137,45 +133,49 @@ const finishRename = function() {
 let renamesubmit = $('#submitRelease');
 renamesubmit.click(finishRename);
 
-const renderDivCards= function(divtorender) {
+const renderDivCards = function(divtorender) {
     let divtoappend = $("#" + divtorender);
     divtoappend.empty();
-    if(divtorender === "loader")
-    {
-        for(let i = 0; i < issueArray.length; i++)
-        {
+    if (divtorender === "loader") {
+        for (let i = 0; i < issueArray.length; i++) {
             divtoappend.append(rendercard(issueArray[i]));
         }
-    }
-    else
-    {
+    } else {
         const releaseindex = parseInt(divtorender);
         let releaseTab = releaseTabIssues[releaseindex];
-        for(let i = 0; i < releaseTab.length; i++)
-        {
+        for (let i = 0; i < releaseTab.length; i++) {
             divtoappend.append(rendercard(releaseTab[i]));
         }
     }
     $(".card").mousedown(startDragging);
 }
 
-const rendercard = function(issueobject){
+const rendercard = function(issueobject) {
     let number = issueobject.number;
     let card = $(`<div class = "card" id="${number}">`);
     let title = issueobject.title;
     card.append(`<p class = "card-header">${title}</p>`);
-    
+
     let body = issueobject.body;
     card.append(`<p class = "card-body">${body}</p>`);
-    
+
     card.append(`<p class = "card-footer">${number}</p>`);
     return card;
 }
 
 let modalclose = $('#close');
-modalclose.click(function(){
+modalclose.click(function() {
     $("#modalRelease").hide();
 });
 
-const label = function() {
+const label = function() {}
+
+
+
+
+
+
+const reset = function() {
+    location.reload();
 }
+$("#resetButton").on("click", reset);
