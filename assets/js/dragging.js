@@ -42,7 +42,7 @@ const endDragging = function(e) {
     let hoveringover = $(".releasehover" + ":hover");
     if(hoveringover.length)
     {
-        dropCardInto(elementToDrag, $(".releasehover" + ":hover").first());
+        dropCardInto(elementToDrag, hoveringover.first());
     }
     else
     {
@@ -63,31 +63,61 @@ const resetDraggable = function() {
 
 const dropCardInto = function(card, divelement)
 {
+    console.log(divelement);
     const jquerycard = $(card);
+    console.log(jquerycard);
     const parent = jquerycard.parent();
+    console.log(parent);
+    const issueNumber = jquerycard.attr('id');
     const parentID = parent.attr('id');
+    console.log(parentID);
+    const newdivID = divelement.attr('id');
 
+    transferIssue(issueNumber, parentID, newdivID);
+}
+
+const transferIssue = function(issueNumber, parentID, newdivID) {
+    let issueobject = null;
+    console.log(newdivID);
+
+    $("#" + issueNumber).remove();
     if(parentID === "loader")
     {
-        removeLoaderCard(card);
+        for(let i = 0; i < issueArray.length; i++)
+        {
+            if(issueArray[i].number == issueNumber)
+            {
+                issueobject = issueArray[i];
+                issueArray.splice(i, 1);
+            }
+        }
     }
     else
     {
-        removeReleaseCard(card);
+        const releaseindex = parseInt(parentID);
+        let releaseTab = releaseTabIssues[releaseindex];
+        for(let i = 0; i < releaseTab.length; i++)
+        {
+            if(releaseTab[i].number == issueNumber)
+            {
+                issueobject = issueArray[i];
+                issueArray.splice(i, 1);
+            }
+        }
     }
-
-    const newdivID = divelement.attr('id');
 
     if(newdivID === "loader")
     {
-        addLoaderCard(card);
+        issueArray.push(issueobject);
     }
     else
     {
-        addReleaseCard(card);
+        console.log(newdivID);
+        const releaseindex = parseInt(newdivID);
+        console.log(releaseindex);
+        console.log(releaseTabIssues[releaseindex]);
+        releaseTabIssues[releaseindex].push(issueobject);
     }
-}
 
-const removeLoaderCard = function(card) {
-    
+    renderDivCards(newdivID);
 }

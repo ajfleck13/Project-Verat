@@ -32,7 +32,7 @@ let run = function() {
             };
             issueArray.push(issues);
         }
-        rendercard();
+        renderDivCards("loader");
     })
 
 // label dropdown
@@ -75,11 +75,11 @@ const addNewRelease = function()
 {
     const releaseheader = $("#releaseheader");
     const releasebody = $("#releasebody");
-    const lastrelease = releaseheader.last();
-
+    const lastrelease = releasebody.find(".release").last();
+    
     //Is also the index of the releaseTabIssues array
     let newreleaseID = "0";
-    if(lastrelease)
+    if(lastrelease.length)
     {
         //Get the index of the last tab and increment it for the new release id
         const lastreleaseID = lastrelease.attr('id');
@@ -87,11 +87,11 @@ const addNewRelease = function()
     }
 
     let newheader = $(`<th scope="col">`);
-    newheader.append(`<button class="releaseHeader" id="${newreleaseID}">NewRelease</button>`);
+    newheader.append(`<button class="releaseHeader" value="${newreleaseID}">NewRelease</button>`);
     releaseheader.append(newheader)
 
     let newdiv = $(`<td>`);
-    newdiv.append(`<div class="release">`);
+    newdiv.append(`<div class="release" id="${newreleaseID}">`);
     releasebody.append(newdiv);
 
     releaseTabIssues.push([]);
@@ -105,7 +105,7 @@ for(let i = 0; i < 3; i++)
 let renamingId;
 const renameRelease = function() {
     $("#modalRelease").show();
-    renamingId = $(this).attr("id");
+    renamingId = $(this).val();
 }
 $(".releaseHeader").click(renameRelease);
 
@@ -125,26 +125,38 @@ const finishRename = function() {
 let renamesubmit = $('#submitRelease');
 renamesubmit.click(finishRename);
 
-console.log(issueArray);
-
-const rendercard = function(){
-    for(let i = 0; i < issueArray.length; i++){
-        let card = $(`<div class = "card">`)
-        let title = issueArray[i].title;
-        card.append(`<p class = "card-header">${title}</p>`);
-        
-        let body = issueArray[i].body;
-        card.append(`<p class = "card-body">${body}</p>`);
-        
-        let number = issueArray[i].number;
-        card.append(`<p class = "card-footer">${number}</p>`);
-        $("#loader").append(card);
+const renderDivCards= function(divtorender) {
+    let divtoappend = $("#" + divtorender);
+    divtoappend.empty();
+    if(divtorender === "loader")
+    {
+        for(let i = 0; i < issueArray.length; i++)
+        {
+            divtoappend.append(rendercard(issueArray[i]));
+        }
     }
+    else
+    {
+        const releaseindex = parseInt(divtorender);
+        let releaseTab = releaseTabIssues[releaseindex];
+        for(let i = 0; i < releaseTab.length; i++)
+        {
+            divtoappend.append(rendercard(releaseTab[i]));
+        }
+    }
+
     $(".card").mousedown(startDragging);
 }
 
-const label = function(){
-
-
-
+const rendercard = function(issueobject){
+    let number = issueobject.number;
+    let card = $(`<div class = "card" id="${number}">`);
+    let title = issueobject.title;
+    card.append(`<p class = "card-header">${title}</p>`);
+    
+    let body = issueobject.body;
+    card.append(`<p class = "card-body">${body}</p>`);
+    
+    card.append(`<p class = "card-footer">${number}</p>`);
+    return card;
 }
