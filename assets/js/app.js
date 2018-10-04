@@ -174,8 +174,30 @@ const label = function() {}
 
 
 
-
+//the reset button function
 const reset = function() {
     location.reload();
 }
 $("#resetButton").on("click", reset);
+
+
+
+
+//**************************************************************************/
+let repoArray = [];
+const storageMaker = function() {
+
+
+}
+
+
+//function that stores repo urls
+const repoHolder = function() {
+    let item = $("#repository").val().toString();
+
+
+
+
+}
+
+$("#submit").on("click", repoHolder);
