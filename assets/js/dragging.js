@@ -100,8 +100,8 @@ const transferIssue = function(issueNumber, parentID, newdivID) {
         {
             if(releaseTab[i].number == issueNumber)
             {
-                issueobject = issueArray[i];
-                issueArray.splice(i, 1);
+                issueobject = releaseTab[i];
+                releaseTab[i].splice(i, 1);
             }
         }
     }
