@@ -112,9 +112,10 @@ const transferIssue = function(issueNumber, parentID, newdivID) {
     }
     else
     {
+        console.log(newdivID);
         const releaseindex = parseInt(newdivID);
-        // console.log(releaseindex);
-        // console.log(releaseTabIssues[releaseindex]);
+        console.log(releaseindex);
+        console.log(releaseTabIssues[releaseindex]);
         releaseTabIssues[releaseindex].push(issueobject);
     }
 
