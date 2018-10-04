@@ -86,13 +86,8 @@ const addNewRelease = function() {
     const releaseheader = $("#releaseheader");
     const releasebody = $("#releasebody");
     const lastrelease = releasebody.find(".release").last();
-<<<<<<< HEAD
 
     //Is also the index of the releaseTabIssues array
-=======
-    
-//Is also the index of the releaseTabIssues array
->>>>>>> master
     let newreleaseID = "0";
     if (lastrelease.length) {
         //Get the index of the last tab and increment it for the new release id
@@ -195,7 +190,6 @@ const storageMaker = function() {
 
 }
 
-<<<<<<< HEAD
 
 //function that stores repo urls
 const repoHolder = function() {
@@ -207,5 +201,3 @@ const repoHolder = function() {
 }
 
 $("#submit").on("click", repoHolder);
-=======
->>>>>>> master
