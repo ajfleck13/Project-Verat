@@ -17,100 +17,93 @@
 
     <div class="container-fluid">
         <div class="recentRepos">
-            
-        <!-- Modal -->
-        <div class="modal" id="Modalsubmit" tabindex="-1" role="dialog" aria-labelledby="Modalsubmit" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Repository To View</h5>
-                    </div>
-                <div class="modal-body"> 
-                    <div class="row">
-                        <div class ="col-md-6">
-                            <p>
-                                Add a url to the repository you would like to search, example: https://github.com/ajfleck13/Project-Verat
-                            </p>
-                    </div>                
-                        <div class ="col-md-6">
-                            <h6>Recent Repos:</h6><br>
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat iste commodi fugit, molestiae unde, recusandae quae voluptatum laboriosam amet sequi provident a modi! Odio, consequuntur. Fugit exercitationem eius corporis beatae.</p>
-                                
-                        </div>
-                                   
-                        <input class="form-control" id="repository">
-                    
-               
-                </div>
-                   
-                
-                <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="submit">Submit</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Modal -->
-        <div class="modal" id="modalRelease" tabindex="-1" role="dialog" aria-labelledby="Modalsubmit" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <button type="button" class="close" data-dismiss="modal">
+            <!-- Modal -->
+            <div class="modal" id="Modalsubmit" tabindex="-1" role="dialog" aria-labelledby="Modalsubmit" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Repository To View</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="alignChild">Add a url to the repository you would like to search, example: https://github.com/ajfleck13/Project-Verat</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Recent Repos:</h6>
+                                    <hr>
+                                    <ul id="recentRepos"></ul>
+                                </div>
+                                <input class="form-control" id="repository" placeholder="Enter Repo">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="submit">Submit</button>
+                                <button type="button" class="btn btn-danger" id="clearStorage">Clear Recent Repos</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal" id="modalRelease" tabindex="-1" role="dialog" aria-labelledby="Modalsubmit" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <button type="button" class="close" data-dismiss="modal">
                         
                       </button>
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Rename Release</h5>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            Change release name:
-                        </p>
-                        <br>
-                        <input class="form-control" id="renameRelease">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="submitRelease">Submit</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
-                        
-                    </div>    
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Rename Release</h5>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    Change release name:
+                                </p>
+                                <br>
+                                <input class="form-control" id="renameRelease">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="submitRelease">Submit</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="loader">
-            <div id="filter" class="text-center">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="loader">
+                <div id="filter" class="text-center">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Dropdown button
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="labels">
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="labels">
+                        </div>
+                    </div>
+                    <div id="loader">
+
                     </div>
                 </div>
-            </div>
-            <div id="loader">
-            </div>
-        </div>
-        <div class="resetButton">
-            <button type="button" class="btn btn-danger" id="resetButton">Reset</button>
-        </div>
+                <div class="resetButton">
+                    <button type="button" class="btn btn-danger" id="resetButton">Reset</button>
+                </div>
+                <div class="addReleaseButton">
+                    <button type="button" class="btn btn-success" id="addReleaseButton">Add Release</button>
+                </div>
 
-        <table class="table scroll" id="scrollcontainer">
-            <thead>
-                <tr id="releaseheader"></tr>
-            </thead>
-            <tbody>
-                <tr id="releasebody"></tr>
-            </tbody>
-        </table>
-
-    </div>
-
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/app.js"></script>
-    <script src="assets/js/dragging.js"></script>
-    <script src="assets/js/arrow.js"></script>
+                <table class="table scroll" id="scrollcontainer">
+                    <thead>
+                        <tr id="releaseheader"></tr>
+                    </thead>
+                    <tbody>
+                        <tr id="releasebody"></tr>
+                    </tbody>
+                </table>
+                <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+                <script src="assets/js/popper.min.js"></script>
+                <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+                <script src="assets/js/app.js"></script>
+                <script src="assets/js/dragging.js"></script>
+                <script src="assets/js/arrow.js"></script>
 </body>
 
 </html>
