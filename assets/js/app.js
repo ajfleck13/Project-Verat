@@ -10,7 +10,7 @@ let run = function() {
     $('#Modalsubmit').hide();
 
 
-// creating an array of the issues with the API from Github
+    // creating an array of the issues with the API from Github
     let repositoryinput = $("#repository").val();
     let inputArray = repositoryinput.split("/");
 
@@ -53,8 +53,8 @@ let run = function() {
 
     // label dropdown
 
-// creating an array of the labels which are assigned to the issues in github. 
-    
+    // creating an array of the labels which are assigned to the issues in github. 
+
 
     $.ajax({
         url: baseURL + `/repos/${username}/${repo}/labels`,
@@ -101,7 +101,7 @@ $(".labels").length
 
 console.log($(".labels").length);
 
-$("#filter").on("click", ".labels", function(){
+$("#filter").on("click", ".labels", function() {
     let id = $(this).attr("id");
     $(this).addClass('button-clicked');
     activeLabels.push(id);
@@ -123,17 +123,13 @@ $("#filter").on("click", ".none", function(){
 // then it loops through the issuelabelarray, and finds if it does not match the elements in the issuearray
 // if so, then it does not display said card. 
 let filter = function(){
-        $(".card").show();
+    $(".card").show();
     for(let i = 0; i < issueArray.length; i++){
         let issue = issueArray[i];
         for(let j = 0; j < activeLabels.length; j++){
             if(!issue.labels.includes(activeLabels[j]))
             {
-                
                 $(`#${issue.number}`).hide();   
-                  
-
-           
             }
         }
     }
@@ -147,16 +143,14 @@ modalsubmit.click(run);
 let issueArray = [];
 let releaseTabIssues = [];
 
-const addNewRelease = function()
-{
+const addNewRelease = function() {
     const releaseheader = $("#releaseheader");
     const releasebody = $("#releasebody");
     const lastrelease = releasebody.find(".release").last();
-    
-//Is also the index of the releaseTabIssues array
+
+    //Is also the index of the releaseTabIssues array
     let newreleaseID = "0";
-    if(lastrelease.length)
-    {
+    if (lastrelease.length) {
         //Get the index of the last tab and increment it for the new release id
         const lastreleaseID = lastrelease.attr('id');
         newreleaseID = `${parseInt(lastreleaseID) + 1}`;
@@ -173,8 +167,7 @@ const addNewRelease = function()
     releaseTabIssues.push([]);
 }
 
-for(let i = 0; i < 3; i++)
-{
+for (let i = 0; i < 3; i++) {
     addNewRelease();
 }
 
@@ -201,22 +194,17 @@ const finishRename = function() {
 let renamesubmit = $('#submitRelease');
 renamesubmit.click(finishRename);
 
-const renderDivCards= function(divtorender) {
+const renderDivCards = function(divtorender) {
     let divtoappend = $("#" + divtorender);
     divtoappend.empty();
-    if(divtorender === "loader")
-    {
-        for(let i = 0; i < issueArray.length; i++)
-        {
+    if (divtorender === "loader") {
+        for (let i = 0; i < issueArray.length; i++) {
             divtoappend.append(rendercard(issueArray[i]));
         }
-    }
-    else
-    {
+    } else {
         const releaseindex = parseInt(divtorender);
         let releaseTab = releaseTabIssues[releaseindex];
-        for(let i = 0; i < releaseTab.length; i++)
-        {
+        for (let i = 0; i < releaseTab.length; i++) {
             divtoappend.append(rendercard(releaseTab[i]));
         }
     }
@@ -225,24 +213,76 @@ const renderDivCards= function(divtorender) {
 
 // dynamically generating cards 
 
-const rendercard = function(issueobject){
+const rendercard = function(issueobject) {
     let number = issueobject.number;
     let card = $(`<div class = "card" id="${number}">`);
     let title = issueobject.title;
     card.append(`<p class = "card-header">${title}</p>`);
-    
+
     let body = issueobject.body;
     card.append(`<p class = "card-body">${body}</p>`);
-    
+
     card.append(`<p class = "card-footer">${number}</p>`);
     return card;
 }
 
 let modalclose = $('#close');
-modalclose.click(function(){
+modalclose.click(function() {
     $("#modalRelease").hide();
 });
 
-const label = function() {
+const label = function() {}
+
+
+
+//the reset button function
+const reset = function() {
+    location.reload();
+}
+$("#resetButton").on("click", reset);
+
+
+//***************************************************************/
+//****************************************************************/
+
+const ul = document.querySelector("ul");
+const input = document.getElementById("repository");
+
+//the array that holds the repos to be displayed
+let reposArray = [];
+// console.log(itemsArray);
+
+// localstorage to ensure that the data persists
+if (localStorage.getItem("items")) {
+    reposArray = JSON.parse(localStorage.getItem("items"));
+    // console.log(itemsArray);
 }
 
+localStorage.setItem("items", JSON.stringify(reposArray));
+const data = JSON.parse(localStorage.getItem("items"));
+
+//function that appends the repos 
+const placeRepo = function(text) {
+        $("#recentRepos").append(`<li>${text}</li>`);
+    }
+    //function for storing the input values in the reposArray
+$("#submit").on("click", function(event) {
+    event.preventDefault();
+    reposArray.push(input.value);
+    localStorage.setItem("items", JSON.stringify(reposArray));
+    placeRepo(input.value);
+    input.value = "";
+});
+
+//looping through data and calling the appending function
+data.forEach(item => {
+    placeRepo(item);
+});
+
+//clear local storage
+$("#clearStorage").on("click", function() {
+    localStorage.clear();
+    while (ul.firstChild) {
+        ul.removeChild(ul.firstChild);
+    }
+});
