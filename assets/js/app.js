@@ -88,7 +88,7 @@ const addNewRelease = function()
     const releasebody = $("#releasebody");
     const lastrelease = releasebody.find(".release").last();
     
-    //Is also the index of the releaseTabIssues array
+//Is also the index of the releaseTabIssues array
     let newreleaseID = "0";
     if(lastrelease.length)
     {
@@ -178,3 +178,4 @@ modalclose.click(function(){
 
 const label = function() {
 }
+
