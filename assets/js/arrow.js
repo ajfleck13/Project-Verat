@@ -37,13 +37,46 @@ const doArrowModeClick = function() {
     else
     {
         let endissue = $(this).attr('id');
+        tryAddArrow(endissue);
+    }
+}
+
+const tryAddArrow = function(endissue) {
+    if(StartIssue === endissue)
+    {
+        $(`#${StartIssue}`).removeClass("card-arrowdraw");
+        StartIssue = null;
+        // console.log("cannot draw to same issue");
+        return;
+    }
+
+    // console.log(StartIssue);
+    // console.log(endissue);
+    let jqendissue = $(`#${endissue}`);
+    let enddiv = parseInt(jqendissue.parent().attr('id'));
+    let startdiv = parseInt($(`#${StartIssue}`).parent().attr('id'));
+
+    if(enddiv >= startdiv)
+    {
         addArrow(StartIssue, endissue);
+    }
+    else
+    {
+        // TODO: FLASH AN ERROR MESSAGE TO USER
+        // console.log(`failed ${startdiv} to ${enddiv}`);
     }
 }
 
 const addArrow = function(startissue, endissue) {
+    // console.log(`draw arrow ${startissue} to ${endissue}`);
     let arrowsStartingFromArray = ArrowStartingFrom[startissue] || [];
     let arrowsGoingToArray = ArrowsGoingTo[endissue] || [];
+
+    if(arrowsStartingFromArray.includes(endissue) || arrowsGoingToArray.includes(startissue))
+    {
+        console.warn(`Add arrow attempted between ${startissue} and ${endissue} when arrow should already be drawn`);
+    }
+
     arrowsStartingFromArray.push(endissue);
     arrowsGoingToArray.push(startissue);
 
@@ -127,4 +160,51 @@ const redrawArrowsForIssue = function(issueNumber) {
             drawArrow(arrowsToArray[i], issueNumber);
         }
     }
+}
+
+const removeArrowsForIssue = function(issueNumber) {
+    if(!issueNumber)
+    {
+        console.warn(`No issue number passed to redraw arrows for issue, sent: ${issueNumber}`);
+        return;
+    }
+
+    let arrowsFromArray = ArrowStartingFrom[issueNumber];
+    if(arrowsFromArray && arrowsFromArray.length)
+    {
+        for(let i = 0; i < arrowsFromArray.length; i++)
+        {
+            $(`#${issueNumber}and${arrowsFromArray[i]}`).remove();
+        }
+    }
+
+    let arrowsGoingToArray = ArrowsGoingTo[issueNumber];
+    if(arrowsGoingToArray && arrowsGoingToArray.length)
+    {
+        for(let i = 0; i < arrowsGoingToArray.length; i++)
+        {
+            $(`#${arrowsGoingToArray[i]}and${issueNumber}`).remove();
+        }
+    }
+}
+
+const verifyCardMoveAllowed = function(issueNumber, newdivID) {
+    let newdivIDNumber = parseInt(newdivID);
+
+    let arrowsGoingToArray = ArrowsGoingTo[issueNumber];
+    if(arrowsGoingToArray && arrowsGoingToArray.length)
+    {
+        for(let i = 0; i < arrowsGoingToArray.length; i++)
+        {
+            let startingfromissue = arrowsGoingToArray[i];
+            let startingfromdiv = parseInt($(`#${startingfromissue}`).parent().attr('id'));
+
+            if(newdivIDNumber < startingfromdiv)
+            {
+                //QueryUserForAction();
+                return false;
+            }
+        }
+    }
+    return true;
 }
