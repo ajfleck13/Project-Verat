@@ -172,8 +172,6 @@ const label = function() {}
 
 
 
-
-
 //the reset button function
 const reset = function() {
     location.reload();
@@ -181,23 +179,47 @@ const reset = function() {
 $("#resetButton").on("click", reset);
 
 
+//***************************************************************/
+//****************************************************************/
 
+const ul = document.querySelector("ul");
+const input = document.getElementById("repository");
 
-//**************************************************************************/
-let repoArray = [];
-const storageMaker = function() {
+//the array that holds the repos to be displayed
+let reposArray = [];
+// console.log(itemsArray);
 
-
+// localstorage to ensure that the data persists
+if (localStorage.getItem("items")) {
+    reposArray = JSON.parse(localStorage.getItem("items"));
+    // console.log(itemsArray);
 }
 
+localStorage.setItem("items", JSON.stringify(reposArray));
+const data = JSON.parse(localStorage.getItem("items"));
 
-//function that stores repo urls
-const repoHolder = function() {
-    let item = $("#repository").val().toString();
+//function that appends the repos 
+const placeRepo = function(text) {
+        $("#recentRepos").append(`<li>${text}</li>`);
+    }
+    //function for storing the input values in the reposArray
+$("#submit").on("click", function(event) {
+    event.preventDefault();
+    reposArray.push(input.value);
+    localStorage.setItem("items", JSON.stringify(reposArray));
+    placeRepo(input.value);
+    input.value = "";
+});
 
+//looping through data and calling the appending function
+data.forEach(item => {
+    placeRepo(item);
+});
 
-
-
-}
-
-$("#submit").on("click", repoHolder);
+//clear local storage
+$("#clearStorage").on("click", function() {
+    localStorage.clear();
+    while (ul.firstChild) {
+        ul.removeChild(ul.firstChild);
+    }
+});

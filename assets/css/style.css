@@ -115,3 +115,10 @@
 .releasehover:hover {
     border: 5px green solid;
 }
+
+
+/* extending the size of the original modal */
+
+.modal-lg {
+    max-width: 80%;
+}
