@@ -20,13 +20,12 @@ let run = function() {
         url: baseURL + `/repos/${username}/${repo}/issues`,
         method: "GET",
     }).then(function(response) {
-        console.log(response);
+        // console.log(response);
         for (let i = 0; i < response.length; i++) {
             let issueslabelArray = [];
             for(let a = 0; a < response[i].labels.length; a++){
                 issueslabelArray.push(response[i].labels[a].id);
             }
-            console.log(issueslabelArray)
             let issues = {
                 title: response[i].title,
                 body: response[i].body,

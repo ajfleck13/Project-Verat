@@ -10,6 +10,7 @@
 
 .scroll {
     margin-left: 300px;
+    z-index: -1;
 }
 
 #loader {
@@ -42,7 +43,11 @@
     margin-left: 40px;
 }
 
-.card:hover {
+.draggingcard + .card {
+    margin-top: 180px;
+}
+
+/* .card:hover {
     width: 300px;
     height: 200px;
     background-color: white;
@@ -50,7 +55,7 @@
     margin-left: 40px;
     border: yellow 5px solid;
     cursor: move;
-}
+} */
 
 .card-header {
     padding: 5px 0 0 10px;
@@ -77,6 +82,24 @@
     margin: 0px;
 }
 
+.card-arrowdraw {
+    border: green 5px solid;
+}
+
 .releasehover:hover {
     border: 5px green solid;
+}
+
+.arrow {
+    position: absolute;
+    width: 100px;
+    height: 150px;
+    transform-origin: left center;
+    pointer-events: none;
+}
+
+.arrowmode {
+    position: fixed;
+    top: 40%;
+    right: 30px;
 }
