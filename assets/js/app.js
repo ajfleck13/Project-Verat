@@ -10,7 +10,7 @@ let run = function() {
     $('#Modalsubmit').hide();
 
 
-// creating an array of the issues with the API from Github
+    // creating an array of the issues with the API from Github
     let repositoryinput = $("#repository").val();
     let inputArray = repositoryinput.split("/");
 
@@ -45,8 +45,8 @@ let run = function() {
 
     // label dropdown
 
-// creating an array of the labels which are assigned to the issues in github. 
-    
+    // creating an array of the labels which are assigned to the issues in github. 
+
 
     $.ajax({
         url: baseURL + `/repos/${username}/${repo}/labels`,
@@ -65,7 +65,8 @@ let run = function() {
         renderLabel();
     })
 
-<<<<<<< HEAD
+    let labelArray = [];
+
     const renderLabel = function(labelinfo) {
         console.log(labelArray)
         let dropdownmenu = $("#labels")
@@ -73,30 +74,14 @@ let run = function() {
             let name = labelArray[i].name;
             let description = labelArray[i].description;
             let color = labelArray[i].color;
-            dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${name}</a>`)
-            if (description !== undefined) {
+            let id = labelArray[i].id;
+            dropdownmenu.append(`<button class="dropdown-item labels" href="#" id = "${id}">${name}</button>`)
+            if (description !== undefined)
+            // card.append(`${name}`),
+            {
                 // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${description}</a>`)            
             }
             // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${color}</a>`)
-=======
-    let labelArray = [];
-
-const renderLabel = function(labelinfo){
-    console.log(labelArray)
-    let dropdownmenu = $("#labels")
-    for(let i=0; i < labelArray.length; i++){
-        let name = labelArray[i].name;
-        let description = labelArray[i].description;
-        let color = labelArray[i].color;
-        let id = labelArray[i].id;
-        dropdownmenu.append(`<button class="dropdown-item labels" href="#" id = "${id}">${name}</button>`)
-        if(description !== undefined)
-        // card.append(`${name}`),
-        {
-            // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${description}</a>`)            
-        }
-        // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${color}</a>`)
->>>>>>> master
         }
     }
 }
@@ -106,7 +91,7 @@ $(".labels").length
 
 console.log($(".labels").length);
 
-$("#filter").on("click", ".labels", function(){
+$("#filter").on("click", ".labels", function() {
     let id = $(this).attr("id");
     activeLabels.push(id);
     filter();
@@ -116,16 +101,17 @@ $("#filter").on("click", ".labels", function(){
 // this loops through the issue array and retrieves its info
 // then it loops through the issuelabelarray, and finds if it does not match the elements in the issuearray
 // if so, then it does not display said card. 
-let filter = function(){
-        $("#card").attr("display","block");
-    for(let i = 0; i < issueArray.length; i++){
+let filter = function() {
+    $("#card").attr("display", "block");
+    for (let i = 0; i < issueArray.length; i++) {
         let issue = issueArray[i];
-        for(let j = 0; j < activeLabels.length; j++){
-            if(!issue.labels.includes(activeLabels[j])){
+        for (let j = 0; j < activeLabels.length; j++) {
+            if (!issue.labels.includes(activeLabels[j])) {
                 console.log("trigger");
-                $(`#${issue.number}`).hide();            }
+                $(`#${issue.number}`).hide();
+            }
+        }
     }
-}
 }
 
 
@@ -204,13 +190,9 @@ const renderDivCards = function(divtorender) {
     $(".card").mousedown(startDragging);
 }
 
-<<<<<<< HEAD
-const rendercard = function(issueobject) {
-=======
 // dynamically generating cards 
 
-const rendercard = function(issueobject){
->>>>>>> master
+const rendercard = function(issueobject) {
     let number = issueobject.number;
     let card = $(`<div class = "card" id="${number}">`);
     let title = issueobject.title;
