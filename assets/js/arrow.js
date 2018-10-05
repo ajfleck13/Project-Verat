@@ -44,8 +44,8 @@ const doArrowModeClick = function() {
 const tryAddArrow = function(endissue) {
     if(StartIssue === endissue)
     {
-        StartIssue = null;
         $(`#${StartIssue}`).removeClass("card-arrowdraw");
+        StartIssue = null;
         // console.log("cannot draw to same issue");
         return;
     }
@@ -201,9 +201,9 @@ const verifyCardMoveAllowed = function(issueNumber, newdivID) {
 
             if(newdivIDNumber < startingfromdiv)
             {
-                QueryUserForAction();
+                //QueryUserForAction();
+                return false;
             }
-            return false;
         }
     }
     return true;

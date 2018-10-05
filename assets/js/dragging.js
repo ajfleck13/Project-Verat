@@ -97,7 +97,9 @@ const tryTransferIssue = function(issueNumber, parentID, newdivID) {
     if(verifyCardMoveAllowed(issueNumber, newdivID))
     {
         transferIssue(issueNumber, parentID, newdivID);
+        return;
     }
+    resetDraggable();
 }
 
 //Removes the current card from the html entirely
