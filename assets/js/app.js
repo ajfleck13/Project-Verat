@@ -9,6 +9,8 @@ let run = function() {
 
     $('#Modalsubmit').hide();
 
+
+// creating an array of the issues with the API from Github
     let repositoryinput = $("#repository").val();
     let inputArray = repositoryinput.split("/");
 
@@ -16,17 +18,17 @@ let run = function() {
     let username = inputArray[indexG + 1];
     let repo = inputArray[indexG + 2];
 
+
     $.ajax({
         url: baseURL + `/repos/${username}/${repo}/issues`,
         method: "GET",
     }).then(function(response) {
-        console.log(response);
+        // console.log(response);
         for (let i = 0; i < response.length; i++) {
             let issueslabelArray = [];
             for (let a = 0; a < response[i].labels.length; a++) {
                 issueslabelArray.push(response[i].labels[a].id);
             }
-            console.log(issueslabelArray)
             let issues = {
                 title: response[i].title,
                 body: response[i].body,
@@ -34,6 +36,7 @@ let run = function() {
                 login: response[i].user.login,
                 avatar: response[i].user.avatar_url,
                 html: response[i].user.html_url,
+                labels: issueslabelArray,
             };
             issueArray.push(issues);
         }
@@ -42,7 +45,8 @@ let run = function() {
 
     // label dropdown
 
-    let labelArray = [];
+// creating an array of the labels which are assigned to the issues in github. 
+    
 
     $.ajax({
         url: baseURL + `/repos/${username}/${repo}/labels`,
@@ -54,12 +58,14 @@ let run = function() {
                 name: response[i].name,
                 description: response[i].description,
                 color: response[i].color,
+                id: response[i].id,
             };
             labelArray.push(labels);
         }
         renderLabel();
     })
 
+<<<<<<< HEAD
     const renderLabel = function(labelinfo) {
         console.log(labelArray)
         let dropdownmenu = $("#labels")
@@ -72,9 +78,57 @@ let run = function() {
                 // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${description}</a>`)            
             }
             // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${color}</a>`)
+=======
+    let labelArray = [];
+
+const renderLabel = function(labelinfo){
+    console.log(labelArray)
+    let dropdownmenu = $("#labels")
+    for(let i=0; i < labelArray.length; i++){
+        let name = labelArray[i].name;
+        let description = labelArray[i].description;
+        let color = labelArray[i].color;
+        let id = labelArray[i].id;
+        dropdownmenu.append(`<button class="dropdown-item labels" href="#" id = "${id}">${name}</button>`)
+        if(description !== undefined)
+        // card.append(`${name}`),
+        {
+            // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${description}</a>`)            
+        }
+        // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${color}</a>`)
+>>>>>>> master
         }
     }
 }
+let activeLabels = [];
+
+$(".labels").length
+
+console.log($(".labels").length);
+
+$("#filter").on("click", ".labels", function(){
+    let id = $(this).attr("id");
+    activeLabels.push(id);
+    filter();
+    console.log("hello", id);
+})
+
+// this loops through the issue array and retrieves its info
+// then it loops through the issuelabelarray, and finds if it does not match the elements in the issuearray
+// if so, then it does not display said card. 
+let filter = function(){
+        $("#card").attr("display","block");
+    for(let i = 0; i < issueArray.length; i++){
+        let issue = issueArray[i];
+        for(let j = 0; j < activeLabels.length; j++){
+            if(!issue.labels.includes(activeLabels[j])){
+                console.log("trigger");
+                $(`#${issue.number}`).hide();            }
+    }
+}
+}
+
+
 
 let modalsubmit = $('#submit');
 modalsubmit.click(run);
@@ -150,7 +204,13 @@ const renderDivCards = function(divtorender) {
     $(".card").mousedown(startDragging);
 }
 
+<<<<<<< HEAD
 const rendercard = function(issueobject) {
+=======
+// dynamically generating cards 
+
+const rendercard = function(issueobject){
+>>>>>>> master
     let number = issueobject.number;
     let card = $(`<div class = "card" id="${number}">`);
     let title = issueobject.title;
