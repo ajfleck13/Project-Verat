@@ -9,12 +9,15 @@ let run = function() {
 
     $('#Modalsubmit').hide();
 
+
+// creating an array of the issues with the API from Github
     let repositoryinput = $("#repository").val();
     let inputArray = repositoryinput.split("/");
 
     let indexG = inputArray.indexOf("github.com");
     let username = inputArray[indexG + 1];
     let repo = inputArray[indexG + 2];
+
 
     $.ajax({
         url: baseURL + `/repos/${username}/${repo}/issues`,
@@ -33,6 +36,7 @@ let run = function() {
                 login: response[i].user.login,
                 avatar: response[i].user.avatar_url,
                 html: response[i].user.html_url,
+                labels: issueslabelArray,
             };
             issueArray.push(issues);
         }
@@ -41,7 +45,8 @@ let run = function() {
 
     // label dropdown
 
-    let labelArray = [];
+// creating an array of the labels which are assigned to the issues in github. 
+    
 
     $.ajax({
         url: baseURL + `/repos/${username}/${repo}/labels`,
@@ -53,11 +58,14 @@ let run = function() {
                 name: response[i].name,
                 description: response[i].description,
                 color: response[i].color,
+                id: response[i].id,
             };
             labelArray.push(labels);
         }
         renderLabel();
     })
+
+    let labelArray = [];
 
 const renderLabel = function(labelinfo){
     console.log(labelArray)
@@ -66,8 +74,10 @@ const renderLabel = function(labelinfo){
         let name = labelArray[i].name;
         let description = labelArray[i].description;
         let color = labelArray[i].color;
-        dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${name}</a>`)
+        let id = labelArray[i].id;
+        dropdownmenu.append(`<button class="dropdown-item labels" href="#" id = "${id}">${name}</button>`)
         if(description !== undefined)
+        // card.append(`${name}`),
         {
             // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${description}</a>`)            
         }
@@ -75,6 +85,35 @@ const renderLabel = function(labelinfo){
         }
     }
 }
+let activeLabels = [];
+
+$(".labels").length
+
+console.log($(".labels").length);
+
+$("#filter").on("click", ".labels", function(){
+    let id = $(this).attr("id");
+    activeLabels.push(id);
+    filter();
+    console.log("hello", id);
+})
+
+// this loops through the issue array and retrieves its info
+// then it loops through the issuelabelarray, and finds if it does not match the elements in the issuearray
+// if so, then it does not display said card. 
+let filter = function(){
+        $("#card").attr("display","block");
+    for(let i = 0; i < issueArray.length; i++){
+        let issue = issueArray[i];
+        for(let j = 0; j < activeLabels.length; j++){
+            if(!issue.labels.includes(activeLabels[j])){
+                console.log("trigger");
+                $(`#${issue.number}`).hide();            }
+    }
+}
+}
+
+
 
 let modalsubmit = $('#submit');
 modalsubmit.click(run);
@@ -157,6 +196,8 @@ const renderDivCards= function(divtorender) {
     }
     $(".card").mousedown(startDragging);
 }
+
+// dynamically generating cards 
 
 const rendercard = function(issueobject){
     let number = issueobject.number;
