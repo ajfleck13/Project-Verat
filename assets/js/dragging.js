@@ -28,7 +28,8 @@ const startDragging = function(e) {
     offsetY = e.clientY - position.top;
 
     //Adds a class that adds hover behavior to the releases
-    $(".release").addClass("releasehover")
+    $(".release").addClass("releasehover");
+    jqElement.addClass("draggingcard");
 }
 
 //Called when moving the mouse while dragging a card
@@ -70,6 +71,7 @@ const endDragging = function(e) {
 //We dropped a card onto non-droppable space
 //Reset the formatting used for dragging
 const resetDraggable = function() {
+    $(elementToDrag).removeClass("draggingcard");
     elementToDrag.style.position = null;
     elementToDrag.style.top = null;
     elementToDrag.style.left = null;
@@ -146,4 +148,8 @@ const transferIssue = function(issueNumber, parentID, newdivID) {
 
     //Re-render the div elements that issue holder has
     renderDivCards(newdivID);
+
+    //The latest experimental arrow technology
+    redrawArrowsForIssue(issueNumber);
+    redrawArrowsForDiv(parentID);
 }
