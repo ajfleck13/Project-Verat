@@ -90,7 +90,14 @@ const dropCardInto = function(card, divelement)
     const parentID = parent.attr('id');
     const newdivID = divelement.attr('id');
 
-    transferIssue(issueNumber, parentID, newdivID);
+    tryTransferIssue(issueNumber, parentID, newdivID);
+}
+
+const tryTransferIssue = function(issueNumber, parentID, newdivID) {
+    if(verifyCardMoveAllowed(issueNumber, newdivID))
+    {
+        transferIssue(issueNumber, parentID, newdivID);
+    }
 }
 
 //Removes the current card from the html entirely
