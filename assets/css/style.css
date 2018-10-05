@@ -132,3 +132,13 @@
     top: 40%;
     right: 30px;
 }
+
+.dropdown-item:hover {
+    background-color: green;
+    color: white;
+}
+.button-clicked{
+    background-color: green;
+    color: white;
+}
+

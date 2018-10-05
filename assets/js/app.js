@@ -18,16 +18,23 @@ let run = function() {
     let username = inputArray[indexG + 1];
     let repo = inputArray[indexG + 2];
 
+    let params = "?" + $.param({
+        "state": "all"
+    })
+
 
     $.ajax({
-        url: baseURL + `/repos/${username}/${repo}/issues`,
+        url: baseURL + `/repos/${username}/${repo}/issues` + params,
         method: "GET",
     }).then(function(response) {
         // console.log(response);
         for (let i = 0; i < response.length; i++) {
+            if(response[i].pull_request){
+                continue;
+            }
             let issueslabelArray = [];
-            for (let a = 0; a < response[i].labels.length; a++) {
-                issueslabelArray.push(response[i].labels[a].id);
+            for(let a = 0; a < response[i].labels.length; a++){
+                issueslabelArray.push(`${response[i].labels[a].id}`);
             }
             let issues = {
                 title: response[i].title,
@@ -37,6 +44,7 @@ let run = function() {
                 avatar: response[i].user.avatar_url,
                 html: response[i].user.html_url,
                 labels: issueslabelArray,
+                state: response[i].state,
             };
             issueArray.push(issues);
         }
@@ -67,24 +75,26 @@ let run = function() {
 
     let labelArray = [];
 
-    const renderLabel = function(labelinfo) {
-        console.log(labelArray)
-        let dropdownmenu = $("#labels")
-        for (let i = 0; i < labelArray.length; i++) {
-            let name = labelArray[i].name;
-            let description = labelArray[i].description;
-            let color = labelArray[i].color;
-            let id = labelArray[i].id;
-            dropdownmenu.append(`<button class="dropdown-item labels" href="#" id = "${id}">${name}</button>`)
-            if (description !== undefined)
-            // card.append(`${name}`),
-            {
-                // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${description}</a>`)            
-            }
-            // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${color}</a>`)
+const renderLabel = function(labelinfo){
+    console.log(labelArray)
+    let dropdownmenu = $("#labels")
+    dropdownmenu.append('<button class="dropdown-item labels none" href="# id = "none">None</button>')
+    for(let i=0; i < labelArray.length; i++){
+        let name = labelArray[i].name;
+        let description = labelArray[i].description;
+        let color = labelArray[i].color;
+        let id = labelArray[i].id;
+        dropdownmenu.append(`<button class="dropdown-item labels" href="#" id = "${id}">${name}</button>`)
+        if(description !== undefined)
+        // card.append(`${name}`),
+        {
+            // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${description}</a>`)            
+        }
+        // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${color}</a>`)
         }
     }
 }
+
 let activeLabels = [];
 
 $(".labels").length
@@ -93,22 +103,33 @@ console.log($(".labels").length);
 
 $("#filter").on("click", ".labels", function() {
     let id = $(this).attr("id");
+    $(this).addClass('button-clicked');
     activeLabels.push(id);
     filter();
     console.log("hello", id);
 })
 
+
+$("#filter").on("click", ".none", function(){
+    activeLabels = [];
+    $(".labels").removeClass('button-clicked');
+    filter();
+})
+// changes color of filter button once it is clicked
+
+ 
+
 // this loops through the issue array and retrieves its info
 // then it loops through the issuelabelarray, and finds if it does not match the elements in the issuearray
 // if so, then it does not display said card. 
-let filter = function() {
-    $("#card").attr("display", "block");
-    for (let i = 0; i < issueArray.length; i++) {
+let filter = function(){
+    $(".card").show();
+    for(let i = 0; i < issueArray.length; i++){
         let issue = issueArray[i];
-        for (let j = 0; j < activeLabels.length; j++) {
-            if (!issue.labels.includes(activeLabels[j])) {
-                console.log("trigger");
-                $(`#${issue.number}`).hide();
+        for(let j = 0; j < activeLabels.length; j++){
+            if(!issue.labels.includes(activeLabels[j]))
+            {
+                $(`#${issue.number}`).hide();   
             }
         }
     }
