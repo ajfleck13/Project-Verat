@@ -27,7 +27,7 @@ let run = function() {
         url: baseURL + `/repos/${username}/${repo}/issues` + params,
         method: "GET",
     }).then(function(response) {
-        console.log(response);
+        // console.log(response);
         for (let i = 0; i < response.length; i++) {
             if(response[i].pull_request){
                 continue;
@@ -129,10 +129,10 @@ let filter = function(){
         for(let j = 0; j < activeLabels.length; j++){
             if(!issue.labels.includes(activeLabels[j]))
             {
-                console.log("trigger");
+                
                 $(`#${issue.number}`).hide();   
-                console.log(activeLabels);   
-                console.log(issue);
+                  
+
            
             }
         }
