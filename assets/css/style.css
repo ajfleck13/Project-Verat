@@ -31,12 +31,20 @@
     height: 100%;
     width: 300px;
     background-color: black;
-    left: 0;
-    top: 0;
+    left: 0px;
+    bottom: 0px;
+    top: 0px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
 
+.title{
+    background-image: linear-gradient(to right,rgb(14, 170, 14),#006400);
+    height: 80px;
+    text-align: center;
+    text-decoration-style: wavy;
+    padding: 25px 50px 75px;
+}
 
 /* styling for the red reset button */
 
@@ -71,7 +79,6 @@
 .draggingcard+.card {
     margin-top: 180px;
 }
-
 
 /* .card:hover {
     width: 300px;
