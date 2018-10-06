@@ -140,6 +140,11 @@
     right: 30px;
 }
 
+.repolinks {
+    cursor: pointer;
+    font-size: 24px;
+}
+
 .dropdown-item:hover {
     background-color: green;
     color: white;
@@ -148,4 +153,3 @@
     background-color: green;
     color: white;
 }
-
