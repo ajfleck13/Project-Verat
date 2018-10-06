@@ -1,23 +1,13 @@
 $('#Modalsubmit').show();
 
-let run = function() {
+let run = function(repositorytext) {
     const baseURL = "https://api.github.com";
-
-    if (!$("#repository").val()) {
-        return;
-    }
 
     $('#Modalsubmit').hide();
 
-
-    // creating an array of the issues with the API from Github
-    let repositoryinput = $("#repository").val();
-    let inputArray = repositoryinput.split("/");
-
-    let indexG = inputArray.indexOf("github.com");
-    let username = inputArray[indexG + 1];
-    let repo = inputArray[indexG + 2];
-
+    let inputArray = repositorytext.split("/");
+    let username = inputArray[0];
+    let repo = inputArray[1];
 
     $.ajax({
         url: baseURL + `/repos/${username}/${repo}/issues`,
@@ -114,10 +104,26 @@ let filter = function() {
     }
 }
 
+const formatUsernameAndRepo = function(text) {
+    const inputArray = text.split("/");
+    const indexG = inputArray.indexOf("github.com");
 
+    const username = inputArray[indexG + 1];
+    const repo = inputArray[indexG + 2];
+    return `${username}/${repo}`;
+}
 
 let modalsubmit = $('#submit');
-modalsubmit.click(run);
+modalsubmit.click(function() {
+    if (!$("#repository").val()) {
+        return;
+    }
+    
+    const repositoryinput = $("#repository").val();
+    const repotext = formatUsernameAndRepo(repositoryinput);
+
+    run(repotext);
+});
 
 let issueArray = [];
 let releaseTabIssues = [];
@@ -224,44 +230,48 @@ $("#resetButton").on("click", reset);
 //***************************************************************/
 //****************************************************************/
 
-const ul = document.querySelector("ul");
-const input = document.getElementById("repository");
-
 //the array that holds the repos to be displayed
 let reposArray = [];
-// console.log(itemsArray);
-
-// localstorage to ensure that the data persists
-if (localStorage.getItem("items")) {
-    reposArray = JSON.parse(localStorage.getItem("items"));
-    // console.log(itemsArray);
-}
-
-localStorage.setItem("items", JSON.stringify(reposArray));
-const data = JSON.parse(localStorage.getItem("items"));
 
 //function that appends the repos 
-const placeRepo = function(text) {
-        $("#recentRepos").append(`<li>${text}</li>`);
-    }
-    //function for storing the input values in the reposArray
+const placeRepo = function(repotext) {
+    const text = formatUsernameAndRepo(repotext);
+    $("#recentRepos").append(`<li class="repolinks"><span class="badge badge-pill badge-primary">${text}</span></li>`);
+}
+
+// localstorage to ensure that the data persists
+if (localStorage.getItem("recentrepos")) {
+    reposArray = JSON.parse(localStorage.getItem("recentrepos"));
+}
+
+const data = JSON.parse(localStorage.getItem("recentrepos"));
+//looping through data and calling the appending function
+if(data)
+{
+    data.forEach(item => {
+        placeRepo(item);
+    });
+
+    $(".repolinks").click(function() {
+        run($(this).text());
+    })
+}
+
+//function for storing the input values in the reposArray
 $("#submit").on("click", function(event) {
     event.preventDefault();
-    reposArray.push(input.value);
-    localStorage.setItem("items", JSON.stringify(reposArray));
-    placeRepo(input.value);
-    input.value = "";
-});
 
-//looping through data and calling the appending function
-data.forEach(item => {
-    placeRepo(item);
+    const input = $("#repository");
+    if(!reposArray.includes(input.val()))
+    {
+        reposArray.unshift(input.val());
+    }
+    reposArray = reposArray.slice(0, 4);
+    localStorage.setItem("recentrepos", JSON.stringify(reposArray));
 });
 
 //clear local storage
 $("#clearStorage").on("click", function() {
     localStorage.clear();
-    while (ul.firstChild) {
-        ul.removeChild(ul.firstChild);
-    }
+    $("#recentRepos").empty();
 });

@@ -132,3 +132,8 @@
     top: 40%;
     right: 30px;
 }
+
+.repolinks {
+    cursor: pointer;
+    font-size: 24px;
+}
