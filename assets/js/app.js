@@ -19,11 +19,11 @@ let run = function(repositorytext) {
     }).then(function(response) {
         // console.log(response);
         for (let i = 0; i < response.length; i++) {
-            if(response[i].pull_request){
+            if (response[i].pull_request) {
                 continue;
             }
             let issueslabelArray = [];
-            for(let a = 0; a < response[i].labels.length; a++){
+            for (let a = 0; a < response[i].labels.length; a++) {
                 issueslabelArray.push(`${response[i].labels[a].id}`);
             }
             let issues = {
@@ -65,22 +65,22 @@ let run = function(repositorytext) {
 
     let labelArray = [];
 
-const renderLabel = function(labelinfo){
-    console.log(labelArray)
-    let dropdownmenu = $("#labels")
-    dropdownmenu.append('<button class="dropdown-item labels none" href="# id = "none">None</button>')
-    for(let i=0; i < labelArray.length; i++){
-        let name = labelArray[i].name;
-        let description = labelArray[i].description;
-        let color = labelArray[i].color;
-        let id = labelArray[i].id;
-        dropdownmenu.append(`<button class="dropdown-item labels" href="#" id = "${id}">${name}</button>`)
-        if(description !== undefined)
-        // card.append(`${name}`),
-        {
-            // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${description}</a>`)            
-        }
-        // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${color}</a>`)
+    const renderLabel = function(labelinfo) {
+        console.log(labelArray)
+        let dropdownmenu = $("#labels")
+        dropdownmenu.append('<button class="dropdown-item labels none" href="# id = "none">None</button>')
+        for (let i = 0; i < labelArray.length; i++) {
+            let name = labelArray[i].name;
+            let description = labelArray[i].description;
+            let color = labelArray[i].color;
+            let id = labelArray[i].id;
+            dropdownmenu.append(`<button class="dropdown-item labels" href="#" id = "${id}">${name}</button>`)
+            if (description !== undefined)
+            // card.append(`${name}`),
+            {
+                // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${description}</a>`)            
+            }
+            // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${color}</a>`)
         }
     }
 }
@@ -100,26 +100,25 @@ $("#filter").on("click", ".labels", function() {
 })
 
 
-$("#filter").on("click", ".none", function(){
-    activeLabels = [];
-    $(".labels").removeClass('button-clicked');
-    filter();
-})
-// changes color of filter button once it is clicked
+$("#filter").on("click", ".none", function() {
+        activeLabels = [];
+        $(".labels").removeClass('button-clicked');
+        filter();
+    })
+    // changes color of filter button once it is clicked
 
- 
+
 
 // this loops through the issue array and retrieves its info
 // then it loops through the issuelabelarray, and finds if it does not match the elements in the issuearray
 // if so, then it does not display said card. 
-let filter = function(){
+let filter = function() {
     $(".card").show();
-    for(let i = 0; i < issueArray.length; i++){
+    for (let i = 0; i < issueArray.length; i++) {
         let issue = issueArray[i];
-        for(let j = 0; j < activeLabels.length; j++){
-            if(!issue.labels.includes(activeLabels[j]))
-            {
-                $(`#${issue.number}`).hide();   
+        for (let j = 0; j < activeLabels.length; j++) {
+            if (!issue.labels.includes(activeLabels[j])) {
+                $(`#${issue.number}`).hide();
             }
         }
     }
@@ -139,7 +138,7 @@ modalsubmit.click(function() {
     if (!$("#repository").val()) {
         return;
     }
-    
+
     const repositoryinput = $("#repository").val();
     const repotext = formatUsernameAndRepo(repositoryinput);
 
@@ -176,6 +175,9 @@ const addNewRelease = function() {
 for (let i = 0; i < 3; i++) {
     addNewRelease();
 }
+$("#addReleaseButton").on("click", addNewRelease);
+
+
 
 let renamingId;
 const renameRelease = function() {
@@ -267,8 +269,7 @@ if (localStorage.getItem("recentrepos")) {
 
 const data = JSON.parse(localStorage.getItem("recentrepos"));
 //looping through data and calling the appending function
-if(data)
-{
+if (data) {
     data.forEach(item => {
         placeRepo(item);
     });
@@ -283,8 +284,7 @@ $("#submit").on("click", function(event) {
     event.preventDefault();
 
     const input = $("#repository");
-    if(!reposArray.includes(input.val()))
-    {
+    if (!reposArray.includes(input.val())) {
         reposArray.unshift(input.val());
     }
     reposArray = reposArray.slice(0, 4);
