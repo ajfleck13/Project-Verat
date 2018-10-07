@@ -175,9 +175,29 @@ const addNewRelease = function() {
 for (let i = 0; i < 3; i++) {
     addNewRelease();
 }
+
+
+//creates new release tab buttons
 $("#addReleaseButton").on("click", addNewRelease);
 
+let newIdNum = []; //collecting ids of subsequent NewRelease tabs
+let count = 3; //original loop stooped at 3
+const attr = "button";
 
+//makes the new release tab buttons function like the original three
+$("#addReleaseButton").on("click", function(event) {
+    event.preventDefault();
+    count++;
+    // console.log(count);
+    newIdNum.push("button" + count); //populating newDivs with ids
+    // console.log(newDivs);
+    for (let i = 0; i < newIdNum.length; i++) {
+        if (newIdNum[i]) {
+            $(".releaseHeader").click(renameRelease);
+            $("#submitRelease").click(finishRename);
+        }
+    }
+});
 
 let renamingId;
 const renameRelease = function() {
@@ -193,7 +213,6 @@ const finishRename = function() {
     if (!newName) {
         return;
     }
-
     buttonToRename.text(newName);
     $("#modalRelease").hide();
     $("#renameRelease").val("");
