@@ -7,7 +7,7 @@ const showIssueInformationModal = function() {
 
 const displayIssueInformation = function(issueNumber) {
     $.ajax({
-        url: baseURL + `/repos/${Username}/${Repo}/issues/${issueNumber}`,
+        url: baseURL + `/repos/${username}/${Repo}/issues/${issueNumber}`,
         method: "GET",
     }).then(function(response) {
         $("#issueTitle").text(`${response.title} #${response.number}`);
@@ -19,7 +19,7 @@ const displayIssueInformation = function(issueNumber) {
     });
 
     $.ajax({
-        url: baseURL + `/repos/${Username}/${Repo}/issues/${issueNumber}/comments`,
+        url: baseURL + `/repos/${username}/${Repo}/issues/${issueNumber}/comments`,
         method: "GET",
     }).then(function(response) {
         console.log(response);
