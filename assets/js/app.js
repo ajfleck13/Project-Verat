@@ -1,13 +1,16 @@
+const baseURL = "https://api.github.com";
+
+let username = null;
+let repo = null;
+
 $('#Modalsubmit').show();
 
 let run = function(repositorytext) {
-    const baseURL = "https://api.github.com";
-
     $('#Modalsubmit').hide();
 
     let inputArray = repositorytext.split("/");
-    let username = inputArray[0];
-    let repo = inputArray[1];
+    username = inputArray[0];
+    repo = inputArray[1];
 
     $.ajax({
         url: baseURL + `/repos/${username}/${repo}/issues`,
@@ -92,7 +95,7 @@ $("#filter").on("click", ".labels", function() {
 // then it loops through the issuelabelarray, and finds if it does not match the elements in the issuearray
 // if so, then it does not display said card. 
 let filter = function() {
-    $("#card").attr("display", "block");
+    $("#issuecardcard").attr("display", "block");
     for (let i = 0; i < issueArray.length; i++) {
         let issue = issueArray[i];
         for (let j = 0; j < activeLabels.length; j++) {
@@ -118,7 +121,7 @@ modalsubmit.click(function() {
     if (!$("#repository").val()) {
         return;
     }
-    
+
     const repositoryinput = $("#repository").val();
     const repotext = formatUsernameAndRepo(repositoryinput);
 
@@ -193,14 +196,15 @@ const renderDivCards = function(divtorender) {
             divtoappend.append(rendercard(releaseTab[i]));
         }
     }
-    $(".card").mousedown(startDragging);
+    $(".issuecard").click(showIssueInformationModal);
+    $(".issuecard").mousedown(startDragging);
 }
 
 // dynamically generating cards 
 
 const rendercard = function(issueobject) {
     let number = issueobject.number;
-    let card = $(`<div class = "card" id="${number}">`);
+    let card = $(`<div class = "card issuecard" id="${number}">`);
     let title = issueobject.title;
     card.append(`<p class = "card-header">${title}</p>`);
 
