@@ -176,7 +176,7 @@ cursor: move;
     border: 5px green solid;
 }
 
-.arrow {
+.arrow{
     position: absolute;
     width: 100px;
     height: 150px;
@@ -184,10 +184,22 @@ cursor: move;
     pointer-events: none;
 }
 
-.arrowmode {
+ .toolbar{
     position: fixed;
     top: 40%;
-    right: 30px;
+    right: 0px;
+
+}
+.btn {
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #3a9c3a;
+    height: 40px;
+    width: 40px;
+    padding: 5px;
+    
 }
 
 .repolinks {
@@ -207,4 +219,8 @@ cursor: move;
 .button-clicked {
     background-color: green;
     color: white;
+}
+
+.toolbar{
+  
 }
