@@ -8,7 +8,7 @@ let releaseTabIssues = [];
 
 $('#Modalsubmit').show();
 
-let run = function(repositorytext) {
+let run = function(repositorytext, saveobject) {
     $('#Modalsubmit').hide();
 
     let inputArray = repositorytext.split("/");
@@ -47,8 +47,13 @@ let run = function(repositorytext) {
             issueArray[`${issue.number}`] = issue;
             loaderArray.push(`${issue.number}`);
         }
-        $('#title').append(`<a href=${urlRepo}>${repo}</a>`)
+        $('#title').html(`<a href=${urlRepo}>${repo}</a>`)
         renderDivCards("loader");
+
+        if(saveobject !== null)
+        {
+            completeLoad(saveobject);
+        }
     })
 
     // label dropdown
@@ -102,14 +107,11 @@ let activeLabels = [];
 
 $(".labels").length
 
-console.log($(".labels").length);
-
 $("#filter").on("click", ".labels", function() {
     let id = $(this).attr("id");
     $(this).addClass('button-clicked');
     activeLabels.push(id);
     filter();
-    console.log("hello", id);
 })
 
 
@@ -155,7 +157,7 @@ modalsubmit.click(function() {
     const repositoryinput = $("#repository").val();
     const repotext = formatUsernameAndRepo(repositoryinput);
 
-    run(repotext);
+    run(repotext, null);
 });
 
 const addNewRelease = function() {
@@ -232,27 +234,15 @@ let renamesubmit = $('#submitRelease');
 renamesubmit.click(finishRename);
 
 const renderDivCards = function(divtorender) {
-    // console.log("issue array");
-    // console.log(issueArray);
     let divtoappend = $("#" + divtorender);
     divtoappend.empty();
     if (divtorender === "loader") {
-        // console.log("loader");
-        // console.log(loaderArray);
         for (let i = 0; i < loaderArray.length; i++) {
-            // console.log(`loader ${loaderArray[i]}`)
-            // console.log(issueArray);
-            // console.log(issueArray[loaderArray[i]]);
             divtoappend.append(rendercard(issueArray[loaderArray[i]]));
         }
     } else {
         const releaseindex = parseInt(divtorender);
         let releaseTab = releaseTabIssues[releaseindex];
-        // console.log("yes release tab");
-        // console.log(releaseTab);
-        // console.log(issueArray);
-        // console.log(Object.keys(issueArray));
-        // console.log(issueArray);
         for (let i = 0; i < releaseTab.length; i++) {
             divtoappend.append(rendercard(issueArray[parseInt(releaseTab[i])]));
         }
@@ -368,7 +358,10 @@ const LoadSave = function() {
 
     ClearInfo();
 
-    run(`${jsonobject.Username}/${jsonobject.Repo}`);
+    run(`${jsonobject.Username}/${jsonobject.Repo}`, jsonobject);
+}
+
+const completeLoad = function(jsonobject) {
     let releasedivsquantity = jsonobject.releaseTabIssues.length;
 
     for(let i = 0; i < releasedivsquantity; i++)
@@ -377,12 +370,8 @@ const LoadSave = function() {
     }
 
     releaseTabIssues = jsonobject.releaseTabIssues;
-    loaderArray = null;
-    console.log(loaderArray);
-    console.log(jsonobject.LoaderArray);
     loaderArray = jsonobject.LoaderArray;
-    console.log(`log array ${loaderArray}`);
-    //renderDivCards("loader");
+    renderDivCards("loader");
 
     for(let i = 0; i < releasedivsquantity; i++)
     {
