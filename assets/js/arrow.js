@@ -6,7 +6,7 @@ let ArrowImg = "assets/images/arrowimg.svg";
 
 const toggleArrowMode = function() {
     console.log("Toggling arrow mode");
-    let releasecards = $(".release").find(".card");
+    let releasecards = $(".release").find(".issuecard");
     if(!ArrowMode)
     {
         releasecards.off("mousedown");
