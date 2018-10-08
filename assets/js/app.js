@@ -31,7 +31,7 @@ let run = function(repositorytext) {
             for (let a = 0; a < response[i].labels.length; a++) {
                 issueslabelArray.push(`${response[i].labels[a].id}`);
             }
-            let issues = {
+            let issue = {
                 title: response[i].title,
                 body: response[i].body,
                 number: response[i].number,
@@ -41,8 +41,8 @@ let run = function(repositorytext) {
                 labels: issueslabelArray,
                 state: response[i].state,
             };
-            issueArray.push(issues);
-            
+            issueArray[issue.number] = issue;
+            loaderArray.push(issue.number);
         }
         $('#title').append(`<a href=${urlRepo}>${repo}</a>`)
         renderDivCards("loader");
@@ -124,8 +124,8 @@ $("#filter").on("click", ".none", function() {
 // if so, then it does not display said card. 
 let filter = function() {
     $(".issuecard").show();
-    for (let i = 0; i < issueArray.length; i++) {
-        let issue = issueArray[i];
+    for (let i = 0; i < loaderArray.length; i++) {
+        let issue = issueArray[loaderArray[i]];
         for (let j = 0; j < activeLabels.length; j++) {
             if (!issue.labels.includes(activeLabels[j])) {
                 $(`#${issue.number}`).hide();
@@ -156,6 +156,7 @@ modalsubmit.click(function() {
 });
 
 let issueArray = [];
+let loaderArray = [];
 let releaseTabIssues = [];
 
 const addNewRelease = function() {
@@ -235,14 +236,14 @@ const renderDivCards = function(divtorender) {
     let divtoappend = $("#" + divtorender);
     divtoappend.empty();
     if (divtorender === "loader") {
-        for (let i = 0; i < issueArray.length; i++) {
-            divtoappend.append(rendercard(issueArray[i]));
+        for (let i = 0; i < loaderArray.length; i++) {
+            divtoappend.append(rendercard(issueArray[loaderArray[i]]));
         }
     } else {
         const releaseindex = parseInt(divtorender);
         let releaseTab = releaseTabIssues[releaseindex];
         for (let i = 0; i < releaseTab.length; i++) {
-            divtoappend.append(rendercard(releaseTab[i]));
+            divtoappend.append(rendercard(issueArray[releaseTab[i]]));
         }
     }
     //$(".issuecard").click(showIssueInformationModal);
@@ -326,3 +327,25 @@ $("#clearStorage").on("click", function() {
     localStorage.clear();
     $("#recentRepos").empty();
 });
+
+
+//SAVING && LOADING
+
+const CreateSave = function() {
+    let saveobject = {
+        ArrowsStartingFrom: ArrowStartingFrom,
+        ArrowsGoingTo: ArrowsGoingTo,
+        releaseTabIssues: releaseTabIssues,
+        Username: username,
+        Repo: repo,
+    }
+
+    alert(JSON.stringify(saveobject));
+}
+
+const LoadSave = function() {
+    let json = $(this).val();
+    let jsonobject = JSON.parse(json);
+}
+
+$("#saveButton").click(CreateSave);
