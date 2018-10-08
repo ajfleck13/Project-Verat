@@ -251,12 +251,14 @@ const renderDivCards = function(divtorender) {
 }
 
 // dynamically generating cards 
+let githubcolorOpen = "#2cbe4e";
+let githubcolorClosed = "#cb2431";
 
 const rendercard = function(issueobject) {
     let number = issueobject.number;
     let card = $(`<div class = "card issuecard" id="${number}">`);
     let title = issueobject.title;
-    card.append(`<p class = "card-header">${title}</p>`);
+    card.append(`<p class = "card-header" style="background-color: ${issueobject.state === "open"? githubcolorOpen : githubcolorClosed};">${title}</p>`);
 
     let body = issueobject.body;
     card.append(`<p class = "card-body">${body}</p>`);
