@@ -176,7 +176,7 @@ cursor: move;
     border: 5px green solid;
 }
 
-.arrow{
+.arrow {
     position: absolute;
     width: 100px;
     height: 150px;
@@ -184,12 +184,12 @@ cursor: move;
     pointer-events: none;
 }
 
- .toolbar{
+.toolbar {
     position: fixed;
     top: 40%;
     right: 0px;
-
 }
+
 .btn-t{
     border: none;
     color: white;
@@ -199,11 +199,9 @@ cursor: move;
     height: 40px;
     width: 40px;
     padding: 5px;
-    border-radius: 5px;
-    
 }
 
-.btn-t:hover{
+.btn-t:hover {
     border: solid;
     border-color: white;
 }
@@ -226,4 +224,3 @@ cursor: move;
     background-color: green;
     color: white;
 }
-

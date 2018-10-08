@@ -21,91 +21,96 @@ let run = function(repositorytext, saveobject) {
 
     urlRepo = baseURL + `/repos/${username}/${repo}/issues` + params,
 
-    $.ajax({
-        url: urlRepo,
-        method: "GET",
-    }).then(function(response) {
-        // console.log(response);
-        for (let i = 0; i < response.length; i++) {
-            if (response[i].pull_request) {
-                continue;
-            }
-            let issueslabelArray = [];
-            for (let a = 0; a < response[i].labels.length; a++) {
-                issueslabelArray.push(`${response[i].labels[a].id}`);
-            }
-            let issues = {
-                title: response[i].title,
-                body: response[i].body,
-                number: response[i].number,
-                login: response[i].user.login,
-                avatar: response[i].user.avatar_url,
-                html: response[i].user.html_url,
-                labels: issueslabelArray,
-                state: response[i].state,
-            };
-            issueArray.push(issues);
+        $.ajax({
+            url: urlRepo,
+            method: "GET",
+        }).then(function(response) {
+            // console.log(response);
+            for (let i = 0; i < response.length; i++) {
+                if (response[i].pull_request) {
+                    continue;
+                }
+                let issueslabelArray = [];
+                for (let a = 0; a < response[i].labels.length; a++) {
+                    issueslabelArray.push(`${response[i].labels[a].id}`);
+                }
+                let issues = {
+                    title: response[i].title,
+                    body: response[i].body,
+                    number: response[i].number,
+                    login: response[i].user.login,
+                    avatar: response[i].user.avatar_url,
+                    html: response[i].user.html_url,
+                    labels: issueslabelArray,
+                    state: response[i].state,
+                };
+                issueArray.push(issues);
 
-        }
-        $('#title').html(`<a href="https://github.com/${username}/${repo}">${repo}</a>`)
-        renderDivCards("loader");
-
-        if(saveobject !== null)
-        {
+            }
+            $('#title').html(`<a href="https://github.com/${username}/${repo}">${repo}</a>`)
+            renderDivCards("loader");
+      
+            if(saveobject !== null)
+            {
             completeLoad(saveobject);
-        }
-    })
+            }
+        })
 
     // label dropdown
-
     // 
-
-
     // creating an array of the labels which are assigned to the issues in github. 
 
+    renderDivCards("loader");
+};
 
-    $.ajax({
-        url: baseURL + `/repos/${username}/${repo}/labels`,
-        method: "GET"
-    }).then(function(response) {
-        console.log(response);
-        for (let i = 0; i < response.length; i++) {
-            let labels = {
-                name: response[i].name,
-                description: response[i].description,
-                color: response[i].color,
-                id: response[i].id,
-            };
-            labelArray.push(labels);
+
+// label dropdown
+// 
+// creating an array of the labels which are assigned to the issues in github. 
+
+
+$.ajax({
+    url: baseURL + `/repos/${username}/${repo}/labels`,
+    method: "GET"
+}).then(function(response) {
+    console.log(response);
+    for (let i = 0; i < response.length; i++) {
+        let labels = {
+            name: response[i].name,
+            description: response[i].description,
+            color: response[i].color,
+            id: response[i].id,
+        };
+        labelArray.push(labels);
+    }
+    renderLabel();
+})
+
+let labelArray = [];
+
+const renderLabel = function(labelinfo) {
+    console.log(labelArray)
+    let dropdownmenu = $("#labels")
+    dropdownmenu.append('<button class="dropdown-item labels none" href="# id = "none">None</button>')
+    for (let i = 0; i < labelArray.length; i++) {
+        let name = labelArray[i].name;
+        let description = labelArray[i].description;
+        let color = labelArray[i].color;
+        let id = labelArray[i].id;
+        dropdownmenu.append(`<button class="dropdown-item labels" href="#" id = "${id}">${name}</button>`)
+        if (description !== undefined)
+        // card.append(`${name}`),
+        {
+            // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${description}</a>`)            
         }
-        renderLabel();
-    })
-
-    let labelArray = [];
-
-    const renderLabel = function(labelinfo) {
-        console.log(labelArray)
-        let dropdownmenu = $("#labels")
-        dropdownmenu.append('<button class="dropdown-item labels none" href="# id = "none">None</button>')
-        for (let i = 0; i < labelArray.length; i++) {
-            let name = labelArray[i].name;
-            let description = labelArray[i].description;
-            let color = labelArray[i].color;
-            let id = labelArray[i].id;
-            dropdownmenu.append(`<button class="dropdown-item labels" href="#" id = "${id}">${name}</button>`)
-            if (description !== undefined)
-            // card.append(`${name}`),
-            {
-                // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${description}</a>`)            
-            }
-            // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${color}</a>`)
-        }
+        // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${color}</a>`)
     }
 }
 
+
 let activeLabels = [];
 
-$(".labels").length
+$(".labels").length;
 
 $("#filter").on("click", ".labels", function() {
     let id = $(this).attr("id");
@@ -364,8 +369,7 @@ const LoadSave = function() {
 const completeLoad = function(jsonobject) {
     let releasedivsquantity = jsonobject.releaseTabIssues.length;
 
-    for(let i = 0; i < releasedivsquantity; i++)
-    {
+    for (let i = 0; i < releasedivsquantity; i++) {
         addNewRelease();
     }
 
@@ -373,16 +377,14 @@ const completeLoad = function(jsonobject) {
     loaderArray = jsonobject.LoaderArray;
     renderDivCards("loader");
 
-    for(let i = 0; i < releasedivsquantity; i++)
-    {
+    for (let i = 0; i < releasedivsquantity; i++) {
         renderDivCards(`${i}`);
     }
 
     ArrowsStartingFrom = jsonobject.ArrowsStartingFrom;
     ArrowsGoingTo = jsonobject.ArrowsGoingTo;
 
-    for(let i = 0; i < releasedivsquantity; i++)
-    {
+    for (let i = 0; i < releasedivsquantity; i++) {
         redrawArrowsForDiv(`${i}`);
     }
 }
@@ -398,7 +400,7 @@ const ClearInfo = function() {
     <tbody>
         <tr id="releasebody"></tr>
     </tbody>`);
-    
+
     $("#loader").empty();
     issueArray = {};
     releaseTabIssues = [];
