@@ -132,7 +132,7 @@ const redrawArrowsForDiv = function(releasediv) {
     let releaseTab = releaseTabIssues[releaseindex];
     for(let i = 0; i < releaseTab.length; i++)
     {
-        redrawArrowsForIssue(releaseTab[i].number);
+        redrawArrowsForIssue(releaseTab[i]);
     }
 }
 
@@ -226,10 +226,11 @@ const queryUserForTransfer = function(issueNumber, newdivID) {
 }
 
 const severAndTransfer = function() {
-    let severparams = $("#severAll").val().split(',');
-    let issueNumber = severparams[0];
-    let newdivID = severparams[1];
-
+    const severparams = $("#severAll").val().split(',');
+    const issueNumber = severparams[0];
+    const newdivID = severparams[1];
+    const parentID = $(`#${issueNumber}`).parent().attr('id');
+    
 
 }
 
