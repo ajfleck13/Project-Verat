@@ -108,20 +108,17 @@ const tryTransferIssue = function(issueNumber, parentID, newdivID) {
 //Splices out the issue from the old div, adds it to the new div
 //Re-renders the cards in the new div
 const transferIssue = function(issueNumber, parentID, newdivID) {
-    let issueobject = null;
     //Remove the current card representing this issue from the html
     $("#" + issueNumber).remove();
 
     if(parentID === "loader")
     {
-        //Find the issue if its in the issue loader and grab it and splice it out
-        for(let i = 0; i < issueArray.length; i++)
+        let index = loaderArray.indexOf(issueNumber);
+ 
+        if (index > -1)
         {
-            if(issueArray[i].number == issueNumber)
-            {
-                issueobject = issueArray[i];
-                issueArray.splice(i, 1);
-            }
+            loaderArray.splice(index, 1);
+            console.log("spliced value");
         }
     }
     else
@@ -129,32 +126,24 @@ const transferIssue = function(issueNumber, parentID, newdivID) {
         //Same as above, but this time use the parentID to get the right array to search/splice from
         const releaseindex = parseInt(parentID);
         let releaseTab = releaseTabIssues[releaseindex];
-        for(let i = 0; i < releaseTab.length; i++)
-        {
-            if(releaseTab[i].number == issueNumber)
-            {
-                issueobject = releaseTab[i];
-                releaseTab.splice(i, 1);
-            }
-        }
-    }
 
-    //Something has gone wrong if this occurs, log an error
-    if(issueobject === null)
-    {
-        console.log(`ERROR: Unable to find issue ${issueNumber}`);
-        return;
+        let index = releaseTab.indexOf(issueNumber);
+ 
+        if (index > -1)
+        {
+            releaseTab.splice(index, 1);
+        }
     }
 
     //Add the issue to the relevant issue holder
     if(newdivID === "loader")
     {
-        issueArray.push(issueobject);
+        loaderArray.push(issueNumber);
     }
     else
     {
         const releaseindex = parseInt(newdivID);
-        releaseTabIssues[releaseindex].push(issueobject);
+        releaseTabIssues[releaseindex].push(issueNumber);
     }
 
     //Re-render the div elements that issue holder has

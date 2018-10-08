@@ -184,10 +184,19 @@ cursor: move;
     pointer-events: none;
 }
 
-.arrowmode {
+.toolbar {
     position: fixed;
     top: 40%;
     right: 30px;
+}
+
+.btn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 .repolinks {
