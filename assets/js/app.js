@@ -2,7 +2,7 @@ const baseURL = "https://api.github.com";
 
 let username = null;
 let repo = null;
-let issueArray = [];
+let issueArray = {};
 let loaderArray = [];
 let releaseTabIssues = [];
 
@@ -241,6 +241,8 @@ const renderDivCards = function(divtorender) {
         console.log(loaderArray);
         for (let i = 0; i < loaderArray.length; i++) {
             console.log(`loader ${loaderArray[i]}`)
+            console.log(issueArray);
+            console.log(issueArray[loaderArray[i]]);
             divtoappend.append(rendercard(issueArray[loaderArray[i]]));
         }
     } else {
@@ -341,6 +343,7 @@ $("#clearStorage").on("click", function() {
 
 const CreateSave = function() {
     let saveobject = {
+        version: 1,
         ArrowsStartingFrom: ArrowStartingFrom,
         ArrowsGoingTo: ArrowsGoingTo,
         LoaderArray: loaderArray,
@@ -371,6 +374,9 @@ const LoadSave = function() {
     }
 
     releaseTabIssues = jsonobject.releaseTabIssues;
+    loaderArray = null;
+    console.log(loaderArray);
+    console.log(jsonobject.LoaderArray);
     loaderArray = jsonobject.LoaderArray;
     console.log(`log array ${loaderArray}`);
     renderDivCards("loader");
@@ -402,7 +408,7 @@ const ClearInfo = function() {
     </tbody>`);
     
     $("#loader").empty();
-    issueArray = [];
+    issueArray = {};
     releaseTabIssues = [];
     username = null;
     repo = null;
