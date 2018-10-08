@@ -190,7 +190,7 @@ cursor: move;
     right: 0px;
 
 }
-.btn{
+.btn-t{
     border: none;
     color: white;
     font-size: 20px;
@@ -199,6 +199,7 @@ cursor: move;
     height: 40px;
     width: 40px;
     padding: 5px;
+    border-radius: 5px;
     
 }
 
