@@ -4,16 +4,8 @@
 
 .release {
     width: 300px;
-    height: 800px;
+    height: 500px;
     background-color: aqua;
-}
-
-
-/* styling for the table */
-
-.scroll {
-    margin-left: 300px;
-    z-index: -1;
 }
 
 
@@ -24,17 +16,48 @@
 }
 
 
+/* styling for the div containing the table */
+
+.scroll {
+    margin-left: 300px;
+    z-index: -1;
+    height: 100%;
+    width: calc(100% - 300px);
+    overflow-x: scroll;
+}
+
+
 /* styling for the loader class */
 
 .loader {
     position: fixed;
-    height: 100%;
-    width: 300px;
-    background-color: black;
-    left: 0;
     top: 0;
+    left: 0;
+    float: left;
+    width: 300px;
+    height: 100%;
+    background-color: black;
     overflow-y: scroll;
-    overflow-x: hidden;
+}
+
+
+#title{
+    background-image: linear-gradient(to right,rgb(14, 170, 14),#006400);
+    height: 80px;
+    text-align: center;
+    color: white;
+    position: fixed;
+    top: 0;
+    font-size: 50px;
+    border: 2px;
+    border-color: white;
+    text-decoration-style: wavy;
+    z-index: 100;
+}
+
+
+.table {
+    margin-top: 120px;
 }
 
 
@@ -90,13 +113,13 @@
 
 
 /* .card:hover {
-    width: 300px;
-    height: 200px;
-    background-color: white;
-    margin-top: 15px;
-    margin-left: 40px;
-    border: yellow 5px solid;
-    cursor: move;
+width: 300px;
+height: 200px;
+background-color: white;
+margin-top: 15px;
+margin-left: 40px;
+border: yellow 5px solid;
+cursor: move;
 } */
 
 
@@ -156,4 +179,14 @@
 
 .issuedisplay {
     width: 70%;
+}
+
+.dropdown-item:hover {
+    background-color: green;
+    color: white;
+}
+
+.button-clicked {
+    background-color: green;
+    color: white;
 }

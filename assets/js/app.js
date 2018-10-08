@@ -12,15 +12,24 @@ let run = function(repositorytext) {
     username = inputArray[0];
     repo = inputArray[1];
 
+    let params = "?" + $.param({
+        "state": "all"
+    })
+
+    urlRepo = baseURL + `/repos/${username}/${repo}/issues` + params,
+
     $.ajax({
-        url: baseURL + `/repos/${username}/${repo}/issues`,
+        url: urlRepo,
         method: "GET",
     }).then(function(response) {
         // console.log(response);
         for (let i = 0; i < response.length; i++) {
+            if (response[i].pull_request) {
+                continue;
+            }
             let issueslabelArray = [];
             for (let a = 0; a < response[i].labels.length; a++) {
-                issueslabelArray.push(response[i].labels[a].id);
+                issueslabelArray.push(`${response[i].labels[a].id}`);
             }
             let issue = {
                 title: response[i].title,
@@ -30,14 +39,19 @@ let run = function(repositorytext) {
                 avatar: response[i].user.avatar_url,
                 html: response[i].user.html_url,
                 labels: issueslabelArray,
+                state: response[i].state,
             };
             issueArray[issue.number] = issue;
             loaderArray.push(issue.number);
         }
+        $('#title').append(`<a href=${urlRepo}>${repo}</a>`)
         renderDivCards("loader");
     })
 
     // label dropdown
+
+    // 
+
 
     // creating an array of the labels which are assigned to the issues in github. 
 
@@ -64,6 +78,7 @@ let run = function(repositorytext) {
     const renderLabel = function(labelinfo) {
         console.log(labelArray)
         let dropdownmenu = $("#labels")
+        dropdownmenu.append('<button class="dropdown-item labels none" href="# id = "none">None</button>')
         for (let i = 0; i < labelArray.length; i++) {
             let name = labelArray[i].name;
             let description = labelArray[i].description;
@@ -79,6 +94,7 @@ let run = function(repositorytext) {
         }
     }
 }
+
 let activeLabels = [];
 
 $(".labels").length
@@ -87,21 +103,31 @@ console.log($(".labels").length);
 
 $("#filter").on("click", ".labels", function() {
     let id = $(this).attr("id");
+    $(this).addClass('button-clicked');
     activeLabels.push(id);
     filter();
     console.log("hello", id);
 })
 
+
+$("#filter").on("click", ".none", function() {
+        activeLabels = [];
+        $(".labels").removeClass('button-clicked');
+        filter();
+    })
+    // changes color of filter button once it is clicked
+
+
+
 // this loops through the issue array and retrieves its info
 // then it loops through the issuelabelarray, and finds if it does not match the elements in the issuearray
 // if so, then it does not display said card. 
 let filter = function() {
-    $("#issuecardcard").attr("display", "block");
+    $(".issuecard").show();
     for (let i = 0; i < loaderArray.length; i++) {
         let issue = issueArray[loaderArray[i]];
         for (let j = 0; j < activeLabels.length; j++) {
             if (!issue.labels.includes(activeLabels[j])) {
-                console.log("trigger");
                 $(`#${issue.number}`).hide();
             }
         }
@@ -161,6 +187,29 @@ for (let i = 0; i < 3; i++) {
     addNewRelease();
 }
 
+
+//creates new release tab buttons
+$("#addReleaseButton").on("click", addNewRelease);
+
+let newIdNum = []; //collecting ids of subsequent NewRelease tabs
+let count = 3; //original loop stooped at 3
+const attr = "button";
+
+//makes the new release tab buttons function like the original three
+$("#addReleaseButton").on("click", function(event) {
+    event.preventDefault();
+    count++;
+    // console.log(count);
+    newIdNum.push("button" + count); //populating newDivs with ids
+    // console.log(newDivs);
+    for (let i = 0; i < newIdNum.length; i++) {
+        if (newIdNum[i]) {
+            $(".releaseHeader").click(renameRelease);
+            $("#submitRelease").click(finishRename);
+        }
+    }
+});
+
 let renamingId;
 const renameRelease = function() {
     $("#modalRelease").show();
@@ -175,7 +224,6 @@ const finishRename = function() {
     if (!newName) {
         return;
     }
-
     buttonToRename.text(newName);
     $("#modalRelease").hide();
     $("#renameRelease").val("");
@@ -252,8 +300,7 @@ if (localStorage.getItem("recentrepos")) {
 
 const data = JSON.parse(localStorage.getItem("recentrepos"));
 //looping through data and calling the appending function
-if(data)
-{
+if (data) {
     data.forEach(item => {
         placeRepo(item);
     });
@@ -268,8 +315,7 @@ $("#submit").on("click", function(event) {
     event.preventDefault();
 
     const input = $("#repository");
-    if(!reposArray.includes(input.val()))
-    {
+    if (!reposArray.includes(input.val())) {
         reposArray.unshift(input.val());
     }
     reposArray = reposArray.slice(0, 4);

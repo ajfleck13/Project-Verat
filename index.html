@@ -13,6 +13,13 @@
 </head>
 
 <body>
+    <!-- Add Navbar -->
+    <div class="">
+            <div id="title"></div>
+
+                    <!-- <a href="https://github.com/ajfleck13/Project-Verat"></a> -->
+
+    <!-- arrow button -->
     <button class="arrowmode" id="arrowbutton">ARROW MODE</button>
 
     <div class="container-fluid">
@@ -26,7 +33,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <p class="alignChild">Add a url to the repository you would like to search, example: https://github.com/ajfleck13/Project-Verat</p>
+                                <p>Add a url to the repository you would like to search, example: https://github.com/ajfleck13/Project-Verat</p>
                             </div>
                             <div class="col-md-6">
                                 <h6>Recent Repos:</h6>
@@ -53,9 +60,7 @@
                         <h5 class="modal-title" id="exampleModalLongTitle">Rename Release</h5>
                     </div>
                     <div class="modal-body">
-                        <p>
-                            Change release name:
-                        </p>
+                        <p>Change release name:</p>
                         <br>
                         <input class="form-control" id="renameRelease">
                     </div>
@@ -119,38 +124,43 @@
             </div>
             </div>
         </div>
-
+        <!-- Holding area for cards -->
         <div class="loader">
             <div id="filter" class="text-center">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dropdown button
-                </button>
+                    </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="labels">
                     </div>
                 </div>
                 <div id="loader">
-
                 </div>
             </div>
-
-            <div class="resetButton">
-                <button type="button" class="btn btn-danger" id="resetButton">Reset</button>
-            </div>
+        </div>
+        <div class="resetButton">
+            <button type="button" class="btn btn-danger" id="resetButton">Reset</button>
         </div>
 
         <div class="addReleaseButton">
             <button type="button" class="btn btn-success" id="addReleaseButton">Add Release</button>
         </div>
-
-        <table class="table scroll" id="scrollcontainer">
-            <thead>
-                <tr id="releaseheader"></tr>
-            </thead>
-            <tbody>
-                <tr id="releasebody"></tr>
-            </tbody>
-        </table>
+        <!-- Holding area for tables -->
+        <div class="scroll">
+            <!-- Add Navbar -->
+            <div class="title text-white">
+                <h1>PROJECT VERAT</h1>
+                <!-- <a href="https://github.com/ajfleck13/Project-Verat" style="color:white">Verat</a> -->
+            </div>
+            <table class="table" id="scrollcontainer">
+                <thead>
+                    <tr id="releaseheader"></tr>
+                </thead>
+                <tbody>
+                    <tr id="releasebody"></tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
