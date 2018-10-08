@@ -196,7 +196,7 @@ const renderDivCards = function(divtorender) {
             divtoappend.append(rendercard(releaseTab[i]));
         }
     }
-    $(".issuecard").click(showIssueInformationModal);
+    //$(".issuecard").click(showIssueInformationModal);
     $(".issuecard").mousedown(startDragging);
 }
 
