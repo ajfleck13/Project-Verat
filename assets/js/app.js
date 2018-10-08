@@ -232,26 +232,29 @@ let renamesubmit = $('#submitRelease');
 renamesubmit.click(finishRename);
 
 const renderDivCards = function(divtorender) {
-    console.log("issue array");
-    console.log(issueArray);
+    // console.log("issue array");
+    // console.log(issueArray);
     let divtoappend = $("#" + divtorender);
     divtoappend.empty();
     if (divtorender === "loader") {
-        console.log("loader");
-        console.log(loaderArray);
+        // console.log("loader");
+        // console.log(loaderArray);
         for (let i = 0; i < loaderArray.length; i++) {
-            console.log(`loader ${loaderArray[i]}`)
-            console.log(issueArray);
-            console.log(issueArray[loaderArray[i]]);
+            // console.log(`loader ${loaderArray[i]}`)
+            // console.log(issueArray);
+            // console.log(issueArray[loaderArray[i]]);
             divtoappend.append(rendercard(issueArray[loaderArray[i]]));
         }
     } else {
         const releaseindex = parseInt(divtorender);
         let releaseTab = releaseTabIssues[releaseindex];
-        console.log("yes release tab");
-        console.log(releaseTab);
+        // console.log("yes release tab");
+        // console.log(releaseTab);
+        // console.log(issueArray);
+        // console.log(Object.keys(issueArray));
+        // console.log(issueArray);
         for (let i = 0; i < releaseTab.length; i++) {
-            divtoappend.append(rendercard(issueArray[releaseTab[i]]));
+            divtoappend.append(rendercard(issueArray[parseInt(releaseTab[i])]));
         }
     }
     //$(".issuecard").click(showIssueInformationModal);
@@ -288,7 +291,7 @@ const label = function() {}
 const reset = function() {
     location.reload();
 }
-$("#resetButton").on("click", reset);
+$("#resetbutton").on("click", reset);
 
 
 //***************************************************************/
@@ -379,7 +382,7 @@ const LoadSave = function() {
     console.log(jsonobject.LoaderArray);
     loaderArray = jsonobject.LoaderArray;
     console.log(`log array ${loaderArray}`);
-    renderDivCards("loader");
+    //renderDivCards("loader");
 
     for(let i = 0; i < releasedivsquantity; i++)
     {
