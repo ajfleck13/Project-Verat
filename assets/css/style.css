@@ -40,16 +40,21 @@
     overflow-y: scroll;
 }
 
-.title {
-    background-image: linear-gradient(to right, rgb(14, 170, 14), #006400);
-    height: 100px;
-    width: 100%;
+
+#title{
+    background-image: linear-gradient(to right,rgb(14, 170, 14),#006400);
+    height: 80px;
+    text-align: center;
+    color: white;
     position: fixed;
     top: 0;
+    font-size: 50px;
+    border: 2px;
+    border-color: white;
     text-decoration-style: wavy;
-    padding: 30px 0 80px 400px;
     z-index: 100;
 }
+
 
 .table {
     margin-top: 120px;
