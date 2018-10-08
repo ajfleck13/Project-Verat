@@ -38,12 +38,14 @@
     overflow-x: hidden;
 }
 
-.title{
+#title{
     background-image: linear-gradient(to right,rgb(14, 170, 14),#006400);
     height: 80px;
     text-align: center;
-    text-decoration-style: wavy;
-    padding: 25px 50px 75px;
+    color: white;
+    font-size: 50px;
+    border: 2px;
+    border-color: white;
 }
 
 /* styling for the red reset button */
