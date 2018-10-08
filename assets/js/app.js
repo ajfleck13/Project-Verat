@@ -15,76 +15,67 @@ let run = function(repositorytext, saveobject) {
     username = inputArray[0];
     repo = inputArray[1];
 
+    console.log(inputArray);
+
     let params = "?" + $.param({
         "state": "all"
     })
 
     urlRepo = baseURL + `/repos/${username}/${repo}/issues` + params,
 
-        $.ajax({
-            url: urlRepo,
-            method: "GET",
-        }).then(function(response) {
-            // console.log(response);
-            for (let i = 0; i < response.length; i++) {
-                if (response[i].pull_request) {
-                    continue;
-                }
-                let issueslabelArray = [];
-                for (let a = 0; a < response[i].labels.length; a++) {
-                    issueslabelArray.push(`${response[i].labels[a].id}`);
-                }
-                let issues = {
-                    title: response[i].title,
-                    body: response[i].body,
-                    number: response[i].number,
-                    login: response[i].user.login,
-                    avatar: response[i].user.avatar_url,
-                    html: response[i].user.html_url,
-                    labels: issueslabelArray,
-                    state: response[i].state,
-                };
-                issueArray.push(issues);
-
+    $.ajax({
+        url: urlRepo,
+        method: "GET",
+    }).then(function(response) {
+        // console.log(response);
+        for (let i = 0; i < response.length; i++) {
+            if (response[i].pull_request) {
+                continue;
             }
-            $('#title').html(`<a href="https://github.com/${username}/${repo}">${repo}</a>`)
-            renderDivCards("loader");
-      
-            if(saveobject !== null)
-            {
+            let issueslabelArray = [];
+            for (let a = 0; a < response[i].labels.length; a++) {
+                issueslabelArray.push(`${response[i].labels[a].id}`);
+            }
+            let issue = {
+                title: response[i].title,
+                body: response[i].body,
+                number: response[i].number,
+                login: response[i].user.login,
+                avatar: response[i].user.avatar_url,
+                html: response[i].user.html_url,
+                labels: issueslabelArray,
+                state: response[i].state,
+            };
+            issueArray[`${issue.number}`] = issue;
+            loaderArray.push(`${issue.number}`);
+
+        }
+        $('#title').html(`<a href="https://github.com/${username}/${repo}">${repo}</a>`)
+        renderDivCards("loader");
+    
+        if(saveobject)
+        {
             completeLoad(saveobject);
-            }
-        })
+        }
+    })
 
-    // label dropdown
-    // 
-    // creating an array of the labels which are assigned to the issues in github. 
-
-    renderDivCards("loader");
+    $.ajax({
+        url: baseURL + `/repos/${username}/${repo}/labels`,
+        method: "GET"
+    }).then(function(response) {
+        console.log(response);
+        for (let i = 0; i < response.length; i++) {
+            let labels = {
+                name: response[i].name,
+                description: response[i].description,
+                color: response[i].color,
+                id: response[i].id,
+            };
+            labelArray.push(labels);
+        }
+        renderLabel();
+    })
 };
-
-
-// label dropdown
-// 
-// creating an array of the labels which are assigned to the issues in github. 
-
-
-$.ajax({
-    url: baseURL + `/repos/${username}/${repo}/labels`,
-    method: "GET"
-}).then(function(response) {
-    console.log(response);
-    for (let i = 0; i < response.length; i++) {
-        let labels = {
-            name: response[i].name,
-            description: response[i].description,
-            color: response[i].color,
-            id: response[i].id,
-        };
-        labelArray.push(labels);
-    }
-    renderLabel();
-})
 
 let labelArray = [];
 
