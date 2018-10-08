@@ -9,26 +9,21 @@
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="assets/library/fontawesome.min.css">
     <link rel=“stylesheet” href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
     <title>Project Verat</title>
 </head>
 
 <body>
-    <!-- Add Navbar -->
-    <div class="">
-            <div id="title"></div>
-
-                    <!-- <a href="https://github.com/ajfleck13/Project-Verat"></a> -->
-
     <!-- arrow button -->
 
     <div class = "toolbar">
-        <button class="btn" id="arrowbutton"><i class="fas fa-home"></i></button><br>
-        <button class="reset" id="resetbutton">Reset</button> <br>
-        <button class="save" id="savebutton">Save</button> <br>
-        <button class="select" id="selectbutton">Select</button> <br>
-        <button class="load" id="loadbutton">Load</button> <br>
+        <button class="btn-t" id="arrowbutton"><i class="fas fa-arrows-alt-h"></i></button><br>
+        <button class="btn-t" id="resetbutton"><i class="fas fa-window-restore"></i></button> <br>
+        <button class="btn-t" id="savebutton"><i class="far fa-save"></i></button><br>
+        <button class="btn-t" id="selectbutton"><i class="fas fa-mouse-pointer"></i></button><br>
+        <button class="btn-t" id="loadbutton"><i class="fas fa-upload"></i></button><br>
     </div>
 
     <div class="container-fluid">
@@ -102,35 +97,35 @@
                 </div>
             </div>
         </div>
-      
+
         <!-- Issue Display Modal -->
         <div class="modal fade" id="showIssueInformation" tabindex="-1" role="dialog" aria-labelledby="showIssueInformation" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
+                <div class="modal-content">
 
-                <div class="modal-header">
-                <h5 class="modal-title" id="issueTitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="issueTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                </div>
+                    </div>
 
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col col-lg-10">
-                                <table>
-                                    <tbody id="issueComments"></tbody>
-                                </table>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col col-lg-10">
+                                    <table>
+                                        <tbody id="issueComments"></tbody>
+                                    </table>
+                                </div>
+                                <div class="col col-lg-2"></div>
                             </div>
-                            <div class="col col-lg-2"></div>
                         </div>
                     </div>
-                </div>
 
-                <div class="modal-footer">
+                    <div class="modal-footer">
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
         <!-- Holding area for cards -->
@@ -154,9 +149,8 @@
         <!-- Holding area for tables -->
         <div class="scroll">
             <!-- Add Navbar -->
-            <div class="title text-white">
-                <h1>PROJECT VERAT</h1>
-                <!-- <a href="https://github.com/ajfleck13/Project-Verat" style="color:white">Verat</a> -->
+            <div class="title">
+                <a target="_blank" id="title" class="display-4" href=""></a>
             </div>
             <table class="table" id="scrollcontainer">
                 <thead>

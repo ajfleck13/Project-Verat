@@ -34,7 +34,7 @@ let run = function(repositorytext, saveobject) {
             for (let a = 0; a < response[i].labels.length; a++) {
                 issueslabelArray.push(`${response[i].labels[a].id}`);
             }
-            let issue = {
+            let issues = {
                 title: response[i].title,
                 body: response[i].body,
                 number: response[i].number,
@@ -44,10 +44,10 @@ let run = function(repositorytext, saveobject) {
                 labels: issueslabelArray,
                 state: response[i].state,
             };
-            issueArray[`${issue.number}`] = issue;
-            loaderArray.push(`${issue.number}`);
+            issueArray.push(issues);
+
         }
-        $('#title').html(`<a href=${urlRepo}>${repo}</a>`)
+        $('#title').html(`<a href="https://github.com/${username}/${repo}">${repo}</a>`)
         renderDivCards("loader");
 
         if(saveobject !== null)
@@ -174,7 +174,7 @@ const addNewRelease = function() {
     }
 
     let newheader = $(`<th scope="col">`);
-    newheader.append(`<button class="releaseHeader" id="button${newreleaseID}">NewRelease</button>`);
+    newheader.append(`<button class="releaseHeader btn btn-outline-success" id="button${newreleaseID}">NewRelease</button>`);
     releaseheader.append(newheader)
 
     let newdiv = $(`<td>`);

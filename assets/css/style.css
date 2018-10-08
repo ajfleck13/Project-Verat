@@ -5,7 +5,7 @@
 .release {
     width: 300px;
     height: 500px;
-    background-color: aqua;
+    border: #006400 solid 2px;
 }
 
 
@@ -40,24 +40,42 @@
     overflow-y: scroll;
 }
 
-
-#title{
-    background-image: linear-gradient(to right,rgb(14, 170, 14),#006400);
-    height: 80px;
-    text-align: center;
-    color: white;
+.title {
+    background-color: #006400;
+    height: 100px;
+    width: 100%;
     position: fixed;
     top: 0;
-    font-size: 50px;
-    border: 2px;
-    border-color: white;
-    text-decoration-style: wavy;
     z-index: 100;
 }
 
+#title>a {
+    font-family: 'Raleway', sans-serif;
+    position: absolute;
+    left: 0;
+    line-height: 100px;
+    color: white;
+    text-decoration: none;
+    padding-left: 10px;
+    text-transform: uppercase;
+}
+
+.title>a:hover {
+    text-decoration: none;
+}
 
 .table {
     margin-top: 120px;
+}
+
+
+/* styling for new release tabs/buttons */
+
+.releaseHeader {
+    font-weight: bold;
+    text-align: right;
+    margin-left: 85px;
+    border-radius: 5px;
 }
 
 
@@ -169,16 +187,25 @@ cursor: move;
  .toolbar{
     position: fixed;
     top: 40%;
-    right: 30px;
+    right: 0px;
 
 }
-.btn {
-    background-color: DodgerBlue;
+.btn-t{
     border: none;
     color: white;
-    padding: 12px 16px;
-    font-size: 16px;
+    font-size: 20px;
     cursor: pointer;
+    background-color: #3a9c3a;
+    height: 40px;
+    width: 40px;
+    padding: 5px;
+    border-radius: 5px;
+    
+}
+
+.btn-t:hover{
+    border: solid;
+    border-color: white;
 }
 
 .repolinks {
@@ -200,6 +227,3 @@ cursor: move;
     color: white;
 }
 
-.toolbar{
-  
-}
