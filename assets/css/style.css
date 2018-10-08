@@ -199,7 +199,26 @@ cursor: move;
     height: 40px;
     width: 40px;
     padding: 5px;
+    border-radius: 5px;
 }
+
+.btn-tr{
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: rgb(248, 50, 50);
+    height: 40px;
+    width: 40px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.btn-tr:hover {
+    border: solid;
+    border-color: white;
+}
+
 
 .btn-t:hover {
     border: solid;

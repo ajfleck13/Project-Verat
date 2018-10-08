@@ -186,14 +186,14 @@ for (let i = 0; i < 3; i++) {
 
 
 //creates new release tab buttons
-$("#addReleaseButton").on("click", addNewRelease);
+$("#addbutton").on("click", addNewRelease);
 
 let newIdNum = []; //collecting ids of subsequent NewRelease tabs
 let count = 3; //original loop stooped at 3
 const attr = "button";
 
 //makes the new release tab buttons function like the original three
-$("#addReleaseButton").on("click", function(event) {
+$("#addbutton").on("click", function(event) {
     event.preventDefault();
     count++;
     // console.log(count);
