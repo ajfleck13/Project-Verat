@@ -55,19 +55,19 @@ let run = function(repositorytext) {
                     avatar: response[i].user.avatar_url,
                     html: response[i].user.html_url,
                     labels: issueslabelArray,
-                    state: response[i].state
+                    state: response[i].state,
                 };
                 issueArray[`${issue.number}`] = issue;
                 loaderArray.push(`${issue.number}`);
             }
-            $('#title').append(`<a href=${urlRepo}>${repo}</a>`); renderDivCards("loader");
+            $('#title').append(`<a href=${urlRepo}>${repo}</a>`);
+
+            renderDivCards("loader");
         });
+}
 
 // label dropdown
-
 // 
-
-
 // creating an array of the labels which are assigned to the issues in github. 
 
 
@@ -108,7 +108,7 @@ const renderLabel = function(labelinfo) {
         // dropdownmenu.append(`<a class="dropdown-item" href="#" id = "#labels">${color}</a>`)
     }
 }
-}
+
 
 let activeLabels = [];
 
