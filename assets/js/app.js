@@ -2,7 +2,7 @@ const baseURL = "https://api.github.com";
 
 let username = null;
 let repo = null;
-let issueArray = [];
+let issueArray = {};
 let loaderArray = [];
 let releaseTabIssues = [];
 
@@ -25,29 +25,16 @@ let run = function(repositorytext) {
             url: urlRepo,
             method: "GET",
         }).then(function(response) {
-                // console.log(response);
-                for (let i = 0; i < response.length; i++) {
-                    if (response[i].pull_request) {
-                        continue;
-                    }
-                    let issueslabelArray = [];
-                    for (let a = 0; a < response[i].labels.length; a++) {
-                        issueslabelArray.push(`${response[i].labels[a].id}`);
-                    }
-                    let issues = {
-                        title: response[i].title,
-                        body: response[i].body,
-                        number: response[i].number,
-                        login: response[i].user.login,
-                        avatar: response[i].user.avatar_url,
-                        html: response[i].user.html_url,
-                        labels: issueslabelArray,
-                        state: response[i].state,
-                    };
-                    issueArray.push(issues);
-
+            // console.log(response);
+            for (let i = 0; i < response.length; i++) {
+                if (response[i].pull_request) {
+                    continue;
                 }
-                let issue = {
+                let issueslabelArray = [];
+                for (let a = 0; a < response[i].labels.length; a++) {
+                    issueslabelArray.push(`${response[i].labels[a].id}`);
+                }
+                let issues = {
                     title: response[i].title,
                     body: response[i].body,
                     number: response[i].number,
@@ -57,14 +44,20 @@ let run = function(repositorytext) {
                     labels: issueslabelArray,
                     state: response[i].state,
                 };
-                issueArray[`${issue.number}`] = issue;
-                loaderArray.push(`${issue.number}`);
-            }
-            $('#title').append(`<a href=${urlRepo}>${repo}</a>`);
+                issueArray.push(issues);
 
+            }
+            $('#title').append(`<a href="https://github.com/${username}/${repo}">${repo}</a>`)
             renderDivCards("loader");
-        });
-}
+        })
+
+    // label dropdown
+    // 
+    // creating an array of the labels which are assigned to the issues in github. 
+
+    renderDivCards("loader");
+};
+
 
 // label dropdown
 // 
@@ -253,6 +246,8 @@ const renderDivCards = function(divtorender) {
         console.log(loaderArray);
         for (let i = 0; i < loaderArray.length; i++) {
             console.log(`loader ${loaderArray[i]}`)
+            console.log(issueArray);
+            console.log(issueArray[loaderArray[i]]);
             divtoappend.append(rendercard(issueArray[loaderArray[i]]));
         }
     } else {
@@ -353,6 +348,7 @@ $("#clearStorage").on("click", function() {
 
 const CreateSave = function() {
     let saveobject = {
+        version: 1,
         ArrowsStartingFrom: ArrowStartingFrom,
         ArrowsGoingTo: ArrowsGoingTo,
         LoaderArray: loaderArray,
@@ -382,6 +378,9 @@ const LoadSave = function() {
     }
 
     releaseTabIssues = jsonobject.releaseTabIssues;
+    loaderArray = null;
+    console.log(loaderArray);
+    console.log(jsonobject.LoaderArray);
     loaderArray = jsonobject.LoaderArray;
     console.log(`log array ${loaderArray}`);
     renderDivCards("loader");
@@ -411,7 +410,7 @@ const ClearInfo = function() {
     </tbody>`);
 
     $("#loader").empty();
-    issueArray = [];
+    issueArray = {};
     releaseTabIssues = [];
     username = null;
     repo = null;
