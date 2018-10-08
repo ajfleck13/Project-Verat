@@ -2,6 +2,9 @@ const baseURL = "https://api.github.com";
 
 let username = null;
 let repo = null;
+let issueArray = [];
+let loaderArray = [];
+let releaseTabIssues = [];
 
 $('#Modalsubmit').show();
 
@@ -41,8 +44,8 @@ let run = function(repositorytext) {
                 labels: issueslabelArray,
                 state: response[i].state,
             };
-            issueArray[issue.number] = issue;
-            loaderArray.push(issue.number);
+            issueArray[`${issue.number}`] = issue;
+            loaderArray.push(`${issue.number}`);
         }
         $('#title').append(`<a href=${urlRepo}>${repo}</a>`)
         renderDivCards("loader");
@@ -155,10 +158,6 @@ modalsubmit.click(function() {
     run(repotext);
 });
 
-let issueArray = [];
-let loaderArray = [];
-let releaseTabIssues = [];
-
 const addNewRelease = function() {
     const releaseheader = $("#releaseheader");
     const releasebody = $("#releasebody");
@@ -233,15 +232,22 @@ let renamesubmit = $('#submitRelease');
 renamesubmit.click(finishRename);
 
 const renderDivCards = function(divtorender) {
+    console.log("issue array");
+    console.log(issueArray);
     let divtoappend = $("#" + divtorender);
     divtoappend.empty();
     if (divtorender === "loader") {
+        console.log("loader");
+        console.log(loaderArray);
         for (let i = 0; i < loaderArray.length; i++) {
+            console.log(`loader ${loaderArray[i]}`)
             divtoappend.append(rendercard(issueArray[loaderArray[i]]));
         }
     } else {
         const releaseindex = parseInt(divtorender);
         let releaseTab = releaseTabIssues[releaseindex];
+        console.log("yes release tab");
+        console.log(releaseTab);
         for (let i = 0; i < releaseTab.length; i++) {
             divtoappend.append(rendercard(issueArray[releaseTab[i]]));
         }
@@ -337,6 +343,7 @@ const CreateSave = function() {
     let saveobject = {
         ArrowsStartingFrom: ArrowStartingFrom,
         ArrowsGoingTo: ArrowsGoingTo,
+        LoaderArray: loaderArray,
         releaseTabIssues: releaseTabIssues,
         Username: username,
         Repo: repo,
@@ -345,9 +352,60 @@ const CreateSave = function() {
     alert(JSON.stringify(saveobject));
 }
 
+$("#savebutton").click(CreateSave);
+
 const LoadSave = function() {
-    let json = $(this).val();
+    let json = prompt("Give us your save");
     let jsonobject = JSON.parse(json);
+
+    console.log(jsonobject);
+
+    ClearInfo();
+
+    run(`${jsonobject.Username}/${jsonobject.Repo}`);
+    let releasedivsquantity = jsonobject.releaseTabIssues.length;
+
+    for(let i = 0; i < releasedivsquantity; i++)
+    {
+        addNewRelease();
+    }
+
+    releaseTabIssues = jsonobject.releaseTabIssues;
+    loaderArray = jsonobject.LoaderArray;
+    console.log(`log array ${loaderArray}`);
+    renderDivCards("loader");
+
+    for(let i = 0; i < releasedivsquantity; i++)
+    {
+        renderDivCards(`${i}`);
+    }
+
+    ArrowsStartingFrom = jsonobject.ArrowsStartingFrom;
+    ArrowsGoingTo = jsonobject.ArrowsGoingTo;
+
+    for(let i = 0; i < releasedivsquantity; i++)
+    {
+        redrawArrowsForDiv(`${i}`);
+    }
 }
 
-$("#saveButton").click(CreateSave);
+$("#loadbutton").click(LoadSave);
+
+const ClearInfo = function() {
+    let scrollcontainer = $("#scrollcontainer").empty();
+    scrollcontainer.append(`
+    <thead>
+        <tr id="releaseheader"></tr>
+    </thead>
+    <tbody>
+        <tr id="releasebody"></tr>
+    </tbody>`);
+    
+    $("#loader").empty();
+    issueArray = [];
+    releaseTabIssues = [];
+    username = null;
+    repo = null;
+    ArrowStartingFrom = {};
+    ArrowsGoingTo = {};
+}

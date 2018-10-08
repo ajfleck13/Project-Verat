@@ -118,6 +118,7 @@ const transferIssue = function(issueNumber, parentID, newdivID) {
         if (index > -1)
         {
             loaderArray.splice(index, 1);
+            console.log("spliced value");
         }
     }
     else
