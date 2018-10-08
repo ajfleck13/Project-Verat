@@ -1,7 +1,7 @@
 const baseURL = "https://api.github.com";
 
-let username = null;
-let repo = null;
+let Username = null;
+let Repo = null;
 
 $('#Modalsubmit').show();
 
@@ -9,11 +9,11 @@ let run = function(repositorytext) {
     $('#Modalsubmit').hide();
 
     let inputArray = repositorytext.split("/");
-    username = inputArray[0];
-    repo = inputArray[1];
+    Username = inputArray[0];
+    Repo = inputArray[1];
 
     $.ajax({
-        url: baseURL + `/repos/${username}/${repo}/issues`,
+        url: baseURL + `/repos/${Username}/${Repo}/issues`,
         method: "GET",
     }).then(function(response) {
         // console.log(response);
@@ -22,7 +22,7 @@ let run = function(repositorytext) {
             for (let a = 0; a < response[i].labels.length; a++) {
                 issueslabelArray.push(response[i].labels[a].id);
             }
-            let issues = {
+            let issue = {
                 title: response[i].title,
                 body: response[i].body,
                 number: response[i].number,
@@ -31,7 +31,8 @@ let run = function(repositorytext) {
                 html: response[i].user.html_url,
                 labels: issueslabelArray,
             };
-            issueArray.push(issues);
+            issueArray[issue.number] = issue;
+            loaderArray.push(issue.number);
         }
         renderDivCards("loader");
     })
@@ -42,7 +43,7 @@ let run = function(repositorytext) {
 
 
     $.ajax({
-        url: baseURL + `/repos/${username}/${repo}/labels`,
+        url: baseURL + `/repos/${Username}/${Repo}/labels`,
         method: "GET"
     }).then(function(response) {
         console.log(response);
@@ -96,8 +97,8 @@ $("#filter").on("click", ".labels", function() {
 // if so, then it does not display said card. 
 let filter = function() {
     $("#issuecardcard").attr("display", "block");
-    for (let i = 0; i < issueArray.length; i++) {
-        let issue = issueArray[i];
+    for (let i = 0; i < loaderArray.length; i++) {
+        let issue = issueArray[loaderArray[i]];
         for (let j = 0; j < activeLabels.length; j++) {
             if (!issue.labels.includes(activeLabels[j])) {
                 console.log("trigger");
@@ -129,6 +130,7 @@ modalsubmit.click(function() {
 });
 
 let issueArray = [];
+let loaderArray = [];
 let releaseTabIssues = [];
 
 const addNewRelease = function() {
@@ -186,14 +188,14 @@ const renderDivCards = function(divtorender) {
     let divtoappend = $("#" + divtorender);
     divtoappend.empty();
     if (divtorender === "loader") {
-        for (let i = 0; i < issueArray.length; i++) {
-            divtoappend.append(rendercard(issueArray[i]));
+        for (let i = 0; i < loaderArray.length; i++) {
+            divtoappend.append(rendercard(issueArray[loaderArray[i]]));
         }
     } else {
         const releaseindex = parseInt(divtorender);
         let releaseTab = releaseTabIssues[releaseindex];
         for (let i = 0; i < releaseTab.length; i++) {
-            divtoappend.append(rendercard(releaseTab[i]));
+            divtoappend.append(rendercard(issueArray[releaseTab[i]]));
         }
     }
     //$(".issuecard").click(showIssueInformationModal);
@@ -279,3 +281,25 @@ $("#clearStorage").on("click", function() {
     localStorage.clear();
     $("#recentRepos").empty();
 });
+
+
+//SAVING && LOADING
+
+const CreateSave = function() {
+    let saveobject = {
+        ArrowsStartingFrom: ArrowStartingFrom,
+        ArrowsGoingTo: ArrowsGoingTo,
+        releaseTabIssues: releaseTabIssues,
+        Username: Username,
+        Repo: Repo,
+    }
+
+    alert(JSON.stringify(saveobject));
+}
+
+const LoadSave = function() {
+    let json = $(this).val();
+    let jsonobject = JSON.parse(json);
+}
+
+$("#saveButton").click(CreateSave);
