@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+    <link rel="stylesheet" href="assets/library/fontawesome.min.css">
+    <link rel=“stylesheet” href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
     <title>Project Verat</title>
 </head>
 
@@ -20,7 +22,13 @@
                     <!-- <a href="https://github.com/ajfleck13/Project-Verat"></a> -->
 
     <!-- arrow button -->
-    <button class="arrowmode" id="arrowbutton">ARROW MODE</button>
+
+    <div class = "toolbar">
+        <button class="btn" id="arrowbutton"><i class="fas fa-home"></i></button><br>
+        <button class="reset" id="resetbutton">Reset</button> <br>
+        <button class="save" id="savebutton">Save</button> <br>
+        <button class="select" id="selectbutton">Select</button> <br>
+    </div>
 
     <div class="container-fluid">
         <!-- Startup Modal -->
@@ -138,9 +146,6 @@
                 </div>
             </div>
         </div>
-        <div class="resetButton">
-            <button type="button" class="btn btn-danger" id="resetButton">Reset</button>
-        </div>
 
         <div class="addReleaseButton">
             <button type="button" class="btn btn-success" id="addReleaseButton">Add Release</button>
@@ -158,6 +163,7 @@
                 </thead>
                 <tbody>
                     <tr id="releasebody"></tr>
+
                 </tbody>
             </table>
         </div>
@@ -170,6 +176,7 @@
     <script src="assets/js/dragging.js"></script>
     <script src="assets/js/arrow.js"></script>
     <script src="assets/js/issuewindow.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" integrity=“sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB” crossorigin=“anonymous”></script>
 </body>
 
 </html>
