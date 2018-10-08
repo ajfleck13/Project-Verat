@@ -76,6 +76,50 @@
             </div>
         </div>
 
+        <!-- Severing Arrows Modal -->
+        <div class="modal fade" id="verifyCardMovement" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Force Move Issue?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Do you want to sever future release arrows to this issue?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="sever">Sever Issues</button>
+                        <button type="button" class="btn btn-primary" id="severAll">Sever All Issues</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+        <div class="modal" id="modalRelease" tabindex="-1" role="dialog" aria-labelledby="Modalsubmit" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Rename Release</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Change release name:
+                        </p>
+                        <br>
+                        <input class="form-control" id="renameRelease">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="submitRelease">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="loader">
             <div id="filter" class="text-center">
                 <div class="dropdown">

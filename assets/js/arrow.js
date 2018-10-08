@@ -177,6 +177,7 @@ const removeArrowsForIssue = function(issueNumber) {
             $(`#${issueNumber}and${arrowsFromArray[i]}`).remove();
         }
     }
+    delete ArrowStartingFrom[issueNumber];
 
     let arrowsGoingToArray = ArrowsGoingTo[issueNumber];
     if(arrowsGoingToArray && arrowsGoingToArray.length)
@@ -186,6 +187,7 @@ const removeArrowsForIssue = function(issueNumber) {
             $(`#${arrowsGoingToArray[i]}and${issueNumber}`).remove();
         }
     }
+    delete ArrowsGoingTo[issueNumber];
 }
 
 const verifyCardMoveAllowed = function(issueNumber, newdivID) {
@@ -201,10 +203,49 @@ const verifyCardMoveAllowed = function(issueNumber, newdivID) {
 
             if(newdivIDNumber < startingfromdiv)
             {
-                //QueryUserForAction();
+                queryUserForTransfer(issueNumber, newdivID);
                 return false;
             }
         }
     }
     return true;
 }
+
+const queryUserForTransfer = function(issueNumber, newdivID) {
+    $("#severAll").val(`${issueNumber},${newdivID}`);
+    if(newdivID === "loader")
+    {
+        $("#sever").hide();
+    }
+    else
+    {
+        $("#sever").show();
+    }
+
+    $("#verifyCardMovement").modal();
+}
+
+const severAndTransfer = function() {
+    let severparams = $("#severAll").val().split(',');
+    let issueNumber = severparams[0];
+    let newdivID = severparams[1];
+
+
+}
+
+const severAllAndTransfer = function() {
+    const severparams = $("#severAll").val().split(',');
+    const issueNumber = severparams[0];
+    const newdivID = severparams[1];
+    console.log(issueNumber);
+    console.log(newdivID);
+    const parentID = $(`#${issueNumber}`).parent().attr('id');
+    console.log(parentID);
+
+    removeArrowsForIssue(issueNumber);
+    transferIssue(issueNumber, parentID, newdivID)
+    $('#verifyCardMovement').modal('hide')
+}
+
+$("#sever").click(severAndTransfer);
+$("#severAll").click(severAllAndTransfer);
