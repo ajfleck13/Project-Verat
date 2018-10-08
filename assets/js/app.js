@@ -13,8 +13,10 @@ let run = function(repositorytext) {
         "state": "all"
     })
 
+    urlRepo = baseURL + `/repos/${username}/${repo}/issues` + params,
+
     $.ajax({
-        url: baseURL + `/repos/${username}/${repo}/issues` + params,
+        url: urlRepo,
         method: "GET",
     }).then(function(response) {
         // console.log(response);
@@ -37,11 +39,16 @@ let run = function(repositorytext) {
                 state: response[i].state,
             };
             issueArray.push(issues);
+            
         }
+        $('#title').append(`<a href=${urlRepo}>${repo}</a>`)
         renderDivCards("loader");
     })
 
     // label dropdown
+
+    // 
+
 
     // creating an array of the labels which are assigned to the issues in github. 
 
