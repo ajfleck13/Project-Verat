@@ -1,7 +1,7 @@
 const baseURL = "https://api.github.com";
 
-let Username = null;
-let Repo = null;
+let username = null;
+let repo = null;
 
 $('#Modalsubmit').show();
 
@@ -9,11 +9,11 @@ let run = function(repositorytext) {
     $('#Modalsubmit').hide();
 
     let inputArray = repositorytext.split("/");
-    Username = inputArray[0];
-    Repo = inputArray[1];
+    username = inputArray[0];
+    repo = inputArray[1];
 
     $.ajax({
-        url: baseURL + `/repos/${Username}/${Repo}/issues`,
+        url: baseURL + `/repos/${username}/${repo}/issues`,
         method: "GET",
     }).then(function(response) {
         // console.log(response);
@@ -43,7 +43,7 @@ let run = function(repositorytext) {
 
 
     $.ajax({
-        url: baseURL + `/repos/${Username}/${Repo}/labels`,
+        url: baseURL + `/repos/${username}/${repo}/labels`,
         method: "GET"
     }).then(function(response) {
         console.log(response);
@@ -290,8 +290,8 @@ const CreateSave = function() {
         ArrowsStartingFrom: ArrowStartingFrom,
         ArrowsGoingTo: ArrowsGoingTo,
         releaseTabIssues: releaseTabIssues,
-        Username: Username,
-        Repo: Repo,
+        Username: username,
+        Repo: repo,
     }
 
     alert(JSON.stringify(saveobject));
