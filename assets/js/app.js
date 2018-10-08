@@ -18,35 +18,35 @@ let run = function(repositorytext) {
 
     urlRepo = baseURL + `/repos/${username}/${repo}/issues` + params,
 
-    $.ajax({
-        url: urlRepo,
-        method: "GET",
-    }).then(function(response) {
-        // console.log(response);
-        for (let i = 0; i < response.length; i++) {
-            if (response[i].pull_request) {
-                continue;
+        $.ajax({
+            url: urlRepo,
+            method: "GET",
+        }).then(function(response) {
+            // console.log(response);
+            for (let i = 0; i < response.length; i++) {
+                if (response[i].pull_request) {
+                    continue;
+                }
+                let issueslabelArray = [];
+                for (let a = 0; a < response[i].labels.length; a++) {
+                    issueslabelArray.push(`${response[i].labels[a].id}`);
+                }
+                let issues = {
+                    title: response[i].title,
+                    body: response[i].body,
+                    number: response[i].number,
+                    login: response[i].user.login,
+                    avatar: response[i].user.avatar_url,
+                    html: response[i].user.html_url,
+                    labels: issueslabelArray,
+                    state: response[i].state,
+                };
+                issueArray.push(issues);
+
             }
-            let issueslabelArray = [];
-            for (let a = 0; a < response[i].labels.length; a++) {
-                issueslabelArray.push(`${response[i].labels[a].id}`);
-            }
-            let issues = {
-                title: response[i].title,
-                body: response[i].body,
-                number: response[i].number,
-                login: response[i].user.login,
-                avatar: response[i].user.avatar_url,
-                html: response[i].user.html_url,
-                labels: issueslabelArray,
-                state: response[i].state,
-            };
-            issueArray.push(issues);
-            
-        }
-        $('#title').append(`<a href=${urlRepo}>${repo}</a>`)
-        renderDivCards("loader");
-    })
+            $('#title').append(`<a href="https://github.com/${username}/${repo}">${repo}</a>`)
+            renderDivCards("loader");
+        })
 
     // label dropdown
 
@@ -172,7 +172,7 @@ const addNewRelease = function() {
     }
 
     let newheader = $(`<th scope="col">`);
-    newheader.append(`<button class="releaseHeader" id="button${newreleaseID}">NewRelease</button>`);
+    newheader.append(`<button class="releaseHeader btn btn-outline-success" id="button${newreleaseID}">NewRelease</button>`);
     releaseheader.append(newheader)
 
     let newdiv = $(`<td>`);
