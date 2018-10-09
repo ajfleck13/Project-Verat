@@ -341,16 +341,50 @@ const CreateSave = function() {
         Repo: repo,
     }
 
-    alert(JSON.stringify(saveobject));
+    $('#saveModal').modal();
+    $('#savetext').val(JSON.stringify(saveobject));
 }
 
 $("#savebutton").click(CreateSave);
 
-const LoadSave = function() {
-    let json = prompt("Give us your save");
+const CopyTextToClipboard = function() {
+    var copyText = document.getElementById("savetext");
+    copyText.select();
+    document.execCommand("copy");
+}
+
+$("#copytext").click(CopyTextToClipboard);
+
+const TryLoadSave = function() {
+    let savestring = $("#loadtext").val();
+
+    console.log(savestring);
+
+    if(savestring)
+    {
+        $("#loadModal").modal('toggle');
+        $("#loadtext").val("");
+
+        LoadSave(savestring);
+    }
+}
+
+$("#buttonloadmodal").click(TryLoadSave);
+
+$("#loadbutton").click(function() {
+    $("#loadModal").modal();
+    $("#loadtext").focus();
+});
+
+$('#loadModal').on('shown.bs.modal', function() {
+    $("#loadtext").focus();
+})
+  
+
+const LoadSave = function(json) {
     let jsonobject = JSON.parse(json);
 
-    console.log(jsonobject);
+    // console.log(jsonobject);
 
     ClearInfo();
 
@@ -379,8 +413,6 @@ const completeLoad = function(jsonobject) {
         redrawArrowsForDiv(`${i}`);
     }
 }
-
-$("#loadbutton").click(LoadSave);
 
 const ClearInfo = function() {
     let scrollcontainer = $("#scrollcontainer").empty();

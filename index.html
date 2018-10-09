@@ -128,6 +128,49 @@
                 </div>
             </div>
         </div>
+
+        <!-- Save Information Modal -->
+        <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Create Save</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Copy the text below to save the current configuration of arrows, issues, and releases</p>
+                        <textarea class="saveloadtext" id="savetext" readonly="readonly"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="copytext">Copy Text To Clipboard</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Save Information Modal -->
+        <div class="modal fade" id="loadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Load Save</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Paste your save in the text area below</p>
+                        <textarea class="saveloadtext" id="loadtext"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="buttonloadmodal">Load from text</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Holding area for cards -->
         <div class="loader">
             <div id="filter" class="text-center">
