@@ -91,11 +91,15 @@ const addArrow = function(startissue, endissue) {
 //Warning: if cards and arrow images are not the same css height this function as it is written will fail
 const drawArrow = function(startissue, endissue) {
     $(`#${startissue}and${endissue}`).remove();
+
+    const scrollcontainer = $(`#mainscrollcontainer`);
+
     let startoffsets = $(`#${startissue}`).offset();
     let startoffsetsX = startoffsets.left + $(`#${startissue}`).outerWidth() - 20;
     let startoffsetsY = startoffsets.top;
-    let top = startoffsetsY;
-    let left = startoffsetsX;
+
+    let left = startoffsetsX + scrollcontainer.scrollLeft() - scrollcontainer.offset().left;
+    let top = startoffsetsY - scrollcontainer.offset().top;
 
     let endoffsets = $(`#${endissue}`).offset();
     let endoffsetX = endoffsets.left;
@@ -226,12 +230,12 @@ const queryUserForTransfer = function(issueNumber, newdivID) {
 }
 
 const severAndTransfer = function() {
-    const severparams = $("#severAll").val().split(',');
-    const issueNumber = severparams[0];
-    const newdivID = severparams[1];
-    const parentID = $(`#${issueNumber}`).parent().attr('id');
+    // const severparams = $("#severAll").val().split(',');
+    // const issueNumber = severparams[0];
+    // const newdivID = severparams[1];
+    // const parentID = $(`#${issueNumber}`).parent().attr('id');
     
-
+    severAllAndTransfer(); //TODO: Write a function to make this work properly
 }
 
 const severAllAndTransfer = function() {
