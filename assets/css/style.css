@@ -23,8 +23,8 @@
     left: 300px;
     top: 120px;
     right: 0px;
-    height: 100%;
-    overflow-x: scroll;
+    bottom: 0;
+    overflow-x: auto;
 }
 
 .tablecontainer {
@@ -35,6 +35,9 @@
 /* styling for the loader class */
 
 .loader {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     position: fixed;
     top: 0;
     left: 0;
@@ -42,7 +45,9 @@
     width: 300px;
     height: 100%;
     background-color: black;
-    overflow-y: scroll;
+    overflow-y: auto;
+    direction: rtl;
+    border-right: #006400 3px solid;
 }
 
 .title {
@@ -183,6 +188,10 @@ cursor: move;
     height: 150px;
     transform-origin: left center;
     pointer-events: none;
+    fill: green;
+    stroke: purple;
+    fill-opacity: 0.5;
+    stroke-opacity: 0.8;
 }
 
 .toolbar {
@@ -232,4 +241,26 @@ cursor: move;
     width: 100%;
     height: 150px;
     resize: none;
+}
+
+/* Scroll bar */
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
 }
