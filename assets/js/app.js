@@ -74,20 +74,12 @@ const retrieveIssues = function(urlRepo, saveobject, page) {
             issueArray[`${issue.number}`] = issue;
             loaderArray.push(`${issue.number}`);
         }
+
+        if (saveobject) {
+            completeLoad(saveobject);
+        }
+        
         renderDivCards("loader");
-
-        if(issueArray.length < 30)
-        {
-            // page++;
-
-            // retrieveIssues(urlRepo, saveobject, page)
-        }
-        else
-        {
-            if (saveobject) {
-                completeLoad(saveobject);
-            }
-        }
     })
 }
 
