@@ -19,11 +19,17 @@
 /* styling for the div containing the table */
 
 .scroll {
-    margin-left: 300px;
+    position: fixed;
+    left: 300px;
+    top: 120px;
+    right: 0px;
     z-index: -1;
     height: 100%;
-    width: calc(100% - 300px);
     overflow-x: scroll;
+}
+
+.tablecontainer {
+    position: relative;
 }
 
 
@@ -63,11 +69,6 @@
 .title>a:hover {
     text-decoration: none;
 }
-
-.table {
-    margin-top: 120px;
-}
-
 
 /* styling for new release tabs/buttons */
 

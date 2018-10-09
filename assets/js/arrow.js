@@ -91,11 +91,15 @@ const addArrow = function(startissue, endissue) {
 //Warning: if cards and arrow images are not the same css height this function as it is written will fail
 const drawArrow = function(startissue, endissue) {
     $(`#${startissue}and${endissue}`).remove();
+
+    const scrollcontainer = $(`#mainscrollcontainer`);
+
     let startoffsets = $(`#${startissue}`).offset();
     let startoffsetsX = startoffsets.left + $(`#${startissue}`).outerWidth() - 20;
     let startoffsetsY = startoffsets.top;
-    let top = startoffsetsY;
-    let left = startoffsetsX;
+
+    let left = startoffsetsX + scrollcontainer.scrollLeft() - scrollcontainer.offset().left;
+    let top = startoffsetsY - scrollcontainer.offset().top;
 
     let endoffsets = $(`#${endissue}`).offset();
     let endoffsetX = endoffsets.left;

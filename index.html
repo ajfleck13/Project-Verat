@@ -147,20 +147,21 @@
             <button type="button" class="btn btn-success" id="addReleaseButton">Add Release</button>
         </div>
         <!-- Holding area for tables -->
-        <div class="scroll">
+        <div class="scroll" id="mainscrollcontainer">
             <!-- Add Navbar -->
             <div class="title">
                 <a target="_blank" id="title" class="display-4" href=""></a>
             </div>
-            <table class="table" id="scrollcontainer">
-                <thead>
-                    <tr id="releaseheader"></tr>
-                </thead>
-                <tbody>
-                    <tr id="releasebody"></tr>
-
-                </tbody>
-            </table>
+            <div class="tablecontainer">
+                <table class="table" id="scrollcontainer">
+                    <thead>
+                        <tr id="releaseheader"></tr>
+                    </thead>
+                    <tbody>
+                        <tr id="releasebody"></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
