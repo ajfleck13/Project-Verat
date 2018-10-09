@@ -12,7 +12,7 @@
 /* the margin for the loader */
 
 #loader {
-    margin-top: 50px;
+    padding-top: 50px;
 }
 
 
@@ -23,7 +23,6 @@
     left: 300px;
     top: 120px;
     right: 0px;
-    z-index: -1;
     height: 100%;
     overflow-x: scroll;
 }
@@ -97,6 +96,7 @@
     bottom: 0;
     right: 0;
     width: 200px;
+    z-index: 5;
 }
 
 
@@ -106,8 +106,8 @@
     width: 200px;
     height: 150px;
     background-color: white;
-    margin-top: 15px;
-    margin-left: 40px;
+    margin: 15px auto 0;
+    z-index: 50;
 }
 
 .issuecomment {
@@ -127,7 +127,7 @@
 }
 
 .draggingcard+.card {
-    margin-top: 180px;
+    margin: 180px auto 0;
 }
 
 
