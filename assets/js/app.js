@@ -17,46 +17,11 @@ let run = function(repositorytext, saveobject) {
 
     console.log(inputArray);
 
-    let params = "?" + $.param({
-        "state": "all"
-    })
+    urlRepo = baseURL + `/repos/${username}/${repo}/issues`
 
-    urlRepo = baseURL + `/repos/${username}/${repo}/issues` + params,
+    $('#title').html(`<a href="https://github.com/${username}/${repo}">${repo}</a>`)
 
-        $.ajax({
-            url: urlRepo,
-            method: "GET",
-        }).then(function(response) {
-            // console.log(response);
-            for (let i = 0; i < response.length; i++) {
-                if (response[i].pull_request) {
-                    continue;
-                }
-                let issueslabelArray = [];
-                for (let a = 0; a < response[i].labels.length; a++) {
-                    issueslabelArray.push(`${response[i].labels[a].id}`);
-                }
-                let issue = {
-                    title: response[i].title,
-                    body: response[i].body,
-                    number: response[i].number,
-                    login: response[i].user.login,
-                    avatar: response[i].user.avatar_url,
-                    html: response[i].user.html_url,
-                    labels: issueslabelArray,
-                    state: response[i].state,
-                };
-                issueArray[`${issue.number}`] = issue;
-                loaderArray.push(`${issue.number}`);
-
-            }
-            $('#title').html(`<a href="https://github.com/${username}/${repo}">${repo}</a>`)
-            renderDivCards("loader");
-
-            if (saveobject) {
-                completeLoad(saveobject);
-            }
-        })
+    retrieveIssues(urlRepo, saveobject, 1);
 
     $.ajax({
         url: baseURL + `/repos/${username}/${repo}/labels`,
@@ -75,6 +40,48 @@ let run = function(repositorytext, saveobject) {
         renderLabel();
     })
 };
+
+const retrieveIssues = function(urlRepo, saveobject, page) {
+    let params = "?" + $.param({
+        "state": "all",
+        'per_page': 100,
+        // 'page': page,
+    })
+    
+    $.ajax({
+        url: urlRepo + params,
+        method: "GET",
+    }).then(function(response) {
+        console.log(response);
+        for (let i = 0; i < response.length; i++) {
+            if (response[i].pull_request) {
+                continue;
+            }
+            let issueslabelArray = [];
+            for (let a = 0; a < response[i].labels.length; a++) {
+                issueslabelArray.push(`${response[i].labels[a].id}`);
+            }
+            let issue = {
+                title: response[i].title,
+                body: response[i].body,
+                number: response[i].number,
+                login: response[i].user.login,
+                avatar: response[i].user.avatar_url,
+                html: response[i].user.html_url,
+                labels: issueslabelArray,
+                state: response[i].state,
+            };
+            issueArray[`${issue.number}`] = issue;
+            loaderArray.push(`${issue.number}`);
+        }
+
+        if (saveobject) {
+            completeLoad(saveobject);
+        }
+        
+        renderDivCards("loader");
+    })
+}
 
 let labelArray = [];
 
@@ -104,17 +111,30 @@ $(".labels").length;
 
 $("#filter").on("click", ".labels", function() {
     let id = $(this).attr("id");
-    $(this).addClass('button-clicked');
-    activeLabels.push(id);
+    if($(this).hasClass('button-clicked'))
+    {
+        let index = activeLabels.indexOf(id);
+ 
+        if (index > -1)
+        {
+            activeLabels.splice(index, 1);
+        }
+        $(this).removeClass('button-clicked');
+    }
+    else
+    {
+        $(this).addClass('button-clicked');
+        activeLabels.push(id);
+    }
     filter();
 })
 
 
 $("#filter").on("click", ".none", function() {
-        activeLabels = [];
-        $(".labels").removeClass('button-clicked');
-        filter();
-    })
+    activeLabels = [];
+    $(".labels").removeClass('button-clicked');
+    filter();
+})
     // changes color of filter button once it is clicked
 
 
@@ -267,10 +287,6 @@ let modalclose = $('#close');
 modalclose.click(function() {
     $("#modalRelease").hide();
 });
-
-const label = function() {}
-
-
 
 //the reset button function
 const reset = function() {
