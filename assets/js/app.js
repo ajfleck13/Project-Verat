@@ -104,8 +104,23 @@ $(".labels").length;
 
 $("#filter").on("click", ".labels", function() {
     let id = $(this).attr("id");
-    $(this).addClass('button-clicked');
-    activeLabels.push(id);
+
+    if($(this).hasClass('button-clicked'))
+    {
+        let index = activeLabels.indexOf(id);
+ 
+        if (index > -1)
+        {
+            activeLabels.splice(index, 1);
+        }
+        $(this).removeClass('button-clicked');
+    }
+    else
+    {
+        $(this).addClass('button-clicked');
+        activeLabels.push(id);
+    }
+
     filter();
 })
 
