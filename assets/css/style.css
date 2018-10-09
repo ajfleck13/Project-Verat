@@ -196,43 +196,38 @@ cursor: move;
 .toolbar {
     position: fixed;
     top: 40%;
-    right: 0px;
+    right: 10px;
     z-index: 80;
 }
 
-.btn-t {
+.btn-default {
     border: none;
     color: white;
     font-size: 20px;
     cursor: pointer;
-    background-color: #3a9c3a;
     height: 40px;
     width: 40px;
     padding: 5px;
+    margin: 1px;
     border-radius: 5px;
+}
+
+.btn-t {
+    background-color: #3a9c3a;
 }
 
 .btn-tr{
-    border: none;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
     background-color: rgb(248, 50, 50);
-    height: 40px;
-    width: 40px;
-    padding: 5px;
-    border-radius: 5px;
 }
 
 .btn-tr:hover {
-    border: solid;
-    border-color: white;
+    box-shadow: 0 0 0 2px yellow;
 }
 
 
 .btn-t:hover {
-    border: solid;
-    border-color: white;
+    box-shadow: 0 0 0 2px yellow;
+
 }
 
 .repolinks {
