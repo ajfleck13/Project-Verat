@@ -9,23 +9,27 @@
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
     <link rel="stylesheet" href="assets/library/fontawesome.min.css">
-    <link rel=“stylesheet” href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
+    <link rel=“stylesheet” href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
     <title>Project Verat</title>
     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 </head>
 
 <body>
-    <!-- arrow button -->
+    <svg enable-background="new 0 0 79.397 8.133" viewBox="0 0 79.397 8.133" xmlns="http://www.w3.org/2000/svg" id="svgarrow" class="arrow">
+        <path d="m64.521 4.066h-64.521" stroke-width="1.36" class="standardarrow"/>
+        <path d="m79.397,4.066-16.772-4.066c1.2,1.009 1.896,2.496 1.896,4.066s-.695,3.059-1.896,4.066l16.772-4.066z" class="standardarrow"/>
+    </svg>
 
-    <div class = "toolbar">
-        <button class="btn-t" id="arrowbutton"><i class="fas fa-arrows-alt-h"></i></button><br>
-        <button class="btn-t" id="selectbutton"><i class="fas fa-mouse-pointer"></i></button><br>
-        <button class="btn-t" id="savebutton"><i class="far fa-save"></i></button><br>
-        <button class="btn-t" id="loadbutton"><i class="fas fa-upload"></i></button><br>
-        <button class="btn-t" id="addbutton"><i class="fas fa-plus"></i></button><br>
-        <button class="btn-tr" id="resetbutton"><i class="fas fa-times"></i></button><br>
+    <!-- arrow button -->
+    <div class="toolbar">
+        <button data-toggle="tooltip" data-placement="left" title="Arrow Mode" class="btn-default btn-t" id="arrowbutton"><i class="fas fa-arrows-alt-h"></i></button><br>
+        <button data-toggle="tooltip" data-placement="left" title="Select Issue" class="btn-default btn-t" id="selectbutton"><i class="fas fa-mouse-pointer"></i></button><br>
+        <button data-toggle="tooltip" data-placement="left" title="Save Issue Plan" class="btn-default btn-t" id="savebutton"><i class="far fa-save"></i></button><br>
+        <button data-toggle="tooltip" data-placement="left" title="Load Issue Plan" class="btn-default btn-t" id="loadbutton"><i class="fas fa-upload"></i></button><br>
+        <button data-toggle="tooltip" data-placement="left" title="Add New Release" class="btn-default btn-t" id="addbutton"><i class="fas fa-plus"></i></button><br>
+        <button data-toggle="tooltip" data-placement="left" title="Reset" class="btn-default btn-tr" id="resetbutton"><i class="fas fa-times"></i></button><br>
     </div>
 
     <div class="container-fluid">
@@ -213,6 +217,7 @@
     <script src="assets/js/dragging.js"></script>
     <script src="assets/js/arrow.js"></script>
     <script src="assets/js/issuewindow.js"></script>
+    <script src="assets/js/selectmode.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" integrity=“sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB” crossorigin=“anonymous”></script>
 </body>
 

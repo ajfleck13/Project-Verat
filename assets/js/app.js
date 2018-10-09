@@ -23,41 +23,40 @@ let run = function(repositorytext, saveobject) {
 
     urlRepo = baseURL + `/repos/${username}/${repo}/issues` + params,
 
-    $.ajax({
-        url: urlRepo,
-        method: "GET",
-    }).then(function(response) {
-        // console.log(response);
-        for (let i = 0; i < response.length; i++) {
-            if (response[i].pull_request) {
-                continue;
-            }
-            let issueslabelArray = [];
-            for (let a = 0; a < response[i].labels.length; a++) {
-                issueslabelArray.push(`${response[i].labels[a].id}`);
-            }
-            let issue = {
-                title: response[i].title,
-                body: response[i].body,
-                number: response[i].number,
-                login: response[i].user.login,
-                avatar: response[i].user.avatar_url,
-                html: response[i].user.html_url,
-                labels: issueslabelArray,
-                state: response[i].state,
-            };
-            issueArray[`${issue.number}`] = issue;
-            loaderArray.push(`${issue.number}`);
+        $.ajax({
+            url: urlRepo,
+            method: "GET",
+        }).then(function(response) {
+            // console.log(response);
+            for (let i = 0; i < response.length; i++) {
+                if (response[i].pull_request) {
+                    continue;
+                }
+                let issueslabelArray = [];
+                for (let a = 0; a < response[i].labels.length; a++) {
+                    issueslabelArray.push(`${response[i].labels[a].id}`);
+                }
+                let issue = {
+                    title: response[i].title,
+                    body: response[i].body,
+                    number: response[i].number,
+                    login: response[i].user.login,
+                    avatar: response[i].user.avatar_url,
+                    html: response[i].user.html_url,
+                    labels: issueslabelArray,
+                    state: response[i].state,
+                };
+                issueArray[`${issue.number}`] = issue;
+                loaderArray.push(`${issue.number}`);
 
-        }
-        $('#title').html(`<a href="https://github.com/${username}/${repo}">${repo}</a>`)
-        renderDivCards("loader");
-    
-        if(saveobject)
-        {
-            completeLoad(saveobject);
-        }
-    })
+            }
+            $('#title').html(`<a href="https://github.com/${username}/${repo}">${repo}</a>`)
+            renderDivCards("loader");
+
+            if (saveobject) {
+                completeLoad(saveobject);
+            }
+        })
 
     $.ajax({
         url: baseURL + `/repos/${username}/${repo}/labels`,
@@ -105,18 +104,30 @@ $(".labels").length;
 
 $("#filter").on("click", ".labels", function() {
     let id = $(this).attr("id");
-    console.log("this function is running")
-    $(this).addClass('button-clicked');
-    activeLabels.push(id);
+    if($(this).hasClass('button-clicked'))
+    {
+        let index = activeLabels.indexOf(id);
+ 
+        if (index > -1)
+        {
+            activeLabels.splice(index, 1);
+        }
+        $(this).removeClass('button-clicked');
+    }
+    else
+    {
+        $(this).addClass('button-clicked');
+        activeLabels.push(id);
+    }
     filter();
 })
 
 
 $("#filter").on("click", ".none", function() {
-        activeLabels = [];
-        $(".labels").removeClass('button-clicked');
-        filter();
-    })
+    activeLabels = [];
+    $(".labels").removeClass('button-clicked');
+    filter();
+})
     // changes color of filter button once it is clicked
 
 
@@ -270,19 +281,12 @@ modalclose.click(function() {
     $("#modalRelease").hide();
 });
 
-const label = function() {}
-
-
-
 //the reset button function
 const reset = function() {
     location.reload();
 }
 $("#resetbutton").on("click", reset);
 
-
-//***************************************************************/
-//****************************************************************/
 
 //the array that holds the repos to be displayed
 let reposArray = [];
@@ -416,8 +420,8 @@ const completeLoad = function(jsonobject) {
 }
 
 const ClearInfo = function() {
-    let scrollcontainer = $("#scrollcontainer").empty();
-    scrollcontainer.append(`
+        let scrollcontainer = $("#scrollcontainer").empty();
+        scrollcontainer.append(`
     <thead>
         <tr id="releaseheader"></tr>
     </thead>
@@ -425,11 +429,15 @@ const ClearInfo = function() {
         <tr id="releasebody"></tr>
     </tbody>`);
 
-    $("#loader").empty();
-    issueArray = {};
-    releaseTabIssues = [];
-    username = null;
-    repo = null;
-    ArrowStartingFrom = {};
-    ArrowsGoingTo = {};
-}
+        $("#loader").empty();
+        issueArray = {};
+        releaseTabIssues = [];
+        username = null;
+        repo = null;
+        ArrowStartingFrom = {};
+        ArrowsGoingTo = {};
+    }
+    //controls the tooltips functionality on the right sidebar
+$(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+});
