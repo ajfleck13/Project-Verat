@@ -254,13 +254,17 @@ cursor: move;
     width: 70%;
 }
 
+#dropdownMenuButton{
+    background-color: #3a9c3a;
+}
+
 .dropdown-item:hover {
-    background-color: green;
+    background-color:  #3a9c3a;
     color: white;
 }
 
 .button-clicked {
-    background-color: green;
+    background-color:  #3a9c3a;
     color: white;
 }
 
@@ -307,5 +311,5 @@ cursor: move;
 }
 
 .selectmodeclassfinal {
-    box-shadow: 0 0 0 6px green;
+    box-shadow: 0 0 0 6px  #3a9c3a;
 }
