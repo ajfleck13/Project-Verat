@@ -105,6 +105,7 @@ $(".labels").length;
 
 $("#filter").on("click", ".labels", function() {
     let id = $(this).attr("id");
+    console.log("this function is running")
     $(this).addClass('button-clicked');
     activeLabels.push(id);
     filter();

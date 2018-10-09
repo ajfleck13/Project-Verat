@@ -3,9 +3,12 @@
 }
 
 .release {
-    width: 300px;
-    height: 500px;
+    width: 250px;
+    min-height: 500px;
+    max-height: none;
     border: #3a9c3a solid 2px;
+    margin-left: 20px;
+    margin-top: 10px;
 }
 
 
@@ -27,9 +30,10 @@
     overflow-x: auto;
 }
 
-.tablecontainer {
+/* .cardColumn {
     position: relative;
-}
+    padding: 0 25px 0 25px;
+} */
 
 
 /* styling for the loader class */
@@ -58,6 +62,15 @@
     top: 0;
     z-index: 100;
 }
+.logo {
+    background-color: #3a9c3a;
+    height: 100px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    font-family: 'Pacifico', cursive;
+}
 
 #title>a {
     font-family: 'Raleway', sans-serif;
@@ -78,9 +91,11 @@
 
 .releaseHeader {
     font-weight: bold;
-    text-align: right;
-    margin-left: 85px;
+    text-align: center;
+    display: block;
+    margin:auto;
     border-radius: 5px;
+    
 }
 
 
