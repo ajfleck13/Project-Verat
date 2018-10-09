@@ -104,8 +104,23 @@ $(".labels").length;
 
 $("#filter").on("click", ".labels", function() {
     let id = $(this).attr("id");
-    $(this).addClass('button-clicked');
-    activeLabels.push(id);
+
+    if($(this).hasClass('button-clicked'))
+    {
+        let index = activeLabels.indexOf(id);
+ 
+        if (index > -1)
+        {
+            activeLabels.splice(index, 1);
+        }
+        $(this).removeClass('button-clicked');
+    }
+    else
+    {
+        $(this).addClass('button-clicked');
+        activeLabels.push(id);
+    }
+
     filter();
 })
 
@@ -126,8 +141,11 @@ let filter = function() {
     $(".issuecard").show();
     for (let i = 0; i < loaderArray.length; i++) {
         let issue = issueArray[loaderArray[i]];
+        console.log(issue);
         for (let j = 0; j < activeLabels.length; j++) {
             if (!issue.labels.includes(activeLabels[j])) {
+                console.log(issue);
+                console.log(activeLabels);
                 $(`#${issue.number}`).hide();
             }
         }
