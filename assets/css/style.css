@@ -60,7 +60,7 @@
 }
 
 #title>a {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Bree Serif', serif;
     position: absolute;
     left: 0;
     line-height: 100px;
@@ -202,7 +202,7 @@ cursor: move;
     z-index: 80;
 }
 
-.btn-t{
+.btn-t {
     border: none;
     color: white;
     font-size: 20px;
