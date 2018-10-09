@@ -175,7 +175,7 @@ cursor: move;
 }
 
 .card-arrowdraw {
-    border: green 5px solid;
+    box-shadow: 0 0 0 2px green;
 }
 
 .releasehover:hover {
