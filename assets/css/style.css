@@ -188,6 +188,7 @@ cursor: move;
     position: fixed;
     top: 40%;
     right: 0px;
+    z-index: 80;
 }
 
 .btn-t{

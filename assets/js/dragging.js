@@ -29,7 +29,8 @@ const startDragging = function(e) {
 
     //Adds a class that adds hover behavior to the releases
     $(".release").addClass("releasehover");
-    $("#loader").addClass("releasehover");
+    $(".release").addClass("draghover");
+    $("#loader").addClass("draghover");
     jqElement.addClass("draggingcard");
 }
 
@@ -53,7 +54,7 @@ const endDragging = function(e) {
     document.onmousemove = null;
 
     //Find the release which we are currently hovering over
-    let hoveringover = $(".releasehover" + ":hover");
+    let hoveringover = $(".draghover" + ":hover");
     if(hoveringover.length)
     {
         //If we found a release we are hovering over, drop the card into it
@@ -67,7 +68,8 @@ const endDragging = function(e) {
 
     //Remove the hover behavior via class removal from the releases
     $(".release").removeClass("releasehover");
-    $("#loader").removeClass("releasehover");
+    $(".release").removeClass("draghover");
+    $("#loader").removeClass("draghover");
 }
 
 //We dropped a card onto non-droppable space
