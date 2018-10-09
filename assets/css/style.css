@@ -5,7 +5,7 @@
 .release {
     width: 300px;
     height: 500px;
-    border: #006400 solid 2px;
+    border: #3a9c3a solid 2px;
 }
 
 
@@ -44,14 +44,14 @@
     float: left;
     width: 300px;
     height: 100%;
-    background-color: black;
+    background-color: rgb(73, 67, 67);
     overflow-y: auto;
     direction: rtl;
     border-right: #006400 3px solid;
 }
 
 .title {
-    background-color: #006400;
+    background-color: #3a9c3a;
     height: 100px;
     width: 100%;
     position: fixed;
@@ -175,11 +175,12 @@ cursor: move;
 }
 
 .card-arrowdraw {
-    box-shadow: 0 0 0 2px green;
+    border: #3a9c3a 5px solid;
+    box-shadow: 0 0 0 2px #3a9c3a;
 }
 
 .releasehover:hover {
-    border: 5px green solid;
+    border: 5px #3a9c3a solid;
 }
 
 .arrow {
