@@ -141,11 +141,8 @@ let filter = function() {
     $(".issuecard").show();
     for (let i = 0; i < loaderArray.length; i++) {
         let issue = issueArray[loaderArray[i]];
-        console.log(issue);
         for (let j = 0; j < activeLabels.length; j++) {
             if (!issue.labels.includes(activeLabels[j])) {
-                console.log(issue);
-                console.log(activeLabels);
                 $(`#${issue.number}`).hide();
             }
         }
