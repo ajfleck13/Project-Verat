@@ -7,8 +7,14 @@ let ArrowImg = "assets/images/arrowimg.svg";
 const toggleArrowMode = function() {
     console.log("Toggling arrow mode");
     let releasecards = $(".release").find(".issuecard");
+
     if(!ArrowMode)
     {
+        if(SelectMode)
+        {
+            toggleSelectMode();
+        }
+
         releasecards.off("mousedown");
         releasecards.click(doArrowModeClick);
     }
@@ -113,17 +119,18 @@ const drawArrow = function(startissue, endissue) {
     // console.log(magnitude);
     let angle = Math.atan2(ydiff, xdiff);
 
+    let arrow = $("#svgarrow").clone();
+    arrow.attr('id', `${startissue}and${endissue}`)
+    arrow.css("top", `${top}px`);
+    arrow.css("left", `${left}px`);
+    arrow.css("width", `${magnitude}px`);
+    arrow.css("-ms-transform", `rotate(${angle}rad`); /* IE 9 */
+    arrow.css("-webkit-transform", `rotate(${angle}rad`); /* Safari 3-8 */
+    arrow.css("transform", `rotate(${angle}rad`);
 
-    let image = `<img class="arrow" src="${ArrowImg}" id="${startissue}and${endissue}"
-    style="top: ${top}px; 
-    left: ${left}px;
-    width: ${magnitude}px;
-    -ms-transform: rotate(${angle}rad); /* IE 9 */
-    -webkit-transform: rotate(${angle}rad); /* Safari 3-8 */
-    transform: rotate(${angle}rad);
-    ">`
+    console.log(arrow);
 
-    $("#scrollcontainer").append(image);
+    $("#scrollcontainer").append(arrow);
 }
 
 const redrawArrowsForDiv = function(releasediv) {

@@ -111,10 +111,10 @@ $("#filter").on("click", ".labels", function() {
 
 
 $("#filter").on("click", ".none", function() {
-        activeLabels = [];
-        $(".labels").removeClass('button-clicked');
-        filter();
-    })
+    activeLabels = [];
+    $(".labels").removeClass('button-clicked');
+    filter();
+})
     // changes color of filter button once it is clicked
 
 
@@ -267,10 +267,6 @@ let modalclose = $('#close');
 modalclose.click(function() {
     $("#modalRelease").hide();
 });
-
-const label = function() {}
-
-
 
 //the reset button function
 const reset = function() {
