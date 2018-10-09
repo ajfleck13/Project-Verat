@@ -7,17 +7,13 @@ const startDragging = function(e) {
     e = e || window.event;
     e.preventDefault();
 
-    //Add listeners to the document to drag the card around and end the drag
-    document.onmousemove = dragElement;
-    document.onmouseup = endDragging;
-
     //Find the initial position of the card
     elementToDrag = this;
     let jqElement = $(this);
     position = jqElement.offset();
 
     //Set the position to fixed so we can manually set top and left
-    this.style.top = position.top + "px";
+    this.style.top = (position.top - jqElement.css("margin-top")) + "px";
     this.style.left = position.left  + "px";
     this.style.position = "fixed";
     //Set pointer event to none so we can hover over release div without card interference
@@ -27,9 +23,14 @@ const startDragging = function(e) {
     offsetX = e.clientX - position.left;
     offsetY = e.clientY - position.top;
 
+    //Add listeners to the document to drag the card around and end the drag
+    document.onmousemove = dragElement;
+    document.onmouseup = endDragging;
+
     //Adds a class that adds hover behavior to the releases
     $(".release").addClass("releasehover");
-    $("#loader").addClass("releasehover");
+    $(".release").addClass("draghover");
+    $("#loader").addClass("draghover");
     jqElement.addClass("draggingcard");
 }
 
@@ -53,7 +54,7 @@ const endDragging = function(e) {
     document.onmousemove = null;
 
     //Find the release which we are currently hovering over
-    let hoveringover = $(".releasehover" + ":hover");
+    let hoveringover = $(".draghover" + ":hover");
     if(hoveringover.length)
     {
         //If we found a release we are hovering over, drop the card into it
@@ -67,7 +68,8 @@ const endDragging = function(e) {
 
     //Remove the hover behavior via class removal from the releases
     $(".release").removeClass("releasehover");
-    $("#loader").removeClass("releasehover");
+    $(".release").removeClass("draghover");
+    $("#loader").removeClass("draghover");
 }
 
 //We dropped a card onto non-droppable space

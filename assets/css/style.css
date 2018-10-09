@@ -12,24 +12,32 @@
 /* the margin for the loader */
 
 #loader {
-    margin-top: 50px;
+    padding-top: 50px;
 }
 
 
 /* styling for the div containing the table */
 
 .scroll {
-    margin-left: 300px;
-    z-index: -1;
-    height: 100%;
-    width: calc(100% - 300px);
-    overflow-x: scroll;
+    position: fixed;
+    left: 300px;
+    top: 120px;
+    right: 0px;
+    bottom: 0;
+    overflow-x: auto;
+}
+
+.tablecontainer {
+    position: relative;
 }
 
 
 /* styling for the loader class */
 
 .loader {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     position: fixed;
     top: 0;
     left: 0;
@@ -37,7 +45,9 @@
     width: 300px;
     height: 100%;
     background-color: rgb(73, 67, 67);
-    overflow-y: scroll;
+    overflow-y: auto;
+    direction: rtl;
+    border-right: #006400 3px solid;
 }
 
 .title {
@@ -63,11 +73,6 @@
 .title>a:hover {
     text-decoration: none;
 }
-
-.table {
-    margin-top: 120px;
-}
-
 
 /* styling for new release tabs/buttons */
 
@@ -96,6 +101,7 @@
     bottom: 0;
     right: 0;
     width: 200px;
+    z-index: 5;
 }
 
 
@@ -105,8 +111,8 @@
     width: 200px;
     height: 150px;
     background-color: white;
-    margin-top: 15px;
-    margin-left: 40px;
+    margin: 15px auto 0;
+    z-index: 50;
 }
 
 .issuecomment {
@@ -126,7 +132,7 @@
 }
 
 .draggingcard+.card {
-    margin-top: 180px;
+    margin: 180px auto 0;
 }
 
 
@@ -170,6 +176,7 @@ cursor: move;
 
 .card-arrowdraw {
     border: #3a9c3a 5px solid;
+    box-shadow: 0 0 0 2px #3a9c3a;
 }
 
 .releasehover:hover {
@@ -182,12 +189,17 @@ cursor: move;
     height: 150px;
     transform-origin: left center;
     pointer-events: none;
+    fill: green;
+    stroke: purple;
+    fill-opacity: 0.5;
+    stroke-opacity: 0.8;
 }
 
 .toolbar {
     position: fixed;
     top: 40%;
     right: 0px;
+    z-index: 80;
 }
 
 .btn-t{
@@ -242,4 +254,33 @@ cursor: move;
 .button-clicked {
     background-color: green;
     color: white;
+}
+
+.saveloadtext {
+    font-size: 16px;
+    width: 100%;
+    height: 150px;
+    resize: none;
+}
+
+/* Scroll bar */
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
 }
