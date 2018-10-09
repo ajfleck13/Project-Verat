@@ -74,6 +74,20 @@
     text-decoration: none;
 }
 
+
+/* logo styling */
+
+.title img {
+    width: 100px;
+    height: 100px;
+    float: right;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 500;
+}
+
+
 /* styling for new release tabs/buttons */
 
 .releaseHeader {
@@ -214,7 +228,7 @@ cursor: move;
     border-radius: 5px;
 }
 
-.btn-tr{
+.btn-tr {
     border: none;
     color: white;
     font-size: 20px;
@@ -230,7 +244,6 @@ cursor: move;
     border: solid;
     border-color: white;
 }
-
 
 .btn-t:hover {
     border: solid;
@@ -263,24 +276,33 @@ cursor: move;
     resize: none;
 }
 
+
 /* Scroll bar */
 
+
 /* width */
+
 ::-webkit-scrollbar {
     width: 10px;
 }
 
+
 /* Track */
+
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #888; 
+    background: #f1f1f1;
 }
 
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+
 /* Handle on hover */
+
 ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+    background: #555;
 }
