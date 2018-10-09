@@ -7,6 +7,7 @@ let ArrowImg = "assets/images/arrowimg.svg";
 const toggleArrowMode = function() {
     console.log("Toggling arrow mode");
     let cards = $(".issuecard");
+    let releasecards = $(".release").find(".issuecard");
 
     if(!ArrowMode)
     {
@@ -16,12 +17,12 @@ const toggleArrowMode = function() {
         }
 
         cards.off("mousedown");
-        $(".release").find(".issuecard").click(doArrowModeClick);
+        releasecards.click(doArrowModeClick);
     }
     else
     {
         removeStartIssue();
-        cards.off("click");    
+        releasecards.off("click");    
         cards.mousedown(startDragging);
     }
     ArrowMode = !ArrowMode;

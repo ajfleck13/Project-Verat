@@ -5,22 +5,23 @@ let UndoArrows = [];
 
 const toggleSelectMode = function() {
     console.log("toggling select mode");
+    let cards = $(".issuecard");
     let releasecards = $(".release").find(".issuecard");
 
     if(!SelectMode)
     {
-        releasecards.off("mousedown");
-        releasecards.click(doSelectModeClick);
-
         if(ArrowMode)
         {
             toggleArrowMode();
         }
+
+        cards.off("mousedown");
+        releasecards.click(doSelectModeClick);
     }
     else
     {
-        releasecards.off("mousedown");
-        releasecards.click(startDragging);
+        releasecards.off("click");
+        cards.mousedown(startDragging);
 
         RemoveSelectedIssue();
     }
