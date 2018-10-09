@@ -104,7 +104,6 @@ $(".labels").length;
 
 $("#filter").on("click", ".labels", function() {
     let id = $(this).attr("id");
-
     if($(this).hasClass('button-clicked'))
     {
         let index = activeLabels.indexOf(id);
@@ -120,7 +119,6 @@ $("#filter").on("click", ".labels", function() {
         $(this).addClass('button-clicked');
         activeLabels.push(id);
     }
-
     filter();
 })
 
