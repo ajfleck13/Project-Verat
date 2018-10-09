@@ -17,46 +17,11 @@ let run = function(repositorytext, saveobject) {
 
     console.log(inputArray);
 
-    let params = "?" + $.param({
-        "state": "all"
-    })
+    urlRepo = baseURL + `/repos/${username}/${repo}/issues`
 
-    urlRepo = baseURL + `/repos/${username}/${repo}/issues` + params,
+    $('#title').html(`<a href="https://github.com/${username}/${repo}">${repo}</a>`)
 
-        $.ajax({
-            url: urlRepo,
-            method: "GET",
-        }).then(function(response) {
-            // console.log(response);
-            for (let i = 0; i < response.length; i++) {
-                if (response[i].pull_request) {
-                    continue;
-                }
-                let issueslabelArray = [];
-                for (let a = 0; a < response[i].labels.length; a++) {
-                    issueslabelArray.push(`${response[i].labels[a].id}`);
-                }
-                let issue = {
-                    title: response[i].title,
-                    body: response[i].body,
-                    number: response[i].number,
-                    login: response[i].user.login,
-                    avatar: response[i].user.avatar_url,
-                    html: response[i].user.html_url,
-                    labels: issueslabelArray,
-                    state: response[i].state,
-                };
-                issueArray[`${issue.number}`] = issue;
-                loaderArray.push(`${issue.number}`);
-
-            }
-            $('#title').html(`<a href="https://github.com/${username}/${repo}">${repo}</a>`)
-            renderDivCards("loader");
-
-            if (saveobject) {
-                completeLoad(saveobject);
-            }
-        })
+    retrieveIssues(urlRepo, saveobject, 1);
 
     $.ajax({
         url: baseURL + `/repos/${username}/${repo}/labels`,
@@ -75,6 +40,56 @@ let run = function(repositorytext, saveobject) {
         renderLabel();
     })
 };
+
+const retrieveIssues = function(urlRepo, saveobject, page) {
+    let params = "?" + $.param({
+        "state": "all",
+        'per_page': 100,
+        // 'page': page,
+    })
+    
+    $.ajax({
+        url: urlRepo + params,
+        method: "GET",
+    }).then(function(response) {
+        console.log(response);
+        for (let i = 0; i < response.length; i++) {
+            if (response[i].pull_request) {
+                continue;
+            }
+            let issueslabelArray = [];
+            for (let a = 0; a < response[i].labels.length; a++) {
+                issueslabelArray.push(`${response[i].labels[a].id}`);
+            }
+            let issue = {
+                title: response[i].title,
+                body: response[i].body,
+                number: response[i].number,
+                login: response[i].user.login,
+                avatar: response[i].user.avatar_url,
+                html: response[i].user.html_url,
+                labels: issueslabelArray,
+                state: response[i].state,
+            };
+            issueArray[`${issue.number}`] = issue;
+            loaderArray.push(`${issue.number}`);
+        }
+        renderDivCards("loader");
+
+        if(issueArray.length < 30)
+        {
+            // page++;
+
+            // retrieveIssues(urlRepo, saveobject, page)
+        }
+        else
+        {
+            if (saveobject) {
+                completeLoad(saveobject);
+            }
+        }
+    })
+}
 
 let labelArray = [];
 
