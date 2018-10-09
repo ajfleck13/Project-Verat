@@ -6,7 +6,7 @@ let ArrowImg = "assets/images/arrowimg.svg";
 
 const toggleArrowMode = function() {
     console.log("Toggling arrow mode");
-    let releasecards = $(".release").find(".issuecard");
+    let cards = $(".issuecard");
 
     if(!ArrowMode)
     {
@@ -15,14 +15,14 @@ const toggleArrowMode = function() {
             toggleSelectMode();
         }
 
-        releasecards.off("mousedown");
-        releasecards.click(doArrowModeClick);
+        cards.off("mousedown");
+        $(".release").find(".issuecard").click(doArrowModeClick);
     }
     else
     {
         removeStartIssue();
-        releasecards.off("click");    
-        releasecards.mousedown(startDragging);
+        cards.off("click");    
+        cards.mousedown(startDragging);
     }
     ArrowMode = !ArrowMode;
 }
@@ -202,6 +202,13 @@ const removeArrowsForIssue = function(issueNumber) {
 }
 
 const verifyCardMoveAllowed = function(issueNumber, newdivID) {
+    if(newdivID === "loader" && 
+    ((ArrowsGoingTo[issueNumber] && ArrowsGoingTo[issueNumber].length) || (ArrowStartingFrom[issueNumber] && ArrowStartingFrom[issueNumber].length)))
+    {
+        queryUserForTransfer(issueNumber, newdivID);
+        return false;
+    }
+
     let newdivIDNumber = parseInt(newdivID);
 
     let arrowsGoingToArray = ArrowsGoingTo[issueNumber];
