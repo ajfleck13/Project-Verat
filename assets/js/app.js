@@ -17,11 +17,48 @@ let run = function(repositorytext, saveobject) {
 
     console.log(inputArray);
 
-    urlRepo = baseURL + `/repos/${username}/${repo}/issues`
+    let params = "?" + $.param({
+        "state": "all",
+        'per_page': 100,
+    })
 
-    $('#title').html(`<a href="https://github.com/${username}/${repo}">${repo}</a>`)
+    urlRepo = baseURL + `/repos/${username}/${repo}/issues` + params,
 
-    retrieveIssues(urlRepo, saveobject, 1);
+        $.ajax({
+            url: urlRepo,
+            method: "GET",
+        }).then(function(response) {
+            // console.log(response);
+            for (let i = 0; i < response.length; i++) {
+                if (response[i].pull_request) {
+                    continue;
+                }
+                let issueslabelArray = [];
+                for (let a = 0; a < response[i].labels.length; a++) {
+                    issueslabelArray.push(`${response[i].labels[a].id}`);
+                }
+                let issue = {
+                    title: response[i].title,
+                    body: response[i].body,
+                    number: response[i].number,
+                    login: response[i].user.login,
+                    avatar: response[i].user.avatar_url,
+                    html: response[i].user.html_url,
+                    labels: issueslabelArray,
+                    state: response[i].state,
+                };
+                issueArray[`${issue.number}`] = issue;
+                loaderArray.push(`${issue.number}`);
+
+            }
+            $('#title').html(`<a href="https://github.com/${username}/${repo}">${repo}</a>`)
+            renderDivCards("loader");
+
+            if (saveobject) {
+                completeLoad(saveobject);
+            }
+        })
+
 
     $.ajax({
         url: baseURL + `/repos/${username}/${repo}/labels`,
@@ -40,48 +77,6 @@ let run = function(repositorytext, saveobject) {
         renderLabel();
     })
 };
-
-const retrieveIssues = function(urlRepo, saveobject, page) {
-    let params = "?" + $.param({
-        "state": "all",
-        'per_page': 100,
-        // 'page': page,
-    })
-    
-    $.ajax({
-        url: urlRepo + params,
-        method: "GET",
-    }).then(function(response) {
-        console.log(response);
-        for (let i = 0; i < response.length; i++) {
-            if (response[i].pull_request) {
-                continue;
-            }
-            let issueslabelArray = [];
-            for (let a = 0; a < response[i].labels.length; a++) {
-                issueslabelArray.push(`${response[i].labels[a].id}`);
-            }
-            let issue = {
-                title: response[i].title,
-                body: response[i].body,
-                number: response[i].number,
-                login: response[i].user.login,
-                avatar: response[i].user.avatar_url,
-                html: response[i].user.html_url,
-                labels: issueslabelArray,
-                state: response[i].state,
-            };
-            issueArray[`${issue.number}`] = issue;
-            loaderArray.push(`${issue.number}`);
-        }
-
-        if (saveobject) {
-            completeLoad(saveobject);
-        }
-        
-        renderDivCards("loader");
-    })
-}
 
 let labelArray = [];
 
@@ -148,7 +143,7 @@ let filter = function() {
         let issue = issueArray[loaderArray[i]];
         for (let j = 0; j < activeLabels.length; j++) {
             if (!issue.labels.includes(activeLabels[j])) {
-                $(`#${issue.number}`).hide();
+                $(`#issue${issue.number}`).hide();
             }
         }
     }
@@ -272,7 +267,7 @@ let githubcolorClosed = "#cb2431";
 
 const rendercard = function(issueobject) {
     let number = issueobject.number;
-    let card = $(`<div class = "card issuecard" id="${number}">`);
+    let card = $(`<div class = "card issuecard" id="issue${number}">`);
     let title = issueobject.title;
     card.append(`<p class = "card-header" style="background-color: ${issueobject.state === "open"? githubcolorOpen : githubcolorClosed};">${title}</p>`);
 
@@ -448,3 +443,7 @@ const ClearInfo = function() {
 $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
 });
+
+const getIDFromIssueCard = function(issue) {
+    return $(issue).attr('id').slice(5);
+}

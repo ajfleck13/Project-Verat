@@ -90,7 +90,7 @@ const dropCardInto = function(card, divelement)
 {
     const jquerycard = $(card);
     const parent = jquerycard.parent();
-    const issueNumber = jquerycard.attr('id');
+    const issueNumber = getIDFromIssueCard(jquerycard);
     const parentID = parent.attr('id');
     const newdivID = divelement.attr('id');
 
@@ -111,7 +111,7 @@ const tryTransferIssue = function(issueNumber, parentID, newdivID) {
 //Re-renders the cards in the new div
 const transferIssue = function(issueNumber, parentID, newdivID) {
     //Remove the current card representing this issue from the html
-    $("#" + issueNumber).remove();
+    $("#issue" + issueNumber).remove();
 
     if(parentID === "loader")
     {
