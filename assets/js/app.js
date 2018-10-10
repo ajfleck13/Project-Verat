@@ -28,7 +28,7 @@ let run = function(repositorytext, saveobject) {
             url: urlRepo,
             method: "GET",
         }).then(function(response) {
-            console.log(response);
+            // console.log(response);
             for (let i = 0; i < response.length; i++) {
                 if (response[i].pull_request) {
                     continue;
@@ -255,8 +255,6 @@ const renderDivCards = function(divtorender) {
     } else {
         const releaseindex = parseInt(divtorender);
         let releaseTab = releaseTabIssues[releaseindex];
-        console.log(issueArray);
-        console.log(releaseTab);
         for (let i = 0; i < releaseTab.length; i++) {
             divtoappend.append(rendercard(issueArray[parseInt(releaseTab[i])]));
         }
