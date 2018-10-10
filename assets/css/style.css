@@ -245,6 +245,10 @@ cursor: move;
     background-color: #3a9c3a;
 }
 
+.btn-active {
+    background-color: #2a159c;
+}
+
 .btn-tr{
     background-color: rgb(248, 50, 50);
 }
