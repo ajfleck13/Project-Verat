@@ -7,8 +7,8 @@
     min-height: 500px;
     max-height: none;
     border: #3a9c3a solid 2px;
-    margin-left: 20px;
     margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 
@@ -30,11 +30,10 @@
     overflow-x: auto;
 }
 
-/* .cardColumn {
-    position: relative;
-    padding: 0 25px 0 25px;
-} */
-
+.cardColumn {
+    border-collapse: separate;
+    border-spacing: 20px;
+}
 
 /* styling for the loader class */
 
@@ -109,7 +108,6 @@
     display: block;
     margin:auto;
     border-radius: 5px;
-    
 }
 
 
@@ -338,4 +336,8 @@ cursor: move;
 
 .selectmodeclassfinal {
     box-shadow: 0 0 0 6px  #3a9c3a;
+}
+
+#releasebody {
+    vertical-align: top;
 }
