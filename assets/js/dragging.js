@@ -11,17 +11,20 @@ const startDragging = function(e) {
     elementToDrag = this;
     let jqElement = $(this);
     position = jqElement.offset();
+    let parent = jqElement.parent();
 
-    //Set the position to fixed so we can manually set top and left
-    this.style.top = (position.top - jqElement.css("margin-top")) + "px";
-    this.style.left = position.left  + "px";
+
     this.style.position = "fixed";
+    //Set the position to fixed so we can manually set top and left
+    this.style.top = (position.top + parent.scrollTop() - jqElement.css("margin-top")) + "px";
+    this.style.left = (position.left + parent.scrollLeft()) + "px";
     //Set pointer event to none so we can hover over release div without card interference
     this.style.pointerEvents = "none";
 
     //Find the initial offset between cursor/card position to maintain while dragging
     offsetX = e.clientX - position.left;
     offsetY = e.clientY - position.top;
+
 
     //Add listeners to the document to drag the card around and end the drag
     document.onmousemove = dragElement;
@@ -32,6 +35,8 @@ const startDragging = function(e) {
     $(".release").addClass("draghover");
     $("#loader").addClass("draghover");
     jqElement.addClass("draggingcard");
+
+    dragElement(e);
 }
 
 //Called when moving the mouse while dragging a card
