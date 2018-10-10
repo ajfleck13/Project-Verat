@@ -3,9 +3,12 @@
 }
 
 .release {
-    width: 300px;
-    height: 500px;
+    width: 250px;
+    min-height: 500px;
+    max-height: none;
     border: #3a9c3a solid 2px;
+    margin-left: 20px;
+    margin-top: 10px;
 }
 
 
@@ -27,9 +30,10 @@
     overflow-x: auto;
 }
 
-.tablecontainer {
+/* .cardColumn {
     position: relative;
-}
+    padding: 0 25px 0 25px;
+} */
 
 
 /* styling for the loader class */
@@ -58,6 +62,15 @@
     top: 0;
     z-index: 100;
 }
+.logo {
+    background-color: #3a9c3a;
+    height: 100px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    font-family: 'Pacifico', cursive;
+}
 
 #title>a {
     font-family: 'Bree Serif', serif;
@@ -74,13 +87,29 @@
     text-decoration: none;
 }
 
+
+/* logo styling */
+
+.title img {
+    width: 100px;
+    height: 100px;
+    float: right;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 500;
+}
+
+
 /* styling for new release tabs/buttons */
 
 .releaseHeader {
     font-weight: bold;
-    text-align: right;
-    margin-left: 85px;
+    text-align: center;
+    display: block;
+    margin:auto;
     border-radius: 5px;
+    
 }
 
 
@@ -224,7 +253,6 @@ cursor: move;
     box-shadow: 0 0 0 2px yellow;
 }
 
-
 .btn-t:hover {
     box-shadow: 0 0 0 2px yellow;
 
@@ -239,13 +267,17 @@ cursor: move;
     width: 70%;
 }
 
+#dropdownMenuButton{
+    background-color: #3a9c3a;
+}
+
 .dropdown-item:hover {
-    background-color: green;
+    background-color:  #3a9c3a;
     color: white;
 }
 
 .button-clicked {
-    background-color: green;
+    background-color:  #3a9c3a;
     color: white;
 }
 
@@ -256,24 +288,33 @@ cursor: move;
     resize: none;
 }
 
+
 /* Scroll bar */
 
+
 /* width */
+
 ::-webkit-scrollbar {
     width: 10px;
 }
 
+
 /* Track */
+
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #888; 
+    background: #f1f1f1;
 }
 
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+
 /* Handle on hover */
+
 ::-webkit-scrollbar-thumb:hover {
     background: #555; 
 }
@@ -292,5 +333,5 @@ cursor: move;
 }
 
 .selectmodeclassfinal {
-    box-shadow: 0 0 0 6px green;
+    box-shadow: 0 0 0 6px  #3a9c3a;
 }

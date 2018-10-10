@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="assets/library/fontawesome.min.css">
     <link rel=“stylesheet” href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
     <title>Project Verat</title>
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 </head>
 
 <body>
@@ -24,7 +25,7 @@
     <!-- arrow button -->
     <div class="toolbar">
         <button data-toggle="tooltip" data-placement="left" title="Arrow Mode" class="btn-default btn-t" id="arrowbutton"><i class="fas fa-arrows-alt-h"></i></button><br>
-        <button data-toggle="tooltip" data-placement="left" title="Select Issue" class="btn-default btn-t" id="selectbutton"><i class="fas fa-mouse-pointer"></i></button><br>
+        <button data-toggle="tooltip" data-placement="left" title="Issue Path Selector" class="btn-default btn-t" id="selectbutton"><i class="fas fa-mouse-pointer"></i></button><br>
         <button data-toggle="tooltip" data-placement="left" title="Save Issue Plan" class="btn-default btn-t" id="savebutton"><i class="far fa-save"></i></button><br>
         <button data-toggle="tooltip" data-placement="left" title="Load Issue Plan" class="btn-default btn-t" id="loadbutton"><i class="fas fa-upload"></i></button><br>
         <button data-toggle="tooltip" data-placement="left" title="Add New Release" class="btn-default btn-t" id="addbutton"><i class="fas fa-plus"></i></button><br>
@@ -181,7 +182,7 @@
             <div id="filter" class="text-center">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown button
+                    Issue Filter
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="labels">
                     </div>
@@ -195,9 +196,11 @@
             <!-- Add Navbar -->
             <div class="title">
                 <a target="_blank" id="title" class="display-4" href=""></a>
+                <a href="https://github.com/ajfleck13/Project-Verat" target="_blank"><img src="./assets/images/logo.png" alt="Verat"></a>
             </div>
+
             <div class="tablecontainer">
-                <table class="table" id="scrollcontainer">
+                <table class = "cardColumn" id="scrollcontainer">
                     <thead>
                         <tr id="releaseheader"></tr>
                     </thead>
