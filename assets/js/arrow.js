@@ -217,6 +217,8 @@ const verifyCardMoveAllowed = function(issueNumber, newdivID) {
         return false;
     }
 
+    console.log(issueNumber);
+
     let newdivIDNumber = parseInt(newdivID);
 
     let arrowsGoingToArray = ArrowsGoingTo[issueNumber];
@@ -225,7 +227,12 @@ const verifyCardMoveAllowed = function(issueNumber, newdivID) {
         for(let i = 0; i < arrowsGoingToArray.length; i++)
         {
             let startingfromissue = arrowsGoingToArray[i];
-            let startingfromdiv = parseInt($(`#${startingfromissue}`).parent().attr('id'));
+            let startingfromdiv = parseInt($(`#issue${startingfromissue}`).parent().attr('id'));
+            console.log(`#${startingfromissue}`)
+            console.log($(`#${startingfromissue}`).parent());
+            console.log($(`#${startingfromissue}`).parent().attr('id'));
+            console.log(startingfromissue);
+            console.log(startingfromdiv);
 
             if(newdivIDNumber < startingfromdiv)
             {
