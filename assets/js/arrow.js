@@ -225,8 +225,7 @@ const verifyCardMoveAllowed = function(issueNumber, newdivID) {
         for(let i = 0; i < arrowsGoingToArray.length; i++)
         {
             let startingfromissue = arrowsGoingToArray[i];
-            let startingfromdiv = parseInt($(`#${startingfromissue}`).parent().attr('id'));
-
+            let startingfromdiv = parseInt($(`#issue${startingfromissue}`).parent().attr('id'));
             if(newdivIDNumber < startingfromdiv)
             {
                 queryUserForTransfer(issueNumber, newdivID);
