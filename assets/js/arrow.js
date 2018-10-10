@@ -31,19 +31,19 @@ const toggleArrowMode = function() {
 $("#arrowbutton").click(toggleArrowMode);
 
 const removeStartIssue = function() {
-    $(`#${StartIssue}`).removeClass("card-arrowdraw");
+    $(`#issue${StartIssue}`).removeClass("card-arrowdraw");
     StartIssue = null;
 }
 
 const doArrowModeClick = function() {
     if(!StartIssue)
     {
-        StartIssue = $(this).attr('id');
+        StartIssue = getIDFromIssueCard($(this));
         $(this).addClass("card-arrowdraw");
     }
     else
     {
-        let endissue = $(this).attr('id');
+        let endissue = getIDFromIssueCard($(this));
         tryAddArrow(endissue);
     }
 }
@@ -51,7 +51,7 @@ const doArrowModeClick = function() {
 const tryAddArrow = function(endissue) {
     if(StartIssue === endissue)
     {
-        $(`#${StartIssue}`).removeClass("card-arrowdraw");
+        $(`#issue${StartIssue}`).removeClass("card-arrowdraw");
         StartIssue = null;
         // console.log("cannot draw to same issue");
         return;
@@ -59,9 +59,9 @@ const tryAddArrow = function(endissue) {
 
     // console.log(StartIssue);
     // console.log(endissue);
-    let jqendissue = $(`#${endissue}`);
+    let jqendissue = $(`#issue${endissue}`);
     let enddiv = parseInt(jqendissue.parent().attr('id'));
-    let startdiv = parseInt($(`#${StartIssue}`).parent().attr('id'));
+    let startdiv = parseInt($(`#issue${StartIssue}`).parent().attr('id'));
 
     if(enddiv >= startdiv)
     {
@@ -101,14 +101,14 @@ const drawArrow = function(startissue, endissue) {
 
     const scrollcontainer = $(`#mainscrollcontainer`);
 
-    let startoffsets = $(`#${startissue}`).offset();
-    let startoffsetsX = startoffsets.left + $(`#${startissue}`).outerWidth() - 20;
+    let startoffsets = $(`#issue${startissue}`).offset();
+    let startoffsetsX = startoffsets.left + $(`#issue${startissue}`).outerWidth() - 20;
     let startoffsetsY = startoffsets.top;
 
     let left = startoffsetsX + scrollcontainer.scrollLeft() - scrollcontainer.offset().left;
     let top = startoffsetsY - scrollcontainer.offset().top;
 
-    let endoffsets = $(`#${endissue}`).offset();
+    let endoffsets = $(`#issue${endissue}`).offset();
     let endoffsetX = endoffsets.left;
     let endoffsetY = endoffsets.top;
 
@@ -248,7 +248,7 @@ const severAndTransfer = function() {
     // const severparams = $("#severAll").val().split(',');
     // const issueNumber = severparams[0];
     // const newdivID = severparams[1];
-    // const parentID = $(`#${issueNumber}`).parent().attr('id');
+    // const parentID = $(`#issue${issueNumber}`).parent().attr('id');
     
     severAllAndTransfer(); //TODO: Write a function to make this work properly
 }
@@ -259,7 +259,7 @@ const severAllAndTransfer = function() {
     const newdivID = severparams[1];
     console.log(issueNumber);
     console.log(newdivID);
-    const parentID = $(`#${issueNumber}`).parent().attr('id');
+    const parentID = $(`#issue${issueNumber}`).parent().attr('id');
     console.log(parentID);
 
     removeArrowsForIssue(issueNumber);

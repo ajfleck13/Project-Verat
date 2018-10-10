@@ -30,7 +30,7 @@ const toggleSelectMode = function() {
 $("#selectbutton").click(toggleSelectMode);
 
 const doSelectModeClick = function() {
-    if(SelectedIssue && $(this).attr('id') === SelectedIssue)
+    if(SelectedIssue && getIDFromIssueCard($(this)) === SelectedIssue)
     {
         RemoveSelectedIssue();
         return;
@@ -41,7 +41,7 @@ const doSelectModeClick = function() {
     }
 
     let jqueryselection = $(this);
-    SelectedIssue = jqueryselection.attr('id');
+    SelectedIssue = getIDFromIssueCard(jqueryselection);
 
     let processedissues = []
     let arrows = [];
@@ -70,7 +70,7 @@ const doSelectModeClick = function() {
 
     for(let i = 0; i < processedissues.length; i++)
     {
-        $(`#${processedissues[i]}`).addClass("selectmodeclass");
+        $(`#issue${processedissues[i]}`).addClass("selectmodeclass");
     }
 
     for(let i = 0; i < arrows.length; i++)
@@ -79,8 +79,8 @@ const doSelectModeClick = function() {
         arrowsvgelements.addClass("highlightarrow");
     }
 
-    $(`#${SelectedIssue}`).removeClass("selectmodeclass");
-    $(`#${SelectedIssue}`).addClass("selectmodeclassfinal");
+    $(`#issue${SelectedIssue}`).removeClass("selectmodeclass");
+    $(`#issue${SelectedIssue}`).addClass("selectmodeclassfinal");
 
     UndoIssues = processedissues.slice(0);
     UndoArrows = arrows.slice(0);
@@ -94,7 +94,7 @@ const RemoveSelectedIssue = function() {
 
     for(let i = 0; i < UndoIssues.length; i++)
     {
-        $(`#${UndoIssues[i]}`).removeClass("selectmodeclass");
+        $(`#issue${UndoIssues[i]}`).removeClass("selectmodeclass");
     }
 
     for(let i = 0; i < UndoArrows.length; i++)
@@ -103,6 +103,6 @@ const RemoveSelectedIssue = function() {
         arrowsvgelements.removeClass("highlightarrow");
     }
 
-    $(`#${SelectedIssue}`).removeClass("selectmodeclassfinal");
+    $(`#issue${SelectedIssue}`).removeClass("selectmodeclassfinal");
     SelectedIssue = null;
 }
