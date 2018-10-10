@@ -113,7 +113,7 @@ const drawArrow = function(startissue, endissue) {
     let startoffsetsY = startoffsets.top;
 
     let left = startoffsetsX + scrollcontainer.scrollLeft() - scrollcontainer.offset().left;
-    let top = startoffsetsY - scrollcontainer.offset().top;
+    let top = startoffsetsY + scrollcontainer.scrollTop() - scrollcontainer.offset().top;
 
     let endoffsets = $(`#issue${endissue}`).offset();
     let endoffsetX = endoffsets.left;
